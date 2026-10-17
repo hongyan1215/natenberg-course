@@ -1,0 +1,11 @@
+# 課程 Lab / 測驗
+numpy
+scipy
+pandas
+matplotlib
+pytest
+# 網站
+mkdocs>=1.6,<2
+mkdocs-material>=9.7,<10
+pymdown-extensions
+jieba

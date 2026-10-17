@@ -1,0 +1,24 @@
+/* 中文字體與平板閱讀 */
+:root {
+  --md-text-font-family: -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --md-code-font-family: "SF Mono", Menlo, Consolas, monospace;
+}
+body { font-family: var(--md-text-font-family); }
+.md-typeset { font-size: 0.85rem; line-height: 1.8; }
+@media (min-width: 768px) and (max-width: 1220px) { .md-typeset { font-size: 0.9rem; } }
+
+/* 表格在窄螢幕可橫向捲動 */
+.md-typeset__table { overflow-x: auto; max-width: 100%; }
+.md-typeset table:not([class]) { font-size: 0.8rem; }
+
+/* 長公式橫向捲動，不撐破版面 */
+.md-typeset .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.2em 0; }
+
+/* 練習題解答：沿用 Material 的 details 樣式，放大字級與觸控區 */
+.md-typeset details.answer { font-size: 0.8rem; margin: 0.6em 0 1.4em; }
+.md-typeset details.answer > summary { min-height: 44px; display: flex; align-items: center; font-weight: 600; }
+@media (min-width: 768px) and (max-width: 1220px) { .md-typeset details.answer { font-size: 0.85rem; } }
+
+/* 自我檢核清單的勾選框加大，方便手指點 */
+.md-typeset .task-list-control .task-list-indicator::before { width: 1.4em; height: 1.4em; }
+.md-typeset .task-list-item { margin-bottom: 0.5em; }

@@ -1,0 +1,8 @@
+.venv/
+docs/
+site/
+_spec/
+__pycache__/
+.pytest_cache/
+quiz/progress.json
+.DS_Store
