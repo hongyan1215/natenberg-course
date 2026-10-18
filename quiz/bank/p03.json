@@ -1,0 +1,204 @@
+[
+ {
+  "id": "p03-01",
+  "type": "mc",
+  "q": "有效（skew-adjusted）delta 的一般式為：",
+  "choices": [
+   "Δ_BS + Γ·∂σ/∂S",
+   "Δ_BS + Vega·∂σ_K/∂S",
+   "Δ_BS × σ_K/σ_ATM",
+   "Δ_BS + Vanna·δσ"
+  ],
+  "answer": "B",
+  "explain": "全微分 dV/dS = ∂V/∂S + (∂V/∂σ)(∂σ_K/∂S)。"
+ },
+ {
+  "id": "p03-02",
+  "type": "mc",
+  "q": "在 sticky strike 制度下，現貨上漲 1 元時固定履約價的隱含波動率：",
+  "choices": [
+   "上升一個偏斜斜率",
+   "下降一個偏斜斜率",
+   "不變",
+   "上升兩個偏斜斜率"
+  ],
+  "answer": "C",
+  "explain": "Sticky strike 假設每個履約價的波動率釘死，∂σ_K/∂S = 0。"
+ },
+ {
+  "id": "p03-03",
+  "type": "mc",
+  "q": "對向下傾斜的偏斜，三種制度下同一個 put 的有效 delta 排序（由小到大，越負越小）為：",
+  "choices": [
+   "Local vol < Sticky strike < Sticky moneyness",
+   "Sticky moneyness < Sticky strike < Local vol",
+   "Sticky strike < Local vol < Sticky moneyness",
+   "三者相同"
+  ],
+  "answer": "A",
+  "explain": "∂σ_K/∂S 在 local vol 為負（=斜率）、sticky strike 為 0、sticky moneyness 為正（=−斜率），乘上正的 vega。"
+ },
+ {
+  "id": "p03-04",
+  "type": "mc",
+  "q": "在 sticky moneyness 制度下，現貨下跌時 ATM 隱含波動率：",
+  "choices": [
+   "上升一個偏斜斜率",
+   "不變",
+   "下降",
+   "上升兩個偏斜斜率"
+  ],
+  "answer": "B",
+  "explain": "整條偏斜跟著現貨平移，價平永遠讀到同一個波動率。"
+ },
+ {
+  "id": "p03-05",
+  "type": "mc",
+  "q": "Local vol 模型的短天期經驗法則是：",
+  "choices": [
+   "固定履約價波動率不動，ATM 沿偏斜移動",
+   "固定履約價移動約一個偏斜斜率，ATM 移動約兩個偏斜斜率",
+   "ATM 不動",
+   "固定履約價移動兩個斜率，ATM 移動一個斜率"
+  ],
+  "answer": "B",
+  "explain": "隱含波動率 ≈ 現貨到履約價之間局部波動率的平均，推得 ∂σ_K/∂S ≈ 斜率、dσ_ATM/dS ≈ 2×斜率。"
+ },
+ {
+  "id": "p03-06",
+  "type": "tf",
+  "q": "只要 ATM 波動率和期限都不變，sticky delta 與 sticky moneyness 給出相同的 ∂σ_K/∂S。",
+  "answer": true,
+  "explain": "sticky delta 的座標 ln(K/F)/(σ_ATM√τ) 在 σ_ATM、τ 固定時只是 ln(K/F) 的常數倍。"
+ },
+ {
+  "id": "p03-07",
+  "type": "tf",
+  "q": "ATM 波動率上升時，在 sticky delta 下同一個 OTM put 履約價的偏斜溢價（以 vol 點計）會比 sticky moneyness 大。",
+  "answer": false,
+  "explain": "σ_ATM 上升使該履約價在標準差座標上更接近價平，sticky delta 給出的溢價較小（例：28.16% vs 27.53%）。"
+ },
+ {
+  "id": "p03-08",
+  "type": "tf",
+  "q": "ATM 選擇權的 shadow gamma 與 BS gamma 幾乎相同，因為其 vanna 接近 0。",
+  "answer": true,
+  "explain": "Shadow gamma 的主要修正項是 2·Vanna·∂σ/∂S，ATM vanna ≈ 0。"
+ },
+ {
+  "id": "p03-09",
+  "type": "mc",
+  "q": "期限結構向上傾斜（短天期波動率較低），多頭近月 ATM 選擇權的 shadow theta 與 BS theta 相比：",
+  "choices": [
+   "更負",
+   "較不負",
+   "相同",
+   "變為正值"
+  ],
+  "answer": "A",
+  "explain": "時間經過時它讀到更短期限、更低的波動率，vega 造成額外的價值下降。"
+ },
+ {
+  "id": "p03-10",
+  "type": "mc",
+  "q": "你觀察到偏斜斜率為每 1% 價性 −0.3 點，而指數每跌 1% ATM 波動率約升 0.6 點。市場較接近：",
+  "choices": [
+   "Sticky moneyness",
+   "Sticky strike",
+   "Local vol 類",
+   "無法判斷"
+  ],
+  "answer": "C",
+  "explain": "β_sv／斜率 = 0.6/0.3 = 2，對應 local vol 類。"
+ },
+ {
+  "id": "p03-11",
+  "type": "mc",
+  "q": "Vanna-volga 直覺中，股指型市場（RR 為負、BF 為正）的 OTM call：",
+  "choices": [
+   "vanna 成本與 volga 成本都為正",
+   "vanna 成本為負、volga 成本為正，互相抵銷",
+   "兩者都為負",
+   "兩者都為零"
+  ],
+  "answer": "B",
+  "explain": "高履約價 vanna 為正 × 負的 RR 成本 = 負；volga 為正 × 正的 BF 成本 = 正。"
+ },
+ {
+  "id": "p03-12",
+  "type": "mc",
+  "q": "哪一種部位在三種曲面制度下的有效 delta 都相同？",
+  "choices": [
+   "vega 為零的部位",
+   "gamma 為零的部位",
+   "delta 為零的部位",
+   "任何 ATM 部位"
+  ],
+  "answer": "A",
+  "explain": "制度差異全來自 Vega × ∂σ/∂S，vega 為零則修正項為零（在平行型制度差異下）。"
+ },
+ {
+  "id": "p03-13",
+  "type": "num",
+  "q": "偏斜 σ(K) = 20% − 0.30·ln(K/100)（以小數乘 100 為 vol 點）。求 92 履約價的波動率（%，取兩位小數）。",
+  "answer": 22.501448,
+  "tol": 0.02,
+  "explain": "ln(0.92) = −0.08338；20 + 2.50 = 22.50%。"
+ },
+ {
+  "id": "p03-14",
+  "type": "num",
+  "q": "某 put 的 BS delta −0.30、vega 每點 0.17。sticky moneyness 下 ∂σ_K/∂S = +0.25 點／元，求有效 delta。",
+  "answer": -0.2575,
+  "tol": 0.001,
+  "explain": "−0.30 + 0.17×0.25 = −0.2575。"
+ },
+ {
+  "id": "p03-15",
+  "type": "num",
+  "q": "偏斜 σ(K) = 20% − 0.30·ln(K/100)。現貨從 100 跌到 96，sticky strike 下新的 ATM 波動率是多少（%，兩位小數）？",
+  "answer": 21.22466,
+  "tol": 0.02,
+  "explain": "新 ATM 是 96 履約價：20 − 30×ln(0.96) = 21.22%。"
+ },
+ {
+  "id": "p03-16",
+  "type": "num",
+  "q": "同上曲面、現貨 100 跌到 96，local vol 類制度下新的 ATM 波動率約為多少（%，兩位小數）？",
+  "answer": 22.44932,
+  "tol": 0.03,
+  "explain": "ATM 移動兩倍斜率：20 − 60×ln(0.96) = 22.45%。"
+ },
+ {
+  "id": "p03-17",
+  "type": "num",
+  "q": "期限結構每天下滑 0.033 vol 點（向上傾斜，roll 到較短期限）。3 個月 ATM call 的 BS theta −0.0218／日、vega 每點 0.199。求 shadow theta（每日，取 4 位小數）。",
+  "answer": -0.028367,
+  "tol": 0.0003,
+  "explain": "−0.0218 − 0.199×0.033 = −0.0284。"
+ },
+ {
+  "id": "p03-18",
+  "type": "num",
+  "q": "你持有 1,000 口 90 put，BS delta −0.1666、vega 每點 0.1249。在 sticky moneyness（∂σ/∂S = +0.3 點／元）下，要買幾股才能 delta 中立？（取整數）",
+  "answer": 129.13,
+  "tol": 1,
+  "explain": "有效 delta = −0.1666 + 0.0375 = −0.1291；1,000 口 → −129，買 129 股。"
+ },
+ {
+  "id": "p03-19",
+  "type": "num",
+  "q": "Vanna-volga 兩項近似：某 put 的 vanna 是 RR vanna 的 −0.50 倍、volga 是 BF volga 的 0.80 倍；RR 成本 −0.70、BF 成本 +0.22；平坦波動率價 0.70。求近似市場價。",
+  "answer": 1.226,
+  "tol": 0.002,
+  "explain": "0.70 + (−0.50)(−0.70) + 0.80×0.22 = 0.70 + 0.35 + 0.176 = 1.226。"
+ },
+ {
+  "id": "p03-20",
+  "type": "num",
+  "q": "ATM 跨式 BS delta +0.040、vega 每點 0.398。在 local vol 類制度（∂σ_K/∂S = −0.30 點／元）下的有效 delta 是多少？",
+  "answer": -0.0794,
+  "tol": 0.002,
+  "explain": "0.040 − 0.1194 = −0.079。"
+ }
+]

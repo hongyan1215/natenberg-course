@@ -44,12 +44,30 @@
     return { quiz, check, visited };
   };
 
+  /** 其他工具的紀錄（模擬考、心算、模擬造市）：原樣匯出；匯入時只補上本機沒有的頂層項目。 */
+  P.EXTRA_KEYS = ["nq:exam", "nq:drills", "nq:mm"];
+  P.mergeExtra = function mergeExtra(cur, inc) {
+    if (Array.isArray(cur) || Array.isArray(inc)) return cur && (!Array.isArray(cur) || cur.length) ? cur : inc;
+    return Object.assign({}, inc || {}, cur || {});
+  };
+
+  // 其他工具的值可能是陣列，所以不經過 NQ.store（它只接受物件），直接讀寫 localStorage。
+  function rawGet(k) {
+    try { const v = JSON.parse(root.localStorage.getItem(k)); return v == null ? null : v; } catch (e) { return null; }
+  }
+  function rawSet(k, v) {
+    try { root.localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* 無痕模式：略過 */ }
+  }
+
   P.buildExport = function buildExport(stores, now) {
     return {
       format: EXPORT_FORMAT,
       version: 1,
       exportedAt: new Date(now == null ? Date.now() : now).toISOString(),
-      data: { [K.quiz]: stores.quiz || {}, [K.check]: stores.check || {}, [K.visited]: stores.visited || {} },
+      data: Object.assign(
+        { [K.quiz]: stores.quiz || {}, [K.check]: stores.check || {}, [K.visited]: stores.visited || {} },
+        stores.extra || {},
+      ),
     };
   };
 
@@ -59,7 +77,8 @@
     if (!obj || typeof obj !== "object") throw new Error("檔案內容不是 JSON 物件");
     const d = obj.format === EXPORT_FORMAT && obj.data ? obj.data : obj;
     const pickObj = (v) => (v && typeof v === "object" && !Array.isArray(v) ? v : {});
-    const out = { quiz: pickObj(d[K.quiz]), check: pickObj(d[K.check]), visited: pickObj(d[K.visited]) };
+    const out = { quiz: pickObj(d[K.quiz]), check: pickObj(d[K.check]), visited: pickObj(d[K.visited]), extra: {} };
+    for (const k of P.EXTRA_KEYS) if (d[k] && typeof d[k] === "object") out.extra[k] = d[k];
     if (!(K.quiz in d) && !(K.check in d) && !(K.visited in d)) throw new Error("找不到進度資料（不是本站匯出的檔案？）");
     return out;
   };
@@ -172,7 +191,12 @@
   }
 
   function readStores() {
-    return { quiz: NQ.store.get(K.quiz), check: NQ.store.get(K.check), visited: NQ.store.get(K.visited) };
+    const extra = {};
+    for (const k of P.EXTRA_KEYS) {
+      const v = rawGet(k);
+      if (v && typeof v === "object") extra[k] = v;
+    }
+    return { quiz: NQ.store.get(K.quiz), check: NQ.store.get(K.check), visited: NQ.store.get(K.visited), extra };
   }
 
   function download(filename, text) {
@@ -228,6 +252,7 @@
         NQ.store.set(K.quiz, merged.quiz);
         NQ.store.set(K.check, merged.check);
         NQ.store.set(K.visited, merged.visited);
+        for (const [k, v] of Object.entries(inc.extra || {})) rawSet(k, P.mergeExtra(rawGet(k), v));
         renderDashboard(host, chapters, bank, `已匯入並合併：${nq} 題作答紀錄、${nc} 頁勾選。`);
       };
       reader.onerror = () => { status.textContent = "讀取檔案失敗。"; };
@@ -256,6 +281,7 @@
             NQ.store.remove(K.quiz);
             NQ.store.remove(K.check);
             NQ.store.remove(K.visited);
+            for (const k of P.EXTRA_KEYS) NQ.store.remove(k);
             renderDashboard(host, chapters, bank, "已清除這台裝置上的進度。");
           },
         })),

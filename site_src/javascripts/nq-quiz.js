@@ -1,5 +1,6 @@
-/* nq-quiz.js — 章節測驗（.nq-quiz[data-chapters]）與綜合測驗（.nq-quiz[data-mode="pick"]）。
- * 依賴 nq-common.js（window.NQ）。作答紀錄寫入 localStorage "nq:quiz"。 */
+/* nq-quiz.js — 章節測驗（.nq-quiz[data-chapters]）、綜合測驗（.nq-quiz[data-mode="pick"]）
+ * 與計時模擬考（.nq-quiz[data-mode="exam"][data-chapters="exam1"][data-minutes="60"]）。
+ * 依賴 nq-common.js（window.NQ）。作答紀錄寫入 localStorage "nq:quiz"；模擬考歷史寫入 "nq:exam"。 */
 (function (root) {
   "use strict";
   const NQ = root.NQ;
@@ -347,8 +348,9 @@
 
   /* ====================== 掛載 ====================== */
 
-  function titleMap(chapters) {
+  function titleMap(chapters, bank) {
     const m = {};
+    for (const k of Object.keys(bank || {})) if (Q.isExamKey(k)) m[k] = Q.examTitle(k);
     for (const c of chapters || []) m[c.key] = c.title;
     return m;
   }
@@ -360,6 +362,572 @@
 
   function loading(host) {
     host.replaceChildren(h("div", { class: "nq-card nq-loading", text: "題庫載入中…" }));
+  }
+
+  /* ====================== 模擬考（data-mode="exam"） ====================== */
+  /* 純函式與 ExamSession 不碰 DOM（Node 可測）；ExamUI 負責畫面與計時器。
+   * localStorage "nq:exam" → { "<exam key>": { attempts: [{score,total,pct,date,duration,timeout}], active?: {...} } } */
+
+  const EXAM_MAX_ATTEMPTS = 30;
+
+  Q.isExamKey = (k) => /^exam\d+$/i.test(String(k || ""));
+  Q.examTitle = (k) => (Q.isExamKey(k) ? `自編模擬考 ${String(k).replace(/\D/g, "")}` : String(k || ""));
+
+  /** 毫秒 → "m:ss"（100 分鐘以內，例如 "60:00"）或 "h:mm:ss"。 */
+  Q.formatClock = function formatClock(ms, roundUp) {
+    const total = Math.max(0, roundUp ? Math.ceil(ms / 1000) : Math.floor(ms / 1000));
+    const p2 = (x) => String(x).padStart(2, "0");
+    if (total < 6000) return `${Math.floor(total / 60)}:${p2(total % 60)}`;
+    const hh = Math.floor(total / 3600), mm = Math.floor((total % 3600) / 60), ss = total % 60;
+    return `${hh}:${p2(mm)}:${p2(ss)}`;
+  };
+
+  Q.examRemaining = function examRemaining(startedAt, minutes, now) {
+    return Math.max(0, startedAt + minutes * 60000 - now);
+  };
+
+  /** 有沒有作答（空字串、null、undefined 視為未答）。 */
+  Q.isAnswered = (v) => v !== undefined && v !== null && !(typeof v === "string" && v.trim() === "");
+
+  /** 計分：回傳總分、每題結果、各主題統計（依題目出現順序）。未作答算錯。 */
+  Q.examScore = function examScore(questions, answers, flags) {
+    const ans = answers || {}, fl = flags || {};
+    const topics = new Map();
+    const results = (questions || []).map((q, idx) => {
+      const given = ans[q.id];
+      const answered = Q.isAnswered(given);
+      const correct = answered ? Q.check(q, given) === true : false;
+      const topic = q.topic || "其他";
+      if (!topics.has(topic)) topics.set(topic, { topic, right: 0, total: 0, answered: 0 });
+      const t = topics.get(topic);
+      t.total++;
+      if (answered) t.answered++;
+      if (correct) t.right++;
+      return { q, idx, given: answered ? given : null, answered, correct, flagged: !!fl[q.id] };
+    });
+    const right = results.filter((r) => r.correct).length;
+    const answered = results.filter((r) => r.answered).length;
+    const total = results.length;
+    const byTopic = [...topics.values()].map((t) => Object.assign(t, { acc: t.total ? t.right / t.total : null }));
+    return { total, right, answered, pct: total ? Math.round((right / total) * 1000) / 10 : 0, results, byTopic };
+  };
+
+  /** 把模擬考結果寫進 nq:quiz 的逐題紀錄（不改動原物件）；未作答視為答錯，讓它出現在錯題複習。 */
+  Q.examApplyQuizStore = function examApplyQuizStore(store, results, now, opts) {
+    const o = opts || {};
+    const out = Object.assign({}, store);
+    for (const r of results || []) {
+      if (!r.answered && o.skipUnanswered) continue;
+      out[r.q.id] = Q.applyResult(out[r.q.id], r.correct, now);
+    }
+    return out;
+  };
+
+  /** 新增一筆作答紀錄並清除進行中的作答（不改動原物件）。 */
+  Q.examAddAttempt = function examAddAttempt(examStore, key, attempt, max) {
+    const out = Object.assign({}, examStore);
+    const entry = Object.assign({}, out[key]);
+    const list = Array.isArray(entry.attempts) ? entry.attempts.slice() : [];
+    list.push(attempt);
+    entry.attempts = list.slice(-(max || EXAM_MAX_ATTEMPTS));
+    delete entry.active;
+    out[key] = entry;
+    return out;
+  };
+
+  /** 某份模擬考的歷史統計。 */
+  Q.examHistory = function examHistory(examStore, key) {
+    const entry = (examStore || {})[key] || {};
+    const attempts = Array.isArray(entry.attempts) ? entry.attempts.filter((a) => a && typeof a === "object") : [];
+    let best = null;
+    for (const a of attempts) if (!best || (a.pct || 0) > (best.pct || 0)) best = a;
+    return { attempts, best, last: attempts[attempts.length - 1] || null, active: entry.active || null };
+  };
+
+  /** 一次模擬考的狀態（作答、標記、計時），不依賴 DOM。 */
+  class ExamSession {
+    constructor(key, questions, minutes, saved) {
+      this.key = key;
+      this.questions = questions.slice();
+      this.minutes = minutes;
+      const s = saved && typeof saved === "object" ? saved : null;
+      this.state = {
+        startedAt: s && typeof s.startedAt === "number" ? s.startedAt : null,
+        minutes: s && s.minutes ? s.minutes : minutes,
+        answers: Object.assign({}, s && s.answers),
+        flags: Object.assign({}, s && s.flags),
+        cur: s && Number.isInteger(s.cur) ? Math.min(Math.max(0, s.cur), questions.length - 1) : 0,
+      };
+      // 題庫更新後，只保留仍存在的題目
+      const ids = new Set(this.questions.map((q) => q.id));
+      for (const m of [this.state.answers, this.state.flags]) for (const id of Object.keys(m)) if (!ids.has(id)) delete m[id];
+      this.finished = null;
+    }
+    get started() { return this.state.startedAt != null; }
+    get deadline() { return this.state.startedAt + this.state.minutes * 60000; }
+    start(now) {
+      this.state = { startedAt: now, minutes: this.minutes, answers: {}, flags: {}, cur: 0 };
+      this.finished = null;
+    }
+    remaining(now) { return this.started ? Q.examRemaining(this.state.startedAt, this.state.minutes, now) : this.minutes * 60000; }
+    isExpired(now) { return this.started && now >= this.deadline; }
+    setAnswer(id, v) {
+      if (this.finished) return;
+      if (Q.isAnswered(v)) this.state.answers[id] = v;
+      else delete this.state.answers[id];
+    }
+    getAnswer(id) { return this.state.answers[id]; }
+    toggleFlag(id) {
+      if (this.finished) return false;
+      if (this.state.flags[id]) delete this.state.flags[id];
+      else this.state.flags[id] = true;
+      return !!this.state.flags[id];
+    }
+    isFlagged(id) { return !!this.state.flags[id]; }
+    answeredCount() { return this.questions.filter((q) => Q.isAnswered(this.state.answers[q.id])).length; }
+    flaggedCount() { return this.questions.filter((q) => this.state.flags[q.id]).length; }
+    /** 交卷：超過時限一律視為時間到，用時以時限為上限。 */
+    finish(now, timedOut) {
+      if (this.finished) return this.finished;
+      const expired = this.isExpired(now);
+      const to = !!timedOut || expired;
+      const finishedAt = expired ? this.deadline : now;
+      const score = Q.examScore(this.questions, this.state.answers, this.state.flags);
+      const duration = Math.max(0, Math.min(finishedAt - this.state.startedAt, this.state.minutes * 60000));
+      this.finished = {
+        key: this.key, score, timedOut: to, startedAt: this.state.startedAt, finishedAt, duration,
+        limit: this.state.minutes * 60000,
+        attempt: { score: score.right, total: score.total, pct: score.pct, date: finishedAt, duration, timeout: to },
+      };
+      return this.finished;
+    }
+  }
+  Q.ExamSession = ExamSession;
+
+  /* ---- 儲存（nq:exam 與 nq:quiz） ---- */
+  const EXAM_STORE = NQ.KEYS.exam || "nq:exam";
+  Q.examLoad = (key) => Q.examHistory(NQ.store.get(EXAM_STORE), key);
+  Q.examSaveActive = function examSaveActive(key, state) {
+    NQ.store.update(EXAM_STORE, (s) => {
+      s[key] = Object.assign({}, s[key], { active: state });
+    });
+  };
+  Q.examClearActive = function examClearActive(key) {
+    NQ.store.update(EXAM_STORE, (s) => {
+      if (s[key]) delete s[key].active;
+    });
+  };
+  /** 交卷後寫入：逐題紀錄（nq:quiz）+ 作答歷史（nq:exam）。 */
+  Q.examCommit = function examCommit(result, now) {
+    const t = now == null ? Date.now() : now;
+    NQ.store.update(NQ.KEYS.quiz, (s) => Q.examApplyQuizStore(s, result.score.results, t));
+    NQ.store.update(EXAM_STORE, (s) => Q.examAddAttempt(s, result.key, result.attempt));
+  };
+
+  /* ---- 畫面 ---- */
+
+  function formatDate(ms) {
+    const d = new Date(ms);
+    if (isNaN(d)) return "—";
+    const p2 = (x) => String(x).padStart(2, "0");
+    return `${d.getFullYear()}/${p2(d.getMonth() + 1)}/${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+  }
+
+  function stickyOffset() {
+    const header = root.document.querySelector(".md-header");
+    return header ? header.getBoundingClientRect().height : 48;
+  }
+
+  class ExamUI {
+    constructor(host, key, questions, minutes) {
+      this.host = host;
+      this.key = key;
+      this.questions = questions;
+      this.minutes = minutes;
+      this.title = Q.examTitle(key);
+      this.navOpen = !(root.matchMedia && root.matchMedia("(max-width: 599px)").matches);
+      this.timer = null;
+      const hist = Q.examLoad(key);
+      this.session = new ExamSession(key, questions, minutes, hist.active);
+      if (this.session.started && this.session.isExpired(Date.now())) {
+        // 離開期間時間已到：以儲存的作答自動交卷
+        this.submit(true);
+      } else {
+        this.renderStart();
+      }
+    }
+
+    alive() { return this.host.isConnected; }
+
+    stopTimer() {
+      if (this.timer) root.clearInterval(this.timer);
+      this.timer = null;
+    }
+
+    save() { Q.examSaveActive(this.key, this.session.state); }
+
+    scrollToHost() {
+      const top = this.host.getBoundingClientRect().top;
+      const off = stickyOffset() + 8;
+      if (top < off || top > root.innerHeight * 0.6) root.scrollTo({ top: Math.max(0, top + root.scrollY - off), behavior: "smooth" });
+    }
+
+    /* ---------- 開始畫面 ---------- */
+    renderStart() {
+      this.stopTimer();
+      const hist = Q.examLoad(this.key);
+      const n = this.questions.length;
+      const topics = new Set(this.questions.map((q) => q.topic || "其他"));
+      const s = this.session;
+      const now = Date.now();
+      const resumable = s.started && !s.isExpired(now) && !s.finished;
+
+      const facts = h("div", { class: "nq-exam-facts" },
+        h("div", { class: "nq-stat" }, h("div", { class: "nq-stat-value", text: `${n}` }), h("div", { class: "nq-stat-label", text: "題" })),
+        h("div", { class: "nq-stat" }, h("div", { class: "nq-stat-value", text: `${this.minutes}` }), h("div", { class: "nq-stat-label", text: "分鐘" })),
+        h("div", { class: "nq-stat" }, h("div", { class: "nq-stat-value", text: `${topics.size}` }), h("div", { class: "nq-stat-label", text: "個主題" })),
+        h("div", { class: "nq-stat" },
+          h("div", { class: "nq-stat-value", text: hist.best ? `${hist.best.score}/${hist.best.total}` : "—" }),
+          h("div", { class: "nq-stat-label", text: "最佳成績" })));
+
+      const rules = h("ul", { class: "nq-exam-rules" },
+        h("li", { text: `共 ${n} 題、限時 ${this.minutes} 分鐘，由易到難排列；倒數計時一直顯示在畫面上方。` }),
+        h("li", { text: "作答期間不顯示對錯；交卷後才看到總分、各主題得分與每一題的解析。" }),
+        h("li", { text: "可以跳題，也可以「標記」沒把握的題目，隨時用題號表回到任一題修改答案。" }),
+        h("li", { text: "時間到會自動交卷；未作答的題目算錯。離開頁面計時不會暫停，回到本頁（同一台裝置）可繼續作答。" }),
+        h("li", { text: "建議模擬真實情境：只用紙筆、不用計算機，數字可以心算近似（題目的容許誤差已考慮常用近似）。" }),
+        h("li", { text: "交卷後每一題的對錯會記入作答紀錄，答錯與未答的題目會出現在「錯題複習」。" }));
+
+      const actions = h("div", { class: "nq-actions" });
+      if (resumable) {
+        actions.append(
+          h("button", { type: "button", class: "nq-btn nq-primary", text: `繼續作答（剩 ${Q.formatClock(s.remaining(now), true)}）`, onclick: () => this.resume() }),
+          h("button", {
+            type: "button", class: "nq-btn nq-danger", text: "放棄並重新開始",
+            onclick: () => {
+              if (root.confirm && !root.confirm("確定放棄目前的作答並重新開始？這次作答不會記錄。")) return;
+              this.begin();
+            },
+          }));
+      } else {
+        actions.append(h("button", { type: "button", class: "nq-btn nq-primary nq-start", text: `開始考試（${this.minutes} 分鐘）`, onclick: () => this.begin() }));
+      }
+
+      let history = null;
+      if (hist.attempts.length) {
+        const rows = hist.attempts.slice().reverse().slice(0, 10).map((a) =>
+          h("tr", {},
+            h("td", { text: formatDate(a.date) }),
+            h("td", { class: "nq-num-cell", text: `${a.score} / ${a.total}` }),
+            h("td", { class: "nq-num-cell", text: `${Math.round(a.pct)}%` }),
+            h("td", { class: "nq-num-cell", text: Q.formatClock(a.duration) + (a.timeout ? "（時間到）" : "") })));
+        history = h("div", { class: "nq-exam-history" },
+          h("div", { class: "nq-section-title", text: `作答紀錄（共 ${hist.attempts.length} 次${hist.attempts.length > 10 ? "，顯示最近 10 次" : ""}）` }),
+          h("div", { class: "nq-table-wrap" },
+            h("table", { class: "nq-exam-table" },
+              h("thead", {}, h("tr", {}, h("th", { text: "日期" }), h("th", { text: "得分" }), h("th", { text: "正確率" }), h("th", { text: "用時" }))),
+              h("tbody", {}, rows))));
+      }
+
+      const card = h("div", { class: "nq-card nq-exam-start" },
+        h("div", { class: "nq-exam-title" }, h("span", { text: this.title }), h("span", { class: "nq-badge", text: "自編模擬考・非官方試題" })),
+        facts, rules, actions, history);
+      this.host.replaceChildren(card);
+    }
+
+    begin() {
+      this.session.start(Date.now());
+      this.save();
+      this.resume();
+    }
+
+    resume() {
+      this.renderExam();
+      this.stopTimer();
+      this.timer = root.setInterval(() => this.tick(), 1000);
+      this.tick();
+      this.scrollToHost();
+    }
+
+    tick() {
+      if (!this.alive()) { this.stopTimer(); return; }
+      const now = Date.now();
+      if (this.session.isExpired(now)) { this.submit(true); return; }
+      const rem = this.session.remaining(now);
+      if (this.clockEl) {
+        this.clockEl.textContent = Q.formatClock(rem, true);
+        this.barEl.classList.toggle("is-warn", rem <= 5 * 60000 && rem > 60000);
+        this.barEl.classList.toggle("is-danger", rem <= 60000);
+      }
+    }
+
+    /* ---------- 作答畫面 ---------- */
+    renderExam() {
+      const s = this.session;
+      this.clockEl = h("span", { class: "nq-exam-clock", role: "timer", "aria-label": "剩餘時間", text: Q.formatClock(s.remaining(Date.now()), true) });
+      this.progressEl = h("span", { class: "nq-exam-progress" });
+      this.navBtn = h("button", {
+        type: "button", class: "nq-btn nq-small", "aria-expanded": String(this.navOpen), text: "題號",
+        onclick: () => { this.navOpen = !this.navOpen; this.syncNav(); },
+      });
+      this.barEl = h("div", { class: "nq-exam-bar" },
+        h("span", { class: "nq-exam-clock-wrap" }, h("span", { class: "nq-exam-clock-icon", "aria-hidden": "true", text: "⏱" }), this.clockEl),
+        this.progressEl,
+        h("span", { class: "nq-exam-bar-tools" },
+          this.navBtn,
+          h("button", { type: "button", class: "nq-btn nq-small nq-primary", text: "交卷", onclick: () => this.confirmSubmit() })));
+
+      this.navCells = this.questions.map((q, i) => h("button", {
+        type: "button", class: "nq-exam-cell", "aria-label": `第 ${i + 1} 題`, text: String(i + 1),
+        onclick: () => this.go(i),
+      }));
+      this.navEl = h("div", { class: "nq-exam-nav" },
+        h("div", { class: "nq-exam-grid" }, this.navCells),
+        h("div", { class: "nq-exam-legend" },
+          h("span", { class: "nq-exam-key is-answered", text: "已答" }),
+          h("span", { class: "nq-exam-key is-flagged", text: "標記" }),
+          h("span", { class: "nq-exam-key is-current", text: "目前" })));
+
+      this.qHost = h("div", { class: "nq-exam-q" });
+      this.confirmEl = h("div", { class: "nq-exam-confirm", hidden: true });
+      this.host.replaceChildren(h("div", { class: "nq-exam" }, this.barEl, this.navEl, this.confirmEl, this.qHost));
+      this.renderQuestion();
+    }
+
+    syncNav() {
+      const s = this.session;
+      this.navEl.hidden = !this.navOpen;
+      this.navBtn.setAttribute("aria-expanded", String(this.navOpen));
+      this.navBtn.textContent = this.navOpen ? "收起題號" : "題號";
+      this.questions.forEach((q, i) => {
+        const c = this.navCells[i];
+        c.classList.toggle("is-answered", Q.isAnswered(s.getAnswer(q.id)));
+        c.classList.toggle("is-flagged", s.isFlagged(q.id));
+        c.classList.toggle("is-current", i === s.state.cur);
+        if (i === s.state.cur) c.setAttribute("aria-current", "true"); else c.removeAttribute("aria-current");
+      });
+      const a = s.answeredCount(), f = s.flaggedCount();
+      this.progressEl.textContent = `已答 ${a}/${this.questions.length}` + (f ? ` · 標記 ${f}` : "");
+    }
+
+    go(i) {
+      const s = this.session;
+      s.state.cur = Math.max(0, Math.min(this.questions.length - 1, i));
+      this.save();
+      this.confirmEl.hidden = true;
+      this.renderQuestion();
+      const top = this.qHost.getBoundingClientRect().top;
+      const off = stickyOffset() + this.barEl.getBoundingClientRect().height + 8;
+      if (top < off || top > root.innerHeight * 0.5) root.scrollTo({ top: Math.max(0, top + root.scrollY - off), behavior: "smooth" });
+    }
+
+    renderQuestion() {
+      const s = this.session;
+      const i = s.state.cur;
+      const q = this.questions[i];
+      const n = this.questions.length;
+      const flagBtn = h("button", {
+        type: "button", class: "nq-btn nq-small nq-exam-flag", "aria-pressed": String(s.isFlagged(q.id)),
+        text: s.isFlagged(q.id) ? "⚑ 已標記" : "⚐ 標記",
+        onclick: () => {
+          const on = s.toggleFlag(q.id);
+          flagBtn.setAttribute("aria-pressed", String(on));
+          flagBtn.textContent = on ? "⚑ 已標記" : "⚐ 標記";
+          this.save();
+          this.syncNav();
+        },
+      });
+      const meta = h("div", { class: "nq-exam-meta" },
+        h("span", { class: "nq-count", text: `第 ${i + 1} / ${n} 題` }),
+        h("span", { class: "nq-meta", text: [q.topic, TYPE_LABEL[q.type]].filter(Boolean).join(" · ") }),
+        flagBtn);
+      const isLast = i + 1 >= n;
+      const nav = h("div", { class: "nq-actions nq-exam-step" },
+        h("button", { type: "button", class: "nq-btn", text: "← 上一題", disabled: i === 0, onclick: () => this.go(i - 1) }),
+        isLast
+          ? h("button", { type: "button", class: "nq-btn nq-primary", text: "檢查並交卷", onclick: () => this.confirmSubmit() })
+          : h("button", { type: "button", class: "nq-btn nq-primary", text: "下一題 →", onclick: () => this.go(i + 1) }));
+      const card = h("div", { class: "nq-card nq-exam-card" }, meta,
+        h("div", { class: "nq-q", html: NQ.richText(q.q) }),
+        this.answerArea(q, () => (isLast ? null : this.go(i + 1))), nav);
+      this.qHost.replaceChildren(card);
+      NQ.renderMath(card);
+      this.syncNav();
+    }
+
+    answerArea(q, onEnter) {
+      const s = this.session;
+      const cur = s.getAnswer(q.id);
+      if (q.type === "mc" || q.type === "tf") {
+        const opts = q.type === "mc"
+          ? (q.choices || []).map((c, idx) => [String.fromCharCode(65 + idx), String.fromCharCode(65 + idx), c, true])
+          : [[true, "○", "對", false], [false, "✕", "錯", false]];
+        const btns = opts.map(([v, key, label, rich]) => h("button", {
+          type: "button", class: `nq-opt${q.type === "tf" ? " nq-opt-tf" : ""}`, "aria-pressed": String(Q.isAnswered(cur) && String(cur) === String(v)),
+          dataset: { value: String(v) },
+          onclick: () => {
+            const was = String(s.getAnswer(q.id)) === String(v) && Q.isAnswered(s.getAnswer(q.id));
+            s.setAnswer(q.id, was ? null : v); // 再點一次取消
+            btns.forEach((b) => b.setAttribute("aria-pressed", String(!was && b.dataset.value === String(v))));
+            this.save();
+            this.syncNav();
+          },
+        }, h("span", { class: "nq-opt-key", text: key }),
+        rich ? h("span", { class: "nq-opt-text", html: NQ.richText(label) }) : h("span", { class: "nq-opt-text", text: label }),
+        h("span", { class: "nq-opt-mark", "aria-hidden": "true" })));
+        return h("div", { class: `nq-opts${q.type === "tf" ? " nq-opts-tf" : ""} nq-exam-opts` }, btns,
+          h("div", { class: "nq-exam-hint", text: "再點一次可取消作答。" }));
+      }
+      // num：輸入可解析的數字就自動儲存
+      const input = h("input", {
+        type: "text", inputmode: "decimal", class: "nq-input", autocomplete: "off", autocorrect: "off",
+        autocapitalize: "off", spellcheck: "false", enterkeyhint: "next", placeholder: "輸入數字", "aria-label": "你的答案",
+      });
+      input.value = Q.isAnswered(cur) ? String(cur) : "";
+      const hint = h("div", { class: "nq-hint", hidden: true, text: "無法辨識的數字，這題目前算未作答（可含逗號、負號、%）" });
+      const status = h("div", { class: "nq-exam-saved", text: Q.isAnswered(cur) ? "已儲存" : "" });
+      const commit = () => {
+        const v = input.value.trim();
+        const ok = v !== "" && !isNaN(Q.parseNumber(v));
+        hint.hidden = v === "" || ok;
+        input.classList.toggle("nq-invalid", v !== "" && !ok);
+        s.setAnswer(q.id, ok ? v : null);
+        status.textContent = ok ? "已儲存" : "";
+        this.save();
+        this.syncNav();
+      };
+      input.addEventListener("input", commit);
+      const sign = h("button", {
+        type: "button", class: "nq-btn nq-sign", "aria-label": "切換正負號", text: "±",
+        onclick: () => {
+          const v = input.value.trim();
+          input.value = /^[-−]/.test(v) ? v.replace(/^[-−]\s*/, "") : "-" + v;
+          commit();
+        },
+      });
+      const form = h("form", {
+        class: "nq-num", novalidate: true, autocomplete: "off",
+        onsubmit: (e) => { e.preventDefault(); commit(); input.blur(); if (onEnter) onEnter(); },
+      }, sign, input);
+      return h("div", { class: "nq-num-wrap" }, form, hint,
+        h("div", { class: "nq-exam-numfoot" },
+          q.tol ? h("span", { class: "nq-tol", text: `容許誤差 ±${q.tol}` }) : h("span", { class: "nq-tol", text: "需完全正確" }),
+          status));
+    }
+
+    confirmSubmit() {
+      const s = this.session;
+      const un = this.questions.length - s.answeredCount();
+      const fl = s.flaggedCount();
+      const firstUn = this.questions.findIndex((q) => !Q.isAnswered(s.getAnswer(q.id)));
+      const firstFl = this.questions.findIndex((q) => s.isFlagged(q.id));
+      this.confirmEl.replaceChildren(
+        h("div", { class: "nq-exam-confirm-msg" },
+          h("b", { text: "確定交卷？" }),
+          " ", un ? `還有 ${un} 題未作答（算錯）` : "所有題目都已作答", fl ? `，${fl} 題已標記。` : "。"),
+        h("div", { class: "nq-actions" },
+          h("button", { type: "button", class: "nq-btn nq-primary", text: "確定交卷", onclick: () => this.submit(false) }),
+          h("button", { type: "button", class: "nq-btn", text: "繼續作答", onclick: () => { this.confirmEl.hidden = true; } }),
+          firstUn >= 0 ? h("button", { type: "button", class: "nq-btn", text: `跳到第一題未答（第 ${firstUn + 1} 題）`, onclick: () => this.go(firstUn) }) : null,
+          firstFl >= 0 ? h("button", { type: "button", class: "nq-btn", text: `跳到第一題標記（第 ${firstFl + 1} 題）`, onclick: () => this.go(firstFl) }) : null));
+      this.confirmEl.hidden = false;
+      const top = this.confirmEl.getBoundingClientRect().top;
+      const off = stickyOffset() + this.barEl.getBoundingClientRect().height + 8;
+      if (top < off || top > root.innerHeight * 0.7) root.scrollTo({ top: Math.max(0, top + root.scrollY - off), behavior: "smooth" });
+    }
+
+    submit(timedOut) {
+      this.stopTimer();
+      const result = this.session.finish(Date.now(), timedOut);
+      Q.examCommit(result, Date.now());
+      this.renderResult(result);
+    }
+
+    /* ---------- 結果畫面 ---------- */
+    renderResult(res) {
+      const sc = res.score;
+      const topics = sc.byTopic.slice().sort((a, b) => (a.acc - b.acc) || (b.total - a.total));
+      const topicRows = topics.map((t) => h("div", { class: `nq-topic-row${t.acc < 0.6 ? " is-weak" : ""}` },
+        h("span", { class: "nq-topic-name", text: t.topic }),
+        h("span", { class: "nq-mini nq-topic-bar" }, h("span", { class: "nq-mini-ok", style: `width:${(t.acc || 0) * 100}%` })),
+        h("span", { class: "nq-topic-num", text: `${t.right}/${t.total}` }),
+        h("span", { class: "nq-topic-pct", text: NQ.pct(t.acc) })));
+
+      const wrong = sc.results.filter((r) => !r.correct);
+      const flagged = sc.results.filter((r) => r.flagged);
+      const reviewHost = h("div", { class: "nq-exam-review-list" });
+      const filters = [["all", `全部（${sc.total}）`, sc.results], ["wrong", `答錯與未答（${wrong.length}）`, wrong], ["flag", `已標記（${flagged.length}）`, flagged]];
+      const segBtns = filters.map(([k, label, list]) => h("button", {
+        type: "button", class: "nq-seg-btn", "aria-pressed": String(k === (wrong.length ? "wrong" : "all")), text: label,
+        onclick: () => { segBtns.forEach((b, i) => b.setAttribute("aria-pressed", String(filters[i][0] === k))); showList(list); },
+      }));
+      const showList = (list) => {
+        reviewHost.replaceChildren(...(list.length ? list.map((r) => this.reviewItem(r)) : [h("p", { class: "nq-setup-help", text: "沒有符合的題目。" })]));
+        NQ.renderMath(reviewHost);
+      };
+
+      const card = h("div", { class: "nq-card nq-end nq-exam-result" },
+        h("div", { class: "nq-exam-title" }, h("span", { text: `${this.title}・成績` }), h("span", { class: "nq-badge", text: "自編模擬考・非官方試題" })),
+        h("div", { class: "nq-end-score" },
+          h("span", { class: "nq-end-big", text: `${sc.right} / ${sc.total}` }),
+          h("span", { class: "nq-end-pct", text: `${Math.round(sc.pct)}%` })),
+        h("div", { class: "nq-bar nq-bar-score" }, h("span", { style: `width:${sc.total ? (sc.right / sc.total) * 100 : 0}%` })),
+        h("p", { class: "nq-exam-time" },
+          `用時 ${Q.formatClock(res.duration)} / ${Q.formatClock(res.limit)}`,
+          ` · 作答 ${sc.answered} 題、未答 ${sc.total - sc.answered} 題`,
+          res.timedOut ? h("span", { class: "nq-exam-timeout", text: " · 時間到自動交卷" }) : null),
+        h("p", { class: "nq-end-msg", text: Q.scoreMessage(sc.right, sc.total) }),
+        h("div", { class: "nq-setup-sec" },
+          h("div", { class: "nq-section-title", text: "各主題得分（由弱到強）" }),
+          h("div", { class: "nq-topic-table" }, topicRows)),
+        h("div", { class: "nq-actions" },
+          h("button", { type: "button", class: "nq-btn nq-primary", text: "回到考試首頁", onclick: () => { this.renderStart(); this.scrollToHost(); } }),
+          h("a", { class: "nq-btn", href: NQ.url("quiz/#review"), text: "到錯題複習" })),
+        h("div", { class: "nq-exam-review" },
+          h("div", { class: "nq-section-title", text: "逐題檢討" }),
+          h("div", { class: "nq-seg", role: "group", "aria-label": "篩選題目" }, segBtns),
+          reviewHost));
+      this.host.replaceChildren(card);
+      showList(wrong.length ? wrong : sc.results);
+      NQ.renderMath(card);
+      this.scrollToHost();
+    }
+
+    reviewItem(r) {
+      const q = r.q;
+      const status = r.correct ? ["is-right", "✓ 答對"] : r.answered ? ["is-wrong", "✗ 答錯"] : ["is-skip", "— 未作答"];
+      return h("div", { class: `nq-missed-item nq-exam-item ${status[0]}` },
+        h("div", { class: "nq-exam-item-head" },
+          h("span", { class: "nq-count", text: `第 ${r.idx + 1} 題` }),
+          h("span", { class: "nq-meta", text: [q.topic, TYPE_LABEL[q.type]].filter(Boolean).join(" · ") }),
+          r.flagged ? h("span", { class: "nq-exam-flagmark", text: "⚑" }) : null,
+          h("span", { class: "nq-exam-status", text: status[1] })),
+        h("div", { class: "nq-q", html: NQ.richText(q.q) }),
+        h("div", { class: `nq-fb-row ${r.correct ? "nq-right-text" : "nq-wrong-text"}` }, h("b", { text: "你的答案：" }),
+          h("span", { html: r.answered ? NQ.richText(Q.formatAnswer(q, r.given)) : "（未作答）" })),
+        r.correct ? null : h("div", { class: "nq-fb-row nq-right-text" }, h("b", { text: "正解：" }), h("span", { html: NQ.richText(Q.formatAnswer(q, q.answer)) })),
+        q.explain ? h("div", { class: "nq-fb-explain" }, h("b", { text: "解析：" }), h("span", { html: NQ.richText(q.explain) })) : null);
+    }
+  }
+  Q.ExamUI = ExamUI;
+
+  async function mountExam(host) {
+    const key = String(host.dataset.chapters || "").split(/[,\s]+/).filter(Boolean)[0];
+    const minutes = Math.max(1, Number(host.dataset.minutes) || 60);
+    loading(host);
+    let bank;
+    try {
+      bank = await NQ.loadBank();
+    } catch (e) {
+      showError(host, "題庫載入失敗，請檢查網路後重新整理。");
+      return;
+    }
+    const questions = ((bank && bank[key]) || []).map((q) => Object.assign({ chapter: key }, q));
+    if (!questions.length) {
+      showError(host, "找不到這份模擬考的題庫。");
+      return;
+    }
+    new ExamUI(host, key, questions, minutes);
   }
 
   async function mountChapter(host) {
@@ -378,7 +946,7 @@
       return;
     }
     new Runner(host, questions, {
-      titles: titleMap(chapters),
+      titles: titleMap(chapters, bank),
       showChapter: keys.length > 1,
       restartLabel: keys.length > 1 ? "全部重做" : "重做本章",
     });
@@ -396,14 +964,17 @@
       showError(host, "題庫載入失敗，請檢查網路後重新整理。");
       return;
     }
-    const titles = titleMap(chapters);
+    const titles = titleMap(chapters, bank);
     const order = (chapters || []).map((c) => c.key).filter((k) => bank[k]);
     for (const k of Object.keys(bank)) if (!order.includes(k)) order.push(k);
 
+    // 模擬考題預設不選（避免考前先看到題目）；考過之後才預設納入，讓錯題出現在複習裡
+    const store0 = NQ.store.get(NQ.KEYS.quiz);
+    const examTouched = (k) => (bank[k] || []).some((q) => store0[q.id] && store0[q.id].seen > 0);
     const wantReview = /review/i.test(root.location.hash || "");
     const state = lastPick
       ? { selected: new Set(lastPick.selected), count: lastPick.count, review: wantReview || lastPick.review }
-      : { selected: new Set(order), count: 20, review: wantReview };
+      : { selected: new Set(order.filter((k) => !Q.isExamKey(k) || examTouched(k))), count: 20, review: wantReview };
 
     const renderSetup = () => {
       const store = NQ.store.get(NQ.KEYS.quiz);
@@ -501,6 +1072,7 @@
     root.document.querySelectorAll(".nq-quiz").forEach((host) => {
       if (!NQ.claim(host)) return;
       if (host.dataset.mode === "pick") mountPick(host);
+      else if (host.dataset.mode === "exam") mountExam(host);
       else mountChapter(host);
     });
   }

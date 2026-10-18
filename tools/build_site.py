@@ -146,11 +146,12 @@ def main():
     shutil.copytree(ROOT / "site_src", DOCS)
 
     chapters = []
-    (DOCS / "lessons").mkdir()
-    for path in sorted((ROOT / "lessons").glob("*.md"), key=lambda p: (p.stem.startswith("appB"), p.stem)):
-        key, title, text = convert_lesson(path)
-        (DOCS / "lessons" / path.name).write_text(text, encoding="utf-8")
-        chapters.append({"key": key, "title": title, "url": f"lessons/{path.stem}/"})
+    for folder, order in (("lessons", lambda p: (p.stem.startswith("appB"), p.stem)), ("prep", lambda p: p.stem)):
+        (DOCS / folder).mkdir(exist_ok=True)
+        for path in sorted((ROOT / folder).glob("*.md"), key=order):
+            key, title, text = convert_lesson(path)
+            (DOCS / folder / path.name).write_text(text, encoding="utf-8")
+            chapters.append({"key": key, "title": title, "url": f"{folder}/{path.stem}/"})
 
     bank = {}
     for path in sorted((ROOT / "quiz" / "bank").glob("*.json")):

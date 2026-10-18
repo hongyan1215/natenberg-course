@@ -1,0 +1,191 @@
+/* nq-drills.css — 計時練習（心算速練／套利偵測／教練拍肩問）。觸控優先，亮／暗色主題。類別前綴 nqd-。 */
+
+.md-typeset .nqd {
+  --nqd-pos: #1a7f37;
+  --nqd-neg: #c62828;
+  --nqd-mid: #9a6700;
+  --nqd-pos-bg: rgba(26, 127, 55, 0.12);
+  --nqd-neg-bg: rgba(198, 40, 40, 0.10);
+  --nqd-mid-bg: rgba(154, 103, 0, 0.12);
+  --nqd-muted: var(--md-default-fg-color--light);
+  --nqd-line: var(--md-default-fg-color--lightest);
+  --nqd-surface: var(--md-default-bg-color);
+  --nqd-raised: var(--md-code-bg-color);
+  --nqd-accent: var(--md-primary-fg-color);
+  margin: 1.2em 0 2em;
+  padding: 0.9rem;
+  border: 1px solid var(--nqd-line);
+  border-radius: 10px;
+  background: var(--nqd-surface);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+}
+[data-md-color-scheme="slate"] .md-typeset .nqd {
+  --nqd-pos: #3fb950;
+  --nqd-neg: #ff7b72;
+  --nqd-mid: #d29922;
+  --nqd-pos-bg: rgba(63, 185, 80, 0.16);
+  --nqd-neg-bg: rgba(255, 123, 114, 0.14);
+  --nqd-mid-bg: rgba(210, 153, 34, 0.16);
+  --nqd-accent: var(--md-accent-fg-color);
+}
+.md-typeset .nqd [hidden] { display: none !important; }
+.md-typeset .nqd button {
+  font: inherit; color: inherit; cursor: pointer;
+  touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+.md-typeset .nqd button:focus-visible, .md-typeset .nqd input:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+
+.md-typeset .nqd-title { font-size: 1rem; font-weight: 700; margin: 0 0 0.6rem; }
+.md-typeset .nqd-sub { margin: 0.8rem 0 0.3rem; font-weight: 700; font-size: 0.76rem; color: var(--nqd-muted); }
+.md-typeset .nqd-hint { color: var(--nqd-muted); font-size: 0.72rem; margin: 0.25rem 0; }
+.md-typeset .nqd-tip { margin: 0.6rem 0; padding: 0.45rem 0.7rem; border-left: 4px solid var(--nqd-accent); background: var(--nqd-raised); border-radius: 6px; font-size: 0.76rem; }
+.md-typeset .nqd-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0 0.2rem; }
+
+/* ---------- 設定 ---------- */
+.md-typeset .nqd-field { margin: 0 0 0.75rem; }
+.md-typeset .nqd-field-l { font-weight: 600; font-size: 0.76rem; margin-bottom: 0.2rem; }
+.md-typeset .nqd-seg, .md-typeset .nqd-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.md-typeset .nqd-seg-btn, .md-typeset .nqd-chip {
+  flex: 1 1 auto; min-height: 44px; padding: 0.3rem 0.8rem;
+  border: 1px solid var(--nqd-line); border-radius: 8px; background: var(--nqd-raised); font-size: 0.78rem;
+}
+.md-typeset .nqd-chip { flex: 0 1 auto; border-radius: 22px; }
+.md-typeset .nqd-seg-btn[aria-pressed="true"], .md-typeset .nqd-chip[aria-pressed="true"] {
+  background: var(--md-primary-fg-color); border-color: var(--md-primary-fg-color); color: var(--md-primary-bg-color); font-weight: 700;
+}
+.md-typeset .nqd-range-row { display: flex; align-items: center; gap: 0.6rem; }
+.md-typeset .nqd-range-v { min-width: 4.2em; font-weight: 700; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-range {
+  -webkit-appearance: none; appearance: none; flex: 1 1 auto; height: 44px; margin: 0; background: transparent; touch-action: manipulation;
+}
+.md-typeset .nqd-range::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--nqd-line); }
+.md-typeset .nqd-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 28px; height: 28px; margin-top: -11px; border-radius: 50%;
+  background: var(--nqd-accent); border: 3px solid var(--nqd-surface); box-shadow: 0 0 0 1px var(--nqd-accent);
+}
+.md-typeset .nqd-range::-moz-range-track { height: 6px; border-radius: 3px; background: var(--nqd-line); }
+.md-typeset .nqd-range::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--nqd-accent); border: 3px solid var(--nqd-surface); }
+
+/* ---------- 按鈕 ---------- */
+.md-typeset .nqd-btn {
+  min-height: 44px; padding: 0.35rem 1rem; border: 1px solid var(--nqd-line); border-radius: 8px;
+  background: var(--nqd-raised); font-size: 0.8rem;
+}
+.md-typeset .nqd-btn:active { border-color: var(--md-accent-fg-color); }
+.md-typeset .nqd-btn-primary { background: var(--md-primary-fg-color); border-color: var(--md-primary-fg-color); color: var(--md-primary-bg-color); font-weight: 700; }
+.md-typeset .nqd-btn-big { min-height: 52px; min-width: 9rem; font-size: 0.9rem; }
+.md-typeset .nqd-btn-sm { min-height: 44px; padding: 0.2rem 0.7rem; font-size: 0.74rem; }
+.md-typeset .nqd-btn-danger { color: var(--nqd-neg); border-color: currentColor; background: transparent; }
+
+/* ---------- 進行中：狀態列與計時條 ---------- */
+.md-typeset .nqd-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 1rem; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-prog { font-weight: 700; }
+.md-typeset .nqd-score { color: var(--nqd-muted); }
+.md-typeset .nqd-tleft { margin-left: auto; font-weight: 700; min-width: 4.5em; text-align: right; }
+.md-typeset .nqd-timer { height: 8px; margin: 0.45rem 0 0.8rem; border-radius: 4px; background: var(--nqd-line); overflow: hidden; }
+.md-typeset .nqd-timer-fill { height: 100%; background: var(--nqd-accent); transform-origin: left center; }
+.md-typeset .nqd-timer-fill.nqd-warn { background: var(--nqd-neg); }
+.md-typeset .nqd-cat { display: inline-block; padding: 0.05rem 0.55rem; border-radius: 12px; background: var(--nqd-raised); color: var(--nqd-muted); font-size: 0.7rem; font-weight: 600; }
+.md-typeset .nqd-prompt { margin: 0.5rem 0 0.7rem; font-size: 1rem; line-height: 1.6; font-variant-numeric: tabular-nums; }
+
+/* ---------- 作答 ---------- */
+.md-typeset .nqd-ansrow { display: flex; align-items: center; gap: 0.5rem; }
+.md-typeset .nqd-input {
+  flex: 1 1 auto; min-width: 0; max-width: 18rem; height: 52px; padding: 0 0.7rem;
+  border: 2px solid var(--nqd-line); border-radius: 8px; background: var(--nqd-surface); color: var(--md-default-fg-color);
+  font: inherit; font-size: 1.3rem; /* ≥ 16px 避免 iOS 放大 */ font-weight: 700; text-align: right; font-variant-numeric: tabular-nums;
+}
+.md-typeset .nqd-input:focus { border-color: var(--nqd-accent); outline: none; }
+.md-typeset .nqd-unit { color: var(--nqd-muted); font-size: 0.8rem; min-width: 2em; }
+.md-typeset .nqd-msg { min-height: 1.3em; color: var(--nqd-neg); font-size: 0.74rem; margin: 0.2rem 0; }
+.md-typeset .nqd-padwrap { max-width: 22rem; }
+.md-typeset .nqd-keypad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-top: 0.3rem; }
+.md-typeset .nqd-key {
+  min-height: 54px; border: 1px solid var(--nqd-line); border-radius: 10px; background: var(--nqd-raised);
+  font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.md-typeset .nqd-key:active { background: var(--md-accent-fg-color--transparent); border-color: var(--md-accent-fg-color); }
+.md-typeset .nqd-key-fn { color: var(--nqd-muted); }
+.md-typeset .nqd-key-0 { grid-column: span 2; }
+.md-typeset .nqd-key-ok {
+  grid-row: span 2; background: var(--md-primary-fg-color); border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color); font-size: 0.95rem;
+}
+.md-typeset .nqd-choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.45rem; }
+.md-typeset .nqd-choice {
+  min-height: 52px; padding: 0.4rem 0.8rem; text-align: left; border: 1px solid var(--nqd-line); border-radius: 8px;
+  background: var(--nqd-raised); font-size: 0.82rem;
+}
+.md-typeset .nqd-choice:active { border-color: var(--md-accent-fg-color); }
+
+/* ---------- 回饋 ---------- */
+.md-typeset .nqd-fb { margin-top: 0.4rem; padding: 0.7rem 0.8rem; border: 1px solid var(--nqd-line); border-radius: 8px; }
+.md-typeset .nqd-verdict { display: inline-block; padding: 0.15rem 0.7rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; }
+.md-typeset .nqd-v-ok { color: var(--nqd-pos); background: var(--nqd-pos-bg); }
+.md-typeset .nqd-v-bad { color: var(--nqd-neg); background: var(--nqd-neg-bg); }
+.md-typeset .nqd-v-mid { color: var(--nqd-mid); background: var(--nqd-mid-bg); }
+.md-typeset .nqd-line { margin: 0.25rem 0; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-work { margin: 0.2rem 0 0.4rem 1.1rem; padding: 0; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-work li { margin: 0.15rem 0; }
+.md-typeset .nqd-reason { margin: 0.4rem 0; }
+.md-typeset .nqd-speech {
+  margin: 0.3rem 0 0.5rem; padding: 0.55rem 0.8rem; border-left: 4px solid var(--nqd-accent);
+  background: var(--nqd-raised); border-radius: 0 8px 8px 0; color: var(--md-default-fg-color); font-size: 0.82rem;
+}
+
+/* ---------- 結果與紀錄 ---------- */
+.md-typeset .nqd-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.45rem; margin: 0.4rem 0 0.6rem; }
+.md-typeset .nqd-stat { padding: 0.5rem 0.7rem; border-radius: 8px; background: var(--nqd-raised); }
+.md-typeset .nqd-stat-l { font-size: 0.7rem; color: var(--nqd-muted); }
+.md-typeset .nqd-stat-v { font-size: 1.2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-stat-s { font-size: 0.66rem; color: var(--nqd-muted); }
+.md-typeset .nqd-history, .md-typeset .nqd-review { margin: 1rem 0 0; }
+.md-typeset .nqd-history > summary, .md-typeset .nqd-review > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.md-typeset .nqd-review ol { margin-left: 1.2rem; }
+.md-typeset .nqd-review li { margin: 0.4rem 0; }
+
+.md-typeset .nqd-tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.md-typeset .nqd-table { border-collapse: collapse; width: 100%; font-size: 0.74rem; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-table th, .md-typeset .nqd-table td { padding: 0.35rem 0.55rem; border-bottom: 1px solid var(--nqd-line); text-align: left; white-space: nowrap; }
+.md-typeset .nqd-table th { color: var(--nqd-muted); font-weight: 600; }
+
+/* ---------- 教練：部位表 ---------- */
+.md-typeset .nqd-pf { margin: 0 0 0.6rem; }
+.md-typeset .nqd-pf-cap { font-size: 0.7rem; color: var(--nqd-muted); margin-bottom: 0.2rem; }
+.md-typeset .nqd-pf-t td:not(:first-child), .md-typeset .nqd-pf-t th:not(:first-child) { text-align: right; }
+.md-typeset .nqd-pf-t td { font-size: 0.78rem; }
+
+/* ---------- 套利：報價表 ---------- */
+.md-typeset .nqd-arb-info { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 1rem; margin-bottom: 0.5rem; font-size: 0.74rem; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-arb-s { display: inline-flex; align-items: center; gap: 0.3rem; font-weight: 600; }
+.md-typeset .nqd-arb-s .nqd-q { min-width: 4.6em; }
+.md-typeset .nqd-qt { border-collapse: separate; border-spacing: 3px; margin: 0 auto 0.5rem 0; font-variant-numeric: tabular-nums; }
+.md-typeset .nqd-qt th { padding: 0.15rem 0.4rem; font-size: 0.72rem; color: var(--nqd-muted); font-weight: 600; text-align: center; white-space: nowrap; }
+.md-typeset .nqd-qt tbody th { color: var(--md-default-fg-color); font-size: 0.82rem; font-weight: 700; text-align: right; padding-right: 0.6rem; }
+.md-typeset .nqd-qt td { padding: 0; }
+.md-typeset .nqd-q {
+  display: block; width: 100%; min-width: 3.9em; min-height: 44px; padding: 0.2rem 0.45rem;
+  border: 2px solid transparent; border-radius: 6px; background: var(--nqd-raised);
+  font-size: 0.86rem; font-weight: 600; text-align: center; font-variant-numeric: tabular-nums;
+}
+.md-typeset .nqd-q-bid { color: var(--nqd-neg); }
+.md-typeset .nqd-q-ask { color: var(--nqd-pos); }
+.md-typeset .nqd-q.nqd-sel.nqd-q-ask { background: var(--nqd-pos-bg); border-color: var(--nqd-pos); }
+.md-typeset .nqd-q.nqd-sel.nqd-q-bid { background: var(--nqd-neg-bg); border-color: var(--nqd-neg); }
+.md-typeset .nqd-q.nqd-sel::after { content: " ✓"; font-size: 0.7em; }
+.md-typeset .nqd-q.nqd-ans-buy { box-shadow: 0 0 0 3px var(--nqd-pos); }
+.md-typeset .nqd-q.nqd-ans-sell { box-shadow: 0 0 0 3px var(--nqd-neg); }
+.md-typeset .nqd-q.nqd-ans-buy::after { content: " 買"; font-size: 0.7em; font-weight: 700; }
+.md-typeset .nqd-q.nqd-ans-sell::after { content: " 賣"; font-size: 0.7em; font-weight: 700; }
+.md-typeset .nqd-q.nqd-sel.nqd-ans-buy::after { content: " ✓買"; }
+.md-typeset .nqd-q.nqd-sel.nqd-ans-sell::after { content: " ✓賣"; }
+.md-typeset .nqd-step { margin: 0.6rem 0 0.25rem; font-weight: 700; font-size: 0.76rem; }
+.md-typeset .nqd-legs { min-height: 1.4em; font-size: 0.76rem; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 480px) {
+  .md-typeset .nqd { padding: 0.6rem; margin-left: -0.4rem; margin-right: -0.4rem; }
+  .md-typeset .nqd-q { min-width: 3.4em; font-size: 0.8rem; padding: 0.2rem 0.25rem; }
+  .md-typeset .nqd-prompt { font-size: 0.92rem; }
+}

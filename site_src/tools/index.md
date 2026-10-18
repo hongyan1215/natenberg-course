@@ -9,3 +9,13 @@
 | [動態避險模擬](hedging-simulator.md) | 實現波動率 vs 隱含波動率如何決定避險損益；調整頻率的影響 | 第 8、20 章 |
 | [常態與對數常態分配](distribution.md) | 波動率縮放、價格落在區間的機率、兩種分配的差異 | 第 6、23 章、附錄 B |
 | [二元樹視覺化](binomial-tree.md) | 風險中立定價、美式提前履約節點 | 第 16、19 章 |
+
+## Optiver 培訓準備用
+
+| 工具 | 練什麼 | 對應講義 |
+|---|---|---|
+| [心算速練](mental-math.md) | 計時心算：泰勒展開 PnL、新 delta、ATM 近似、波動率縮放、平價、期望值 | [P6](../prep/p06_mental_math.md) |
+| [套利偵測練習](arbitrage-spotter.md) | 看報價表，秒判垂直／蝶式／日曆／平價套利並說出交易 | [P5](../prep/p05_surface_no_arbitrage.md) |
+| [教練拍肩問](coach-questions.md) | 看部位表即時回答 Greeks、避險口數、情境 PnL；專抓正負號錯誤 | [P2](../prep/p02_higher_order_greeks.md)、[P12](../prep/p12_risk_discipline.md) |
+| [波動率曲面編輯器](vol-surface.md) | 調 ATM／skew／曲率與期限結構，看無套利警示與 sticky strike vs sticky delta | [P3](../prep/p03_surface_dynamics.md)、[P5](../prep/p05_surface_no_arbitrage.md) |
+| [模擬造市遊戲](mock-market-making.md) | 報價、避險、面對知情交易者與新聞；教練會暫停提問；結束有流程評分與復盤 | [P7](../prep/p07_market_making_basics.md)–[P9](../prep/p09_inventory_skewing.md)、[P13](../prep/p13_mock_trading_playbook.md) |

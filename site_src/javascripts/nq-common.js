@@ -6,7 +6,7 @@
   const NQ = root.NQ || {};
   root.NQ = NQ;
 
-  NQ.KEYS = Object.freeze({ quiz: "nq:quiz", check: "nq:check", visited: "nq:visited" });
+  NQ.KEYS = Object.freeze({ quiz: "nq:quiz", check: "nq:check", visited: "nq:visited", exam: "nq:exam" });
 
   /* ---------- 路徑 ---------- */
   let cachedRoot = null;

@@ -72,12 +72,16 @@ extra_javascript:
   - javascripts/nq-progress.js
   - javascripts/nq-quiz.js
   - javascripts/nq-tools.js
+  - javascripts/nq-drills.js
+  - javascripts/nq-sim.js
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
   - stylesheets/extra.css
   - stylesheets/nq-quiz.css
   - stylesheets/nq-tools.css
+  - stylesheets/nq-drills.css
+  - stylesheets/nq-sim.css
 
 nav:
   - 首頁: index.md
@@ -112,6 +116,26 @@ nav:
       - 第 23 章 模型與真實世界: lessons/ch23_models_real_world.md
       - 第 24 章 波動率偏斜: lessons/ch24_volatility_skews.md
       - 第 25 章 波動率合約: lessons/ch25_volatility_contracts.md
+  - Optiver 培訓準備:
+      - prep/index.md
+      - P1 培訓全貌與準備計畫: prep/p01_training_overview.md
+      - Greeks 與曲面:
+          - P2 高階與交叉 Greeks: prep/p02_higher_order_greeks.md
+          - P3 波動率曲面動態: prep/p03_surface_dynamics.md
+          - P4 到期日與 Pin Risk: prep/p04_expiration_pin_risk.md
+          - P5 曲面參數化與無套利: prep/p05_surface_no_arbitrage.md
+      - 速算與機率:
+          - P6 心算與泰勒展開: prep/p06_mental_math.md
+          - P11 機率與期望值: prep/p11_probability_ev.md
+      - 造市:
+          - P7 造市基礎: prep/p07_market_making_basics.md
+          - P8 逆向選擇: prep/p08_adverse_selection.md
+          - P9 庫存與報價偏移: prep/p09_inventory_skewing.md
+          - P10 跨市場定價: prep/p10_cross_asset_pricing.md
+      - 實戰:
+          - P12 風控紀律與即時口述: prep/p12_risk_discipline.md
+          - P13 模擬交易攻略: prep/p13_mock_trading_playbook.md
+          - 自編模擬考: prep/exam.md
   - 互動工具:
       - tools/index.md
       - 選擇權價格與 Greeks: tools/option-explorer.md
@@ -119,6 +143,11 @@ nav:
       - 動態避險模擬: tools/hedging-simulator.md
       - 常態與對數常態分配: tools/distribution.md
       - 二元樹視覺化: tools/binomial-tree.md
+      - 心算速練: tools/mental-math.md
+      - 套利偵測練習: tools/arbitrage-spotter.md
+      - 教練拍肩問: tools/coach-questions.md
+      - 波動率曲面編輯器: tools/vol-surface.md
+      - 模擬造市遊戲: tools/mock-market-making.md
   - 測驗與練習:
       - 綜合測驗與錯題複習: quiz.md
       - Python Labs: labs.md
