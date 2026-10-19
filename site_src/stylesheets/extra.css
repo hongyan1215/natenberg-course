@@ -22,3 +22,8 @@ body { font-family: var(--md-text-font-family); }
 /* 自我檢核清單的勾選框加大，方便手指點 */
 .md-typeset .task-list-control .task-list-indicator::before { width: 1.4em; height: 1.4em; }
 .md-typeset .task-list-item { margin-bottom: 0.5em; }
+
+/* 練習題提示：與解答區分，提醒先自己想 */
+.md-typeset details.hint { font-size: 0.8rem; margin: 0.6em 0 0.4em; border-color: #f0b429; }
+.md-typeset details.hint > summary { min-height: 44px; display: flex; align-items: center; font-weight: 600; background-color: rgba(240, 180, 41, 0.12); }
+.md-typeset details.hint > summary::before { background-color: #f0b429; }

@@ -125,6 +125,7 @@ def convert_lesson(path):
     key = path.stem.split("_")[0]
     text = escape_currency(path.read_text(encoding="utf-8"))
     text = text.replace("<details><summary>", '<details class="answer" markdown="1"><summary>')
+    text = text.replace('<details class="answer" markdown="1"><summary>提示', '<details class="hint" markdown="1"><summary>提示')
     text = rewrite_repo_links(text, depth=1)
     marker = "## 自我檢核清單"
     hook = QUIZ_HOOK.format(key=key)
