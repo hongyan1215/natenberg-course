@@ -1,5 +1,34 @@
 # 第 9 章　風險衡量 II（Risk Measurement II）
 
+## ⚡ 懶人包（5 分鐘）
+
+> 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
+
+**一句話**：Greeks 本身也會動——標的沒動，光是時間經過或隱含波動率改變，你的 delta、gamma 也會跑掉。今天 delta 中立，明天未必中立。
+
+**你只需要先記住這 5 件事**
+
+1. **波動率升 → delta 往 50 靠攏；時間經過 → delta 遠離 50。** 想不通時間的效果，就想成「波動率下降」。
+2. **Gamma、theta、vega 都在價平最大。** 這也是價平選擇權成交最活躍的原因。
+3. **比例關係：價平 theta、vega 跟價格成正比，gamma 跟價格成反比。** 例：價格放大 10 倍，theta、vega 變 10 倍，gamma 變 1/10。
+4. **最危險的選擇權 = 快到期 + 低波動率 + 價平。** 這時 gamma 最大，標的小動一下，delta 就從 50 衝向 0 或 100。
+5. **Lambda（彈性）= 百分比對百分比。** 價外、快到期、低波動率時最大。例：標的 60、買權 2.50、delta 25 → lambda 6，標的漲 1%、買權約漲 6%。
+
+**必背卡**
+
+| 要算什麼 | 怎麼算 |
+|---|---|
+| 價平 theta（時間平方根法） | 價值 ×（1 − √(（剩餘天數 − 1）÷ 剩餘天數)） |
+| 價平 theta 和波動率 | 近似成正比：波動率加倍、theta 加倍 |
+| Lambda | delta（小數）× 標的價格 ÷ 選擇權價值 |
+| 高階 Greeks 速記 | vanna、charm 看 delta；speed、color、zomma 看 gamma；volga、vega decay 看 vega |
+
+**必做練習（約 20 分鐘）**：A5、B1、B2、B4（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
+
+**想看圖？** 打開網站的[選擇權價格與 Greeks](https://hongyan1215.github.io/natenberg-course/tools/option-explorer/)工具，把天數縮短、波動率調低，看價平的 gamma 怎麼變尖。
+
+---
+
 ## 本章定位
 
 第 7 章的 Greeks 告訴我們「現在」的風險；但 Greeks 本身也會隨標的價格、時間、波動率而改變——今天的小風險可能變成明天的大風險。本章逐一檢視 delta、theta、vega、gamma 如何隨市場條件變化，介紹高階敏感度（vanna、charm、volga、speed、color、zomma 等）以及槓桿指標 lambda。前置章節：[ch07 風險衡量 I](ch07_risk_measurement_1.md)、[ch08 動態避險](ch08_dynamic_hedging.md)。
@@ -23,6 +52,8 @@
 ## 核心概念
 
 ### 9.1 Delta 的變化
+
+> 💡 **一句話**：波動率升，delta 往 50 靠；時間過，delta 遠離 50。標的不動，delta 也會跑掉。
 
 #### 9.1.1 Delta 與波動率
 
@@ -84,6 +115,8 @@
 
 ### 9.2 Theta 的變化
 
+> 💡 **一句話**：價平 theta 最大、越近到期越快，且與價格、波動率近似成正比；可用時間平方根法速算。
+
 #### 9.2.1 Theta 與價格（價內／價平／價外）
 
 Theta 來自時間價值；深價內與深價外的時間價值都很少 → theta 小。**價平 theta 最大**。
@@ -135,6 +168,8 @@ $\sqrt{(t-1)/t}$ 隨 $t$ 變小而變小 → theta 越來越大。
 
 ### 9.3 Vega 的變化
 
+> 💡 **一句話**：價平 vega 最大且幾乎不隨波動率變；長天期 vega 永遠比短天期大。
+
 #### 9.3.1 Vega 與價格
 
 與 theta 幾乎一樣：**價平 vega 最大**；**價平 vega 與價格成正比**。
@@ -175,6 +210,8 @@ $\sqrt{(t-1)/t}$ 隨 $t$ 變小而變小 → theta 越來越大。
 **Vega decay**（DvegaDtime）：vega 對時間的敏感度。delta 在 10 到 90 之間的選擇權最敏感；剩餘時間越短，vega 變化越快。
 
 ### 9.4 Gamma 的變化
+
+> 💡 **一句話**：價平 gamma 最大、與價格成反比；快到期或低波動率時價平 gamma 暴增，最危險。
 
 #### 9.4.1 Gamma 與價格：價平最大、與價格成反比
 
@@ -232,6 +269,8 @@ $\sqrt{(t-1)/t}$ 隨 $t$ 變小而變小 → theta 越來越大。
 
 ### 9.5 Lambda（Λ）：彈性
 
+> 💡 **一句話**：Lambda = delta × 標的價格 ÷ 選擇權價值，看百分比槓桿；價外、近到期、低波動率最大。
+
 Delta 是「點數對點數」；**lambda 是「百分比對百分比」**——又稱彈性（elasticity）、槓桿值（leverage value）、omega（Ω）：
 
 $$\Lambda=\Delta\times\frac{S}{TV}\qquad(\Delta\text{ 用小數})$$
@@ -255,6 +294,8 @@ $$\Lambda=\Delta\times\frac{S}{TV}\qquad(\Delta\text{ 用小數})$$
 想用同樣資金追求最大百分比報酬的人，理論上應選「接近到期、低波動率環境中的價外選擇權」——但實務上買賣價差與流動性可能讓這種大 lambda 部位不如直接交易標的。
 
 ### 9.6 總整理
+
+> 💡 **一句話**：兩張表把每個 Greek「誰對誰、何時最大」整理好，當查表用。（可先跳過，需要時再查）
 
 **傳統風險指標**（C=買權值、P=賣權值、S=標的價格、t=時間、σ=波動率）
 
@@ -315,6 +356,8 @@ $$\Lambda=\Delta\times\frac{S}{TV}\qquad(\Delta\text{ 用小數})$$
 
 ## 練習題
 
+> **怎麼練**：先做 ⭐ 必做題（A5、B1、B2、B4）。卡住就先打開「提示」，還是不會再看解答。其他題目選做，想加深或準備面試時再回來。
+
 ### A. 概念題
 
 **A1.** 為什麼波動率上升時，價外買權的 delta 會上升、價內買權的 delta 會下降？
@@ -349,7 +392,13 @@ Delta 近似「到期價內的機率」。高波動率使價外選擇權更可�
 
 </details>
 
-**A5.** 為什麼「接近到期、低波動率環境中的價平選擇權」被視為最危險？
+**A5.** ⭐ 為什麼「接近到期、低波動率環境中的價平選擇權」被視為最危險？
+
+<details><summary>提示</summary>
+
+分兩步想：gamma 在什麼價性最大？價平 gamma 遇到「時間經過」和「波動率下降」會變大還是變小？
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -367,7 +416,13 @@ Gamma 在價平最大，而價平 gamma 隨時間經過與波動率下降而上�
 
 ### B. 計算題
 
-**B1.** 價平選擇權剩 25 天、價值 2.00。用時間平方根法估計今天的 theta，以及明天（剩 24 天）的 theta。
+**B1.** ⭐ 價平選擇權剩 25 天、價值 2.00。用時間平方根法估計今天的 theta，以及明天（剩 24 天）的 theta。
+
+<details><summary>提示</summary>
+
+直接套時間平方根法：今天 theta = 2.00 ×（1 − √(24/25)）；明天先用 2.00 減掉今天的 theta 當新價值，再套 √(23/24)。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -376,7 +431,13 @@ Gamma 在價平最大，而價平 gamma 隨時間經過與波動率下降而上�
 
 </details>
 
-**B2.** 某價平選擇權在 $S=K=50$ 時 theta −0.030、vega 0.10、gamma 8.0。另一個條件完全相同、但 $S=K=150$ 的價平選擇權，其 theta、vega、gamma 約為多少？
+**B2.** ⭐ 某價平選擇權在 $S=K=50$ 時 theta −0.030、vega 0.10、gamma 8.0。另一個條件完全相同、但 $S=K=150$ 的價平選擇權，其 theta、vega、gamma 約為多少？
+
+<details><summary>提示</summary>
+
+價格放大幾倍？theta、vega 跟價格成正比，gamma 跟價格成反比。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -392,7 +453,13 @@ Gamma 在價平最大，而價平 gamma 隨時間經過與波動率下降而上�
 
 </details>
 
-**B4.** 買權價值 1.60、delta 30、標的價格 72。求 lambda；若標的上漲 2%，買權約上漲多少百分比、多少點？
+**B4.** ⭐ 買權價值 1.60、delta 30、標的價格 72。求 lambda；若標的上漲 2%，買權約上漲多少百分比、多少點？
+
+<details><summary>提示</summary>
+
+lambda = delta（換成小數 0.30）× 72 ÷ 1.60；百分比變動 = lambda × 2%，再乘回權利金換成點數。
+
+</details>
 
 <details><summary>解答</summary>
 

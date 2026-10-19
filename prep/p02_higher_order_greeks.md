@@ -1,5 +1,35 @@
 # P2　高階 Greeks（Higher-Order Greeks）
 
+## ⚡ 懶人包（5 分鐘）
+
+> 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
+
+**一句話**：高階 Greeks 是「Greeks 的 Greeks」——告訴你現貨、波動率、時間一動，你的 delta、gamma、vega 自己會怎麼跑。目標是教練問「跌 5%、vol 漲 3 點，你的 delta？」時，十秒內講出靠譜的數字。
+
+**你只需要先記住這 5 件事**
+
+1. **最常用的兩個是 vanna 和 volga。** vanna = 波動率漲 1 點，delta 變多少（同時也是現貨漲 1 元，vega 變多少）；volga = 波動率漲 1 點，vega 變多少。
+2. **符號靠履約價位置判斷。** vanna：高履約價為正、低履約價為負（call、put 一樣）；volga：兩翼為正、價平約 0。所以風險逆轉是 vanna 部位，勒式和 vega 中性蝶式是 volga 部位。
+3. **時間經過 ≈ 波動率下降。** 價外 call 的 vanna 為正 → 時間過去 delta 往 0 漏（charm 為負）。記住 vanna、zomma 的正負號，charm、color 就免費得到。
+4. **新 delta ≈ delta + gamma × 現貨變動 + vanna × 波動率變動。** 例：95 put delta −0.2648，跌 5 元、vol 漲 3 點 → 約 −0.454（全重算 −0.4538）。移動超過約 0.3–0.5 個期限內標準差，再加 speed、zomma。
+5. **損益可以逐項拆開。** delta、gamma、vega、theta、vanna、volga 各貢獻多少，剩下的是殘差；殘差突然變大是警報，不是雜訊。
+
+**必背卡**
+
+| 要算什麼 | 怎麼算 |
+|---|---|
+| 情境後的新 delta | delta + gamma × 現貨變動 + vanna × 波動率變動（點） |
+| 一天損益歸因 | delta×δS + ½ gamma×δS² + vega×δσ + theta×天數 + vanna×δS×δσ + ½ volga×δσ² + 殘差 |
+| 由 vanna 推 charm（r = q = 0） | charm = −σ ÷（2τ）× vanna |
+| 部位對應 | 風險逆轉 = vanna；勒式、蝶式 = volga；價平跨式 = vega |
+| 數量級（20%、1 個月） | 25Δ：vanna ≈ 0.012／點、charm ≈ −0.004／日；價平 gamma ≈ 0.07 |
+
+**必做練習（約 20 分鐘）**：A2、B4、B5、C1（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
+
+**想看圖？** 打開網站的[教練拍肩問](https://hongyan1215.github.io/natenberg-course/tools/coach-questions/)，用部位表練「新 delta」和情境損益的即時口述。
+
+---
+
 ## 本章定位
 
 [第 9 章](../lessons/ch09_risk_measurement_2.md)已經用文字和表格介紹過 vanna、charm、volga、speed、color、zomma 的「方向感」。培訓與 desk 上的要求更進一步：你要能**寫出公式、知道單位、在腦中估出大小**，並且在教練問「現貨跌 5%、波動率漲 3 點，你的 delta 變多少？」時，十秒內用泰勒展開給出一個靠譜的數字。本章把高階 Greeks 從「名詞」變成「工具」：解析公式（Black-Scholes，含連續股利率 $q$）、以 Python 數值差分驗證、按 delta 分桶與按期限的大小表、delta 的二階泰勒預測，以及損益歸因（PnL attribution / PnL explain）。
@@ -18,6 +48,8 @@
 ## 核心概念
 
 ### 2.1 記號與單位約定
+
+> 💡 **一句話**：先確認單位：本章 vanna、zomma 用「每 vol 點」，charm、color 用「每日曆日」；接別人的報表先對時間正負號。
 
 **記號**：$S$ 現貨、$K$ 履約價、$\tau$ 剩餘年數、$\sigma$ 隱含波動率、$r$ 利率、$q$ 連續股利率（或借券成本、外國利率），
 
@@ -53,6 +85,8 @@ $$
 > **一個好用的巧合**：vanna 的原始值 $\partial\Delta/\partial\sigma$ 同時等於 $\partial\mathcal V/\partial S$。換成交易員單位時，「vanna 每點 0.009」同時代表兩件事：波動率 +1 點 delta 增加 0.009；現貨 +1 元，vega（每點）增加 0.009。
 
 ### 2.2 解析公式（BS，含 $q$）
+
+> 💡 **一句話**：除了 charm，這些公式都是 gamma 或 vega 的導數，所以 call、put 相同；r = q = 0 時「時間經過 = 波動率下降」。
 
 以下公式買權、賣權相同（除了 charm），因為它們都是 gamma 或 vega 的導數，而買賣權平價告訴我們同履約價的 call 與 put 的 gamma、vega 相同。
 
@@ -136,6 +170,8 @@ $$
 
 ### 2.3 用數值差分驗證
 
+> 💡 **一句話**：自己寫的 Greek 公式上線前，要用中央差分對一次；對價格做二階差分時步長不能太小。（可先跳過）
+
 任何你自己寫或從別處抄來的高階 Greek 公式，**上線前都要和中央差分比對**。做法：
 
 $$
@@ -162,6 +198,8 @@ print(vanna, fd)   # 兩者應相同到小數第 7 位以上
 **步長的選擇**：對「已經是解析一階 Greek」的函數再差分一次（例如用解析 delta 差分出 vanna），步長可以很小（$10^{-5}$）。若直接對**價格**做二階差分（$[V(\sigma+h)-2V(\sigma)+V(\sigma-h)]/h^2$），步長太小會被浮點捨入誤差淹沒——$h=10^{-5}$ 時相對誤差可達 1%，改用 $h=10^{-3}$ 左右才穩。
 
 ### 2.4 大小與符號：按 delta 分桶
+
+> 💡 **一句話**：vanna 高履約價正、低履約價負；volga 兩翼正；風險逆轉是 vanna 部位，勒式和蝶式是 volga 部位。
 
 固定 $S=100$、$\sigma=20\%$、$r=q=0$、剩 30 天（$\tau=30/365$）。以 call 的 delta 選履約價：
 
@@ -198,6 +236,8 @@ print(vanna, fd)   # 兩者應相同到小數第 7 位以上
 
 ### 2.5 大小隨時間：固定 delta 比較
 
+> 💡 **一句話**：固定 delta 時，vanna 幾乎不隨期限變；charm、speed、color 在快到期時爆炸。
+
 同樣 $\sigma=20\%$、$r=q=0$，但這次**固定在 25Δ call**，改變期限（履約價會跟著移動）：
 
 | 期限 | 履約價 | Gamma | Vega（每點） | Vanna（每點） | Volga（每點²） | Charm（每日） | Speed | Zomma（每點） | Color（每日） | Veta（每日） |
@@ -223,6 +263,8 @@ print(vanna, fd)   # 兩者應相同到小數第 7 位以上
 **價平的對照**（K=100）：gamma 從 1 年 0.0198 → 1 週 0.1440；color 從每日 0.00003 → 0.0103；zomma 從每點 −0.0010 → −0.0072。價平部位越接近到期，gamma 本身和 gamma 的變化速度都在爆炸——這是 [P4](p04_expiration_pin_risk.md) 的主題。
 
 ### 2.6 泰勒展開：情境後的新 delta
+
+> 💡 **一句話**：新 delta ≈ delta + gamma × δS + vanna × δσ；gamma 接近 0 的部位，delta 照樣會被 vanna 和 speed 帶跑。
 
 把 delta 視為 $(S,\sigma)$ 的函數，在目前點展開：
 
@@ -290,6 +332,8 @@ gamma + vanna 得 64.8；全部二階得 69.6；全重算 **67.7**。**方向與
 
 ### 2.7 損益歸因（PnL attribution）
 
+> 💡 **一句話**：把一天損益拆成 delta、gamma、vega、theta、vanna、volga 加殘差；殘差小不代表每一項都準。
+
 把價值變化在 $(S,\sigma,t)$ 上展開：
 
 $$
@@ -338,6 +382,8 @@ $\varepsilon$ 是殘差（unexplained），來自三階以上的項（speed、zo
 殘差只有 −1.2，但那是 speed（約 −15）與其他高階項互相抵銷後的淨值。**殘差小不代表每一項都準**；4% 的單日移動對 1 個月選擇權已是大行情，逐項解讀要保守。
 
 ### 2.8 其他兩個常用的「二階預測」
+
+> 💡 **一句話**：同樣的泰勒展開也能預測新 vega 和新 gamma；波動率大動時線性外推會失準。
 
 **新 vega**：
 
@@ -390,6 +436,8 @@ $$
 
 ## 練習題
 
+> **怎麼練**：先做 ⭐ 必做題（A2、B4、B5、C1）。卡住就先打開「提示」，還是不會再看解答。其他題目選做，想加深或準備面試時再回來。
+
 ### A. 概念題
 
 **A1.** 為什麼同一履約價的 call 與 put，vanna、volga、speed、zomma、color、veta 都相同，唯獨 charm 不同？
@@ -400,7 +448,13 @@ $$
 
 </details>
 
-**A2.** 不看表，判斷以下部位的 vanna 正負：(a) 買 10Δ call；(b) 買 10Δ put；(c) 賣 25Δ 勒式；(d) 賣 25Δ put、買 25Δ call。
+**A2.** ⭐ 不看表，判斷以下部位的 vanna 正負：(a) 買 10Δ call；(b) 買 10Δ put；(c) 賣 25Δ 勒式；(d) 賣 25Δ put、買 25Δ call。
+
+<details><summary>提示</summary>
+
+規則只有一條：高履約價 vanna 為正、低履約價為負，call、put 一樣。買進照原符號，賣出就反號，最後把兩腿加起來。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -474,7 +528,13 @@ Gamma ∝ $\tau^{-1/2}$：$0.0695\times\sqrt{30/7}=0.0695\times2.070=$ **0.1440*
 
 </details>
 
-**B4.** 你的部位：delta +120、gamma +15（每 1 元現貨）、vanna 每 vol 點 +8。現貨 +3、波動率 −2 點後，新 delta 約多少？
+**B4.** ⭐ 你的部位：delta +120、gamma +15（每 1 元現貨）、vanna 每 vol 點 +8。現貨 +3、波動率 −2 點後，新 delta 約多少？
+
+<details><summary>提示</summary>
+
+套新 delta = delta + gamma × 現貨變動 + vanna × 波動率變動。注意波動率是「降」2 點，代入 −2。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -482,7 +542,13 @@ $120+15\times3+8\times(-2)=120+45-16=$ **+149**。
 
 </details>
 
-**B5.** 部位 Greeks：delta −40、gamma +6、vega（每點）+25、theta（每日）−9、vanna（每點）−3、volga（每點²）+0.8。一天內現貨 +2、波動率 −1.5 點。逐項歸因並求合計。
+**B5.** ⭐ 部位 Greeks：delta −40、gamma +6、vega（每點）+25、theta（每日）−9、vanna（每點）−3、volga（每點²）+0.8。一天內現貨 +2、波動率 −1.5 點。逐項歸因並求合計。
+
+<details><summary>提示</summary>
+
+照歸因公式一項一項算：gamma 項和 volga 項要乘 ½ 和平方；vanna 項是 vanna × 現貨變動 × 波動率變動，小心正負號。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -518,7 +584,13 @@ Vanna 也是 $\partial\mathcal V/\partial S$。以交易員單位，每點 vanna
 
 ### C. 情境題
 
-**C1.**（教練拍肩）「你現在多頭 25Δ 風險逆轉 300 組、已 delta 避險。指數剛跌 2%，ATM vol 漲了 2 點。你的 delta 變成多少？要怎麼做？」已知每組：gamma 約 0、vanna 每點 +0.024、speed 很小。指數 100。
+**C1.** ⭐ （教練拍肩）「你現在多頭 25Δ 風險逆轉 300 組、已 delta 避險。指數剛跌 2%，ATM vol 漲了 2 點。你的 delta 變成多少？要怎麼做？」已知每組：gamma 約 0、vanna 每點 +0.024、speed 很小。指數 100。
+
+<details><summary>提示</summary>
+
+gamma 約 0，所以主要看 vanna 項：每組 vanna × 波動率變動，再乘 300 組。算出 delta 變正還是變負，就知道要買還是賣現貨。
+
+</details>
 
 <details><summary>解答</summary>
 

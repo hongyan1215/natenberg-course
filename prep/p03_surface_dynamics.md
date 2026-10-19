@@ -1,5 +1,36 @@
 # P3　波動率曲面動態（Volatility Surface Dynamics）
 
+## ⚡ 懶人包（5 分鐘）
+
+> 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
+
+**一句話**：現貨一動，曲面上每個履約價的波動率也跟著動。你「假設曲面怎麼動」，就決定了你的 delta——同一個部位，不同假設的避險股數可以差四成以上。
+
+**你只需要先記住這 5 件事**
+
+1. **有效 delta = BS delta + vega × 現貨每動 1 元、該履約價波動率變多少。** 第二項取決於你選哪一種「曲面動態制度」。
+2. **三種主要制度。** Sticky strike：每個履約價波動率釘死；sticky moneyness／sticky delta：整條偏斜跟著現貨平移，價平波動率不變；local vol 類：固定履約價波動率照偏斜斜率移動，價平移動兩倍。
+3. **向下偏斜時，delta 排序是 local vol < sticky strike < sticky moneyness。** 例：持有 1,000 口 90 put，三種制度分別要買 204、167、129 股，最大差 75 股（約 45%）。
+4. **看資料判斷市場像哪一種。** 價平波動率對現貨的反應（spot-vol beta）÷ 偏斜斜率：接近 0 → sticky moneyness；接近 1 → sticky strike；接近 2 → local vol。
+5. **Greeks 都有「影子版本」，翼部價格可以拆成 vanna 和 volga 成本。** 期限結構向上時，3 個月價平 call 的 shadow theta −0.0284／日，比 BS 的 −0.0218 多三成。翼部價 ≈ 平坦價 + vanna 成本（看風險逆轉）+ volga 成本（看蝶式）；股指 put 側兩項同號，所以特別貴。
+
+**必背卡**
+
+| 情況 | 記法 |
+|---|---|
+| 有效 delta | BS delta + vega × 固定履約價波動率對現貨的變化 |
+| Sticky strike | 固定履約價波動率不動；價平沿舊偏斜移動 |
+| Sticky moneyness | 固定履約價波動率移動 = −偏斜斜率；價平不變 |
+| Local vol 類 | 固定履約價移動 ≈ 偏斜斜率；價平移動 ≈ 2 × 斜率 |
+| 判斷制度 | spot-vol beta ÷ 偏斜斜率 ≈ 0、1、2 |
+| 翼部定價 | 平坦價 + vanna 成本 + volga 成本 |
+
+**必做練習（約 20 分鐘）**：A1、B2、B4、C2（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
+
+**想看圖？** 打開網站的[波動率曲面編輯器](https://hongyan1215.github.io/natenberg-course/tools/vol-surface/)，在「標的移動」面板切換 sticky strike 和 sticky delta，看有效 delta 差多少。
+
+---
+
 ## 本章定位
 
 [第 24 章](../lessons/ch24_volatility_skews.md)介紹了偏斜的形狀、三種動態假設（sticky strike、浮動偏斜、以標準差衡量的 sticky delta），並用一個例子算出調整 delta。本章把這些變成**可操作的避險規則**：同一張曲面、同一個部位，不同的動態假設會給出差異 30%–50% 的避險股數；風險報表上的 delta、gamma、theta 也都有「影子版本」（shadow greeks）。最後，我們用 [P2](p02_higher_order_greeks.md) 的 vanna 與 volga，說明交易員怎麼只用 ATM、風險逆轉、蝶式三個報價，就替翼部選擇權定價（vanna-volga 直覺）。
@@ -19,6 +50,8 @@
 
 ### 3.1 為什麼「曲面怎麼動」決定你的 delta
 
+> 💡 **一句話**：現貨一動，履約價的波動率也會動，所以有效 delta = BS delta + vega × 波動率對現貨的變化。
+
 BS 的 delta 是「其他輸入不變、現貨動一點」的價值變化。但現實中現貨一動，你在曲面上讀到的那個履約價的隱含波動率也會動。全微分：
 
 $$
@@ -34,6 +67,8 @@ $$
 第一項人人都會算；第二項取決於一個**假設**：現貨移動時，固定履約價 $K$ 的隱含波動率 $\sigma_K$ 會怎麼變？這個假設就是「曲面動態制度」（skew regime）。
 
 ### 3.2 四種制度
+
+> 💡 **一句話**：Sticky strike 釘住履約價、sticky moneyness 跟著現貨平移、local vol 移動更多；向下偏斜時 delta 排序 LV < SS < SM。
 
 為了比較，假設今天的偏斜（$S_0=100$、3 個月、$r=q=0$，遠期 = 現貨）是對數價性（log-moneyness）的線性函數：
 
@@ -61,6 +96,8 @@ $$
 > $\Delta_{\text{local vol}}<\Delta_{\text{sticky strike}}<\Delta_{\text{sticky moneyness}}$（對 call 和 put 都成立；put 的 delta 是負的，「小」代表更負）。
 
 ### 3.3 數值例：同一曲面，三種避險比率
+
+> 💡 **一句話**：同一張曲面，1,000 口 90 put 的避險量可以是 129、167 或 204 股；選錯制度等於帶了方向性部位。
 
 各選擇權的 BS delta 用自己的波動率計算；vega 為每 1 vol 點。有效 delta 用 $\Delta_{\text{BS}}+\mathcal V\times(\pm0.3)$（因為 $\partial\sigma/\partial S=\pm0.3$ 點／元），並以「現貨 ±0.5、按制度重新標記曲面、全重算」的中央差分驗證（兩者差異 ≤ 0.0002）。
 
@@ -97,6 +134,8 @@ $$
 
 ### 3.4 Sticky delta 和 sticky moneyness 什麼時候不同？
 
+> 💡 **一句話**：價平波動率改變或時間經過時，sticky delta 和 sticky moneyness 就會分開。（可先跳過）
+
 兩者都說「偏斜跟著現貨走」，差在座標：
 
 $$
@@ -121,6 +160,8 @@ $$
 同一個履約價隨時間經過「在標準差上變得更價外」，會沿著偏斜往上爬，抵銷約 9% 的 theta。這就是下一節 shadow theta 的一種。
 
 ### 3.5 Shadow Greeks
+
+> 💡 **一句話**：Shadow Greeks 是「讓曲面照假設一起動」算出的敏感度；期限結構向上時 shadow theta 可比 BS 多三成。
 
 **定義**：shadow greek 是「讓曲面按照你假設的動態一起移動」所算出的敏感度，相對於 BS 的「其他輸入全部固定」。實作上就是：bump 一個輸入 → 依制度重新標記整張曲面 → 全重算 → 差分。
 
@@ -149,6 +190,8 @@ $$
 > **交易員會怎麼說**：「期限結構向上時，多頭近月 vega 不只付 theta，還每天『滑下』期限結構——我的 shadow theta 比系統顯示的多三成。」
 
 ### 3.6 Spot–vol 相關：股指 vs 商品
+
+> 💡 **一句話**：用 spot-vol beta ÷ 偏斜斜率判斷制度；股指通常有效 delta 小於 BS，call 側偏斜的商品則相反。
 
 **Spot-vol beta**：觀察 ATM 隱含波動率對現貨百分比變動的反應：
 
@@ -182,6 +225,8 @@ $$
 > 若市場「漲時波動率也漲」，你持有的 110 call 實際 delta 接近 0.29，而不是 0.26。
 
 ### 3.7 Vanna-volga：用三個報價定出翼部
+
+> 💡 **一句話**：只用價平、風險逆轉、蝶式三個報價，就能用 vanna 成本 + volga 成本推出翼部價格。
 
 **問題**：你只有三個流動報價：ATM 波動率、25Δ 風險逆轉（RR）、25Δ 蝶式（BF）。客戶問你 10Δ put 的價格。
 
@@ -258,9 +303,17 @@ $$
 
 ## 練習題
 
+> **怎麼練**：先做 ⭐ 必做題（A1、B2、B4、C2）。卡住就先打開「提示」，還是不會再看解答。其他題目選做，想加深或準備面試時再回來。
+
 ### A. 概念題
 
-**A1.** 用一句話解釋：為什麼在向下傾斜的偏斜下，sticky moneyness 的 put delta 比 sticky strike 的「不那麼負」？
+**A1.** ⭐ 用一句話解釋：為什麼在向下傾斜的偏斜下，sticky moneyness 的 put delta 比 sticky strike 的「不那麼負」？
+
+<details><summary>提示</summary>
+
+想想現貨上漲時，固定履約價的 put 在跟著平移的偏斜上會往哪裡移：波動率變高還是變低？這對 put 的價值是加分還是扣分？
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -318,7 +371,13 @@ $\ln(0.92)=-0.08338$ → $20+0.30\times8.338=$ **22.50%**。$\ln(1.08)=0.07696$ 
 
 </details>
 
-**B2.** 線性偏斜 $\sigma(K)=20\%-0.25\text{ 點}\times(K-S)$。某 put 的 BS delta −0.30、vega 每點 0.17。求 sticky moneyness 與 local vol 類（固定履約價波動率移動 = 偏斜斜率）下的有效 delta。
+**B2.** ⭐ 線性偏斜 $\sigma(K)=20\%-0.25\text{ 點}\times(K-S)$。某 put 的 BS delta −0.30、vega 每點 0.17。求 sticky moneyness 與 local vol 類（固定履約價波動率移動 = 偏斜斜率）下的有效 delta。
+
+<details><summary>提示</summary>
+
+先判斷每種制度下「現貨漲 1 元，這個履約價的波動率變多少點」（正或負 0.25），再套 有效 delta = BS delta + vega × 這個變化。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -338,7 +397,13 @@ Local vol：$-400\times0.2623+600\times(-0.3500)=-104.9-210.0=$ **−315**。
 
 </details>
 
-**B4.** 3.2 節的曲面（$\beta=-0.30$）。現貨從 100 跌到 96，三種制度下新的 ATM 波動率各是多少？
+**B4.** ⭐ 3.2 節的曲面（$\beta=-0.30$）。現貨從 100 跌到 96，三種制度下新的 ATM 波動率各是多少？
+
+<details><summary>提示</summary>
+
+先算 ln(96/100)。Sticky strike：新價平 = 沿舊偏斜讀 96 的波動率；sticky moneyness：價平不變；local vol：移動是 sticky strike 的兩倍。
+
+</details>
 
 <details><summary>解答</summary>
 
@@ -397,7 +462,13 @@ Sticky moneyness：$25-30\times\ln(0.9)=25+3.16=$ **28.16%**。Sticky delta：$x
 
 </details>
 
-**C2.**（盤中決策）你在 Optibook 上對一個選擇權系列做市。標的突然從 100 跳到 102。你有兩個選擇：(a) 每個履約價保持原波動率，只用新現貨重算價格；(b) 把整條偏斜右移 2 再重算。你的近期成交資料顯示 $\beta_{sv}$ 約等於偏斜斜率。你選哪一個？為什麼？
+**C2.** ⭐ （盤中決策）你在 Optibook 上對一個選擇權系列做市。標的突然從 100 跳到 102。你有兩個選擇：(a) 每個履約價保持原波動率，只用新現貨重算價格；(b) 把整條偏斜右移 2 再重算。你的近期成交資料顯示 $\beta_{sv}$ 約等於偏斜斜率。你選哪一個？為什麼？
+
+<details><summary>提示</summary>
+
+先用 spot-vol beta ÷ 偏斜斜率判斷市場像哪個制度（≈ 1 是什麼？）。再想如果選錯，OTM put 和 OTM call 會報太高還是太低、誰會來挑你的報價。
+
+</details>
 
 <details><summary>解答</summary>
 
