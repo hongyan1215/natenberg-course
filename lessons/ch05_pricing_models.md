@@ -4,26 +4,26 @@
 
 > 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
 
-**一句話**：選擇權的理論價值就像算一張彩券值多少——列出所有可能結果、配上機率、算平均（期望值），再因為要等到期才拿到錢而折現。
+**一句話**：選擇權（option）的理論價值（theoretical value）就像算一張彩券值多少——列出所有可能結果、配上機率、算平均（期望值（expected value, EV）），再因為要等到期才拿到錢而折現。
 
 **你只需要先記住這 5 件事**
 
-1. **方向對還不夠，速度也要對。** 市場動太慢，時間價值流失就能讓你虧錢；只會看方向，直接交易標的就好。
-2. **理論價值 = 期望值的現值。** 例：轉盤期望值 2.40，付少於 2.40 長期賺；若獎金晚點才付，還要再除以（1 + 利率 × 時間）。
-3. **機率分配的平均數必須等於遠期價格。** 不是現價——否則就有套利。分配不必對稱，平均對就好。
-4. **模型四步驟 + 五輸入。** 步驟：列價格 → 配機率（平均 = 遠期價）→ 算選擇權期望值 → 折現。Black-Scholes 輸入：履約價、到期時間、標的價、利率、波動率（股票再加股利）。
-5. **避險口訣：call 和標的反向、put 和標的同向。** 買 call 賣標的、買 put 買標的。新手最常把 put 做反。
+1. **方向對還不夠，速度也要對。** 市場動太慢，時間價值（time value）流失就能讓你虧錢；只會看方向，直接交易標的（underlying）就好。
+2. **theoretical value = expected value 的現值。** 例：轉盤 expected value 2.40，付少於 2.40 長期賺；若獎金晚點才付，還要再除以（1 + 利率 × 時間）。
+3. **機率分配的平均數必須等於遠期價格（forward price）。** 不是現價——否則就有套利（arbitrage）。分配不必對稱，平均對就好。
+4. **模型四步驟 + 五輸入。** 步驟：列價格 → 配機率（平均 = forward price）→ 算 option expected value → 折現。Black-Scholes 輸入：履約價（strike price）、到期時間、underlying 價、利率、波動率（volatility）（股票再加股利（dividend））。
+5. **避險（hedge）口訣：call 和 underlying 反向、put 和 underlying 同向。** 買 call 賣 underlying、買 put 買 underlying。新手最常把 put 做反。
 
 **必背卡**
 
 | 要算什麼 | 怎麼算 |
 |---|---|
-| 期望值 | 每個結果 × 機率，全部加起來 |
-| 理論價值（股票型結算） | 期望值 ÷（1 + 利率 × 時間） |
-| call 期望值 | 各結果的 max(標的 − 履約價, 0) × 機率，加總 |
-| put 期望值 | 各結果的 max(履約價 − 標的, 0) × 機率，加總 |
+| expected value | 每個結果 × 機率，全部加起來 |
+| theoretical value（股票型結算（stock-type settlement）） | expected value ÷（1 + 利率 × 時間） |
+| call expected value | 各結果的 max(underlying − strike, 0) × 機率，加總 |
+| put expected value | 各結果的 max(strike − underlying, 0) × 機率，加總 |
 | 時間輸入 | 剩餘日曆日 ÷ 365 |
-| 避險方向 | 買 call、賣 put → 賣標的；賣 call、買 put → 買標的 |
+| hedge 方向 | 買 call、賣 put → 賣 underlying；賣 call、買 put → 買 underlying |
 
 **必做練習（約 20 分鐘）**：A5、B1、B2、B4（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
 
@@ -33,18 +33,18 @@
 
 ## 本章定位
 
-到期損益圖（[ch04](ch04_expiration_pnl.md)）只告訴我們「如果到期價是多少，會賺賠多少」；要知道選擇權**現在**值多少，必須替每一個可能結果配上**機率**。本章從擲骰子與輪盤出發，建立「期望值 → 現值 → 理論價值」的思路，再介紹 Black-Scholes 模型的輸入與「無風險避險」的概念。前置章節：[ch02](ch02_forward_pricing.md)（遠期價格）、[ch04](ch04_expiration_pnl.md)。Black-Scholes 公式的推導細節在 [ch18](ch18_black_scholes.md)。
+到期損益圖（[ch04](ch04_expiration_pnl.md)）只告訴我們「如果到期價是多少，會賺賠多少」；要知道 option**現在**值多少，必須替每一個可能結果配上**機率**。本章從擲骰子與輪盤出發，建立「expected value → 現值 → theoretical value」的思路，再介紹 Black-Scholes 模型的輸入與「無風險 hedge」的概念。前置章節：[ch02](ch02_forward_pricing.md)（forward price）、[ch04](ch04_expiration_pnl.md)。Black-Scholes 公式的推導細節在 [ch18](ch18_black_scholes.md)。
 
 > 對應原書：第 5 章〈Theoretical Pricing Models〉，含〈The Importance of Probability〉（Expected Value / Theoretical Value / A Word on Models）〈A Simple Approach〉〈The Black-Scholes Model〉及各輸入（Exercise Price / Time to Expiration / Underlying Price / Interest Rates / Dividends / Volatility）。
 
 ## 學習目標
 
-1. **能解釋**為什麼選擇權交易員除了「方向」還必須判斷「速度」。
-2. **能計算**一個賭局的期望值（expected value）、莊家優勢（edge）與考慮利息後的理論價值。
-3. **能用**離散機率分配計算 call 與 put 的期望值與理論價值，並確保分配的平均數等於遠期價格（無套利）。
+1. **能解釋**為什麼 option 交易員除了「方向」還必須判斷「速度」。
+2. **能計算**一個賭局的 expected value、莊家優勢（edge）與考慮利息後的 theoretical value。
+3. **能用**離散機率分配計算 call 與 put 的 expected value 與 theoretical value，並確保分配的平均數等於 forward price（無 arbitrage）。
 4. **能列出**建構定價模型的四個步驟，以及 Black-Scholes 的五個基本輸入。
-5. **能判斷**四種基本選擇權部位對應的市場方向與正確的避險方向。
-6. **能說明**每個輸入的實務問題：時間用日曆日或營業日、標的價用 bid/ask/中價、該用哪個利率、除息日的影響。
+5. **能判斷**四種基本 option 部位（position）對應的市場方向與正確的 hedge 方向。
+6. **能說明**每個輸入的實務問題：時間用日曆日或營業日、underlying 價用 bid/ask/中價、該用哪個利率、除息日（ex-dividend date）的影響。
 
 ---
 
@@ -52,22 +52,22 @@
 
 ### 5.0 方向之外，還有「速度」
 
-> 💡 **一句話**：選擇權不只要看對方向，還要看對速度；動得太慢，時間價值流失就會虧錢。
+> 💡 **一句話**：option 不只要看對方向，還要看對速度；動得太慢，time value 流失就會虧錢。
 
 **例題 5-1（自創）**：某股 $60，你認為 4 個月內會漲到 $70。
-- **買股票**：只要真的漲到 70，你一定賺（忽略利息股利），什麼時候漲到都行。
+- **買股票**：只要真的漲到 70，你一定賺（忽略利息 dividend），什麼時候漲到都行。
 - **買 2 個月到期的 65 call @1.20**：如果到期時股價是 70，賺 $5-1.20=3.80$。但若股價前 2 個月都在 65 以下，第 3、4 個月才漲到 70——call 已經歸零，賠 1.20。
 - **改買 5 個月到期的 65 call @4.00**：股價到 70 時它至少值 5，但不保證會高於 5；若你付了 4.00 而到期剛好在 70，只賺 1.00；若漲得不夠快、到期只到 68，就賠 1.00。
 
-**結論**：股票交易員只需判斷方向；選擇權交易員還要判斷**市場移動得夠不夠快**。方向對了、速度不夠，時間價值的流失就足以讓你虧錢。許多選擇權策略甚至**只**跟速度有關、與方向無關。如果你很擅長預測方向，直接交易標的就好；唯有對「速度」有感覺，才有進入選擇權市場的理由。
+**結論**：股票交易員只需判斷方向；option 交易員還要判斷**市場移動得夠不夠快**。方向對了、速度不夠，time value 的流失就足以讓你虧錢。許多 option 策略甚至**只**跟速度有關、與方向無關。如果你很擅長預測方向，直接交易 underlying 就好；唯有對「速度」有感覺，才有進入 option 市場的理由。
 
 ---
 
 ### 5.1 機率的重要性（The Importance of Probability）
 
-> 💡 **一句話**：理論價值 = 期望值折現（再加其他現金流）；正期望值只在長期成立，風險管理一樣重要。
+> 💡 **一句話**：theoretical value = expected value 折現（再加其他現金流）；正 expected value 只在長期成立，風險管理一樣重要。
 
-交易決策幾乎都建立在機率估計上。日常用語「很可能」「機會不小」不夠精確；選擇權評價要把機率量化。機率和策略選擇是一體的：
+交易決策幾乎都建立在機率估計上。日常用語「很可能」「機會不小」不夠精確；option 評價要把機率量化。機率和策略選擇是一體的：
 - 獲利機率很高、虧損機率很低 → 可以接受較小的潛在利潤。
 - 獲利機率很低 → 必須要求在情況有利時有很大的利潤。
 
@@ -87,49 +87,49 @@ $$E=0\times0.4+2\times0.3+4\times0.2+10\times0.1=\$2.40$$
 - 付 > $2.40 → 長期預期虧損；
 - 付 = $2.40 → 長期打平。
 
-注意「長期」二字：單轉一次你不可能剛好拿到 2.40（沒有這個獎項）；但即使只轉一次，只要付的錢低於期望值，**機率站在你這邊**。
+注意「長期」二字：單轉一次你不可能剛好拿到 2.40（沒有這個獎項）；但即使只轉一次，只要付的錢低於 expected value，**機率站在你這邊**。
 
 **例題 5-3：輪盤（自創，歐式輪盤）**
 歐式輪盤有 37 格（1–36 與 0）。押單一號碼，中了拿回 $36（含本金），沒中拿回 0。
 $$E=\frac{36}{37}=\$0.9730$$
-賭場收你 $1，**優勢（edge）**＝$1-0.9730=\$0.027$，每押 1 元賭場長期賺約 2.7 分。（美式輪盤多一個 00，共 38 格，期望值更低。）
+賭場收你 $1，**優勢（edge）**＝$1-0.9730=\$0.027$，每押 1 元賭場長期賺約 2.7 分。（美式輪盤多一個 00，共 38 格，expected value 更低。）
 
-想賺錢的玩家希望：(a) 跟賭場換位置，當賣方；或 (b) 找到一家以**低於**期望值賣這個賭注的賭場，例如 $0.92，那麼玩家就有約 5.3 分的優勢。
+想賺錢的玩家希望：(a) 跟賭場換位置，當賣方；或 (b) 找到一家以**低於** expected value 賣這個賭注的賭場，例如 $0.92，那麼玩家就有約 5.3 分的優勢。
 
 #### 理論價值（Theoretical Value）
 
-**理論價值**＝為了在長期打平，現在願意付出的價格。目前我們只用了期望值；但還有其他因素。
+**theoretical value**＝為了在長期打平，現在願意付出的價格。目前我們只用了 expected value；但還有其他因素。
 
 **利息**：假設賭場改規則——你現在付錢，若贏了，**3 個月後**才把 $36 寄給你。你付出的錢原本可以放在銀行生息，所以：
 $$\text{理論價值}=\frac{E}{1+r\times t}=\frac{0.9730}{1+0.08\times0.25}=\$0.9539\quad(r=8\%)$$
 即使你只付 0.9730，仍會因為損失利息而小虧；賭場則把你的錢存起來賺利息。
 
-**其他現金流**：若賭場為了留住熟客，1 個月後送你 $0.01 回饋金，就把它（的現值）加到理論價值上：約 $0.9539+0.0099=\$0.9638$。這就像持有股票會收到股利，是股票選擇權評價要考慮的因素。
+**其他現金流**：若賭場為了留住熟客，1 個月後送你 $0.01 回饋金，就把它（的現值）加到 theoretical value 上：約 $0.9539+0.0099=\$0.9638$。這就像持有股票會收到 dividend，是股票 option 評價要考慮的因素。
 
-選擇權評價最常見的兩個考量是**期望報酬**與**利息**，其他（如股利）視情況加入。
+option 評價最常見的兩個考量是**期望報酬**與**利息**，其他（如 dividend）視情況加入。
 
-**長期 vs. 短期**：賭場以 $1 賣出值 0.973 的賭注，長期一定賺嗎？前提是它能**活到長期**。理論上某人可能連續中 20 次讓賭場倒閉——機率極低但非零。選擇權交易也一樣：
-1. 先用理論模型算出理論價值，與市價比較，判斷**理論優勢（theoretical edge）**是否足以進場；
-2. 但理論價值建立在只在長期可靠的機率上，所以必須同時**管理短期壞運氣的風險**。
+**長期 vs. 短期**：賭場以 $1 賣出值 0.973 的賭注，長期一定賺嗎？前提是它能**活到長期**。理論上某人可能連續中 20 次讓賭場倒閉——機率極低但非零。option 交易也一樣：
+1. 先用理論模型算出 theoretical value，與市價比較，判斷**理論優勢（theoretical edge）**是否足以進場；
+2. 但 theoretical value 建立在只在長期可靠的機率上，所以必須同時**管理短期壞運氣的風險**。
 
-而且真實世界裡，理論價值本身也永遠可能有錯。**風險管理能力至少和計算理論價值的能力一樣重要。**
+而且真實世界裡，theoretical value 本身也永遠可能有錯。**風險管理能力至少和計算 theoretical value 的能力一樣重要。**
 
 #### 關於模型（A Word on Models）
 
 模型是現實世界的縮小、簡化版本——模型飛機、建築模型、或一條數學公式。好的模型能幫助理解世界，但**絕不等同於**世界。
 - 模型需要假設，數學模型需要用數字把假設量化；輸入錯誤，輸出也錯（garbage in, garbage out）。
-- 選擇權模型只是「某人認為在某些條件下該如何評價選擇權」的想法；模型本身或輸入都可能錯，模型值不保證準確，也不保證貼近市價。
+- option 模型只是「某人認為在某些條件下該如何評價 option」的想法；模型本身或輸入都可能錯，模型值不保證準確，也不保證貼近市價。
 
-**一個比喻（自創）**：沒有模型的新手像在停電的倉庫裡找東西，只能摸黑；有模型的交易員像拿著一支手電筒——看得到大致格局，但光圈有限，邊緣也會失真。真正的危險出現在**變熟練之後**：信心增加、部位放大，手電筒照不到的細節與失真被放大成災難。正確態度是：使用模型，但清楚知道它能做什麼、不能做什麼。（金融危機常常就是很多人同時「誤信手電筒」的時刻。）
+**一個比喻（自創）**：沒有模型的新手像在停電的倉庫裡找東西，只能摸黑；有模型的交易員像拿著一支手電筒——看得到大致格局，但光圈有限，邊緣也會失真。真正的危險出現在**變熟練之後**：信心增加、position 放大，手電筒照不到的細節與失真被放大成災難。正確態度是：使用模型，但清楚知道它能做什麼、不能做什麼。（金融危機常常就是很多人同時「誤信手電筒」的時刻。）
 
 ---
 
 ### 5.2 一個簡單的定價方法（A Simple Approach）
 
-> 💡 **一句話**：列出到期價格、配機率（平均 = 遠期價）、算選擇權期望值、再折現，就是定價模型的四步驟。
+> 💡 **一句話**：列出到期價格、配機率（平均 = forward price）、算 option expected value、再折現，就是定價模型的四步驟。
 
 **例題 5-4：均等機率的五種結果（自創）**
-某標的現價 50，假設到期只可能是 40、45、50、55、60，各 20%。
+某 underlying 現價 50，假設到期只可能是 40、45、50、55、60，各 20%。
 
 $$E[S_T]=0.2\times(40+45+50+55+60)=50$$
 
@@ -147,7 +147,7 @@ $$E[\text{50 call}]=0.2\times(0+0+0+5+10)=3.00$$
 
 $$E[\text{call}]=\sum_{i=1}^{n}p_i\max(S_i-X,0),\qquad E[\text{put}]=\sum_{i=1}^{n}p_i\max(X-S_i,0)$$
 
-**加入結算方式與利息**：若選擇權採股票型結算（要全額付權利金），理論價值是期望值的**現值**。設利率 6%、3 個月到期：
+**加入結算（settlement）方式與利息**：若 option 採 stock-type settlement（要全額付權利金（premium）），theoretical value 是 expected value 的**現值**。設利率 6%、3 個月到期：
 $$\frac{3.00}{1+0.06\times0.25}=\frac{3.00}{1.015}=2.956$$
 
 **改善 1：機率應集中在現價附近**
@@ -159,11 +159,11 @@ $$\frac{3.00}{1+0.06\times0.25}=\frac{3.00}{1.015}=2.956$$
  50 call   0      0      0      5     10
 ```
 $$E[\text{50 call}]=0.2\times5+0.1\times10=2.00,\qquad \text{理論價值}=\frac{2.00}{1.015}=1.970$$
-（因為對稱，標的的期望值仍是 50。）
+（因為對稱，underlying 的 expected value 仍是 50。）
 
-**改善 2：分配中心應是遠期價格（無套利）**
-標的到期的「最可能平均值」是多少？沒人知道。但回想 [ch02](ch02_forward_pricing.md)：若遠期合約價格偏離理論遠期價，大家會套利直到它回來。所以**若標的市場無套利，標的的期望值必須等於遠期價格**。
-本例若標的是無股利股票：$F=50\times(1+0.06\times0.25)=50.75$。把分配中心移到 50.75：
+**改善 2：分配中心應是 forward price（無 arbitrage）**
+underlying 到期的「最可能平均值」是多少？沒人知道。但回想 [ch02](ch02_forward_pricing.md)：若遠期合約（forward contract）價格偏離理論 forward price，大家會 arbitrage 直到它回來。所以**若 underlying 市場無 arbitrage，underlying 的 expected value 必須等於 forward price**。
+本例若 underlying 是無 dividend 股票：$F=50\times(1+0.06\times0.25)=50.75$。把分配中心移到 50.75：
 
 ```
  機率     10%     20%     40%     20%     10%
@@ -172,7 +172,7 @@ $$E[\text{50 call}]=0.2\times5+0.1\times10=2.00,\qquad \text{理論價值}=\frac
 ```
 $$E[\text{50 call}]=0.4\times0.75+0.2\times5.75+0.1\times10.75=2.525,\qquad \frac{2.525}{1.015}=2.488$$
 
-**改善 3：分配不必對稱，只要平均數等於遠期價**
+**改善 3：分配不必對稱，只要平均數等於 forward price**
 **例題 5-5（自創）**：
 
 ```
@@ -185,32 +185,32 @@ $$E[\text{50 call}]=0.4\times0.75+0.2\times5.75+0.1\times10.75=2.525,\qquad \fra
 $$E[\text{call}]=0.25\times4+0.09\times11=1.99\Rightarrow\frac{1.99}{1.015}=1.961$$
 $$E[\text{put}]=0.05\times8+0.21\times4=1.24\Rightarrow\frac{1.24}{1.015}=1.222$$
 
-**遠期價格在所有模型中都居於核心**。對歐式選擇權而言，標的現價之所以重要，只因為它能換算成遠期價格。所以交易員會區分：
-- **價平（at the money）**：履約價 = 標的現價；
-- **遠期價平（at the forward）**：履約價 = 到期的遠期價格。
-在許多市場，at-the-forward 選擇權成交最活躍，常被當作評價其他選擇權的基準。
+**forward price 在所有模型中都居於核心**。對歐式選擇權（European option）而言，underlying 現價之所以重要，只因為它能換算成 forward price。所以交易員會區分：
+- **價平（at the money）**：strike = underlying 現價；
+- **forward price 平（at the forward）**：strike = 到期的 forward price。
+在許多市場，at-the-forward option 成交最活躍，常被當作評價其他 option 的基準。
 
-**剩下的大障礙**：真實世界有無限多種可能價格。我們需要一個能為「每一個可能價格」配上機率的分配——[ch06](ch06_volatility.md) 會用常態／對數常態分配解決。
+**剩下的大障礙**：真實世界有無限多種可能價格。我們需要一個能為「每一個可能價格」配上機率的分配——[ch06](ch06_volatility.md) 會用常態／對數常態分配（lognormal distribution）解決。
 
 **建構定價模型的四步驟**
-1. 提出一組到期時標的的可能價格。
-2. 為每個價格指定機率，且**標的的期望值必須等於遠期價格**（無套利）。
-3. 依履約價，計算選擇權的期望值。
-4. 依選擇權的結算方式，計算期望值的現值。
+1. 提出一組到期時 underlying 的可能價格。
+2. 為每個價格指定機率，且**underlying 的 expected value 必須等於 forward price**（無 arbitrage）。
+3. 依 strike，計算 option 的 expected value。
+4. 依 option 的 settlement 方式，計算 expected value 的現值。
 
 ---
 
 ### 5.3 Black-Scholes 模型
 
-> 💡 **一句話**：Black-Scholes 用五個輸入算理論價值；每個選擇權部位都要用反向的標的部位避險。
+> 💡 **一句話**：Black-Scholes 用五個輸入算 theoretical value；每個 option position 都要用反向的 underlying position hedge。
 
 **歷史脈絡**
-- 1877 年，Charles Castelli 在倫敦出版的小冊子已描述了避險與交易策略，例如今日所稱的掩護性賣出買權（covered write）與跨式（straddle）。
-- 1900 年，法國數學家 Louis Bachelier 首次用高等數學為選擇權定價（當時沒有交易所選擇權市場，實用性有限）。
-- 1973 年，芝加哥選擇權交易所（CBOE）開幕同年，Fischer Black 與 Myron Scholes 發表第一個實用的理論定價模型（Robert Merton 亦有貢獻，故也稱 Black-Scholes-Merton）。輸入少、多數可觀察、計算簡單，迅速成為交易員工具，至今仍是最廣泛使用的模型。
-- 原始版本評價**無股利股票的歐式選擇權**；之後加入股利。1976 年 Black 修改為**期貨選擇權**版本（Black 模型）；1983 年 Garman 與 Kohlhagen 修改為**外匯選擇權**版本。各版本只差在「如何計算遠期價格」與「選擇權的結算方式」，因此統稱 Black-Scholes 模型。
+- 1877 年，Charles Castelli 在倫敦出版的小冊子已描述了 hedge 與交易策略，例如今日所稱的掩護性賣出（covered write）買權（covered write）與跨式（straddle）。
+- 1900 年，法國數學家 Louis Bachelier 首次用高等數學為 option 定價（當時沒有交易所 option 市場，實用性有限）。
+- 1973 年，芝加哥 option 交易所（CBOE）開幕同年，Fischer Black 與 Myron Scholes 發表第一個實用的理論定價模型（Robert Merton 亦有貢獻，故也稱 Black-Scholes-Merton）。輸入少、多數可觀察、計算簡單，迅速成為交易員工具，至今仍是最廣泛使用的模型。
+- 原始版本評價**無 dividend 股票的 European option**；之後加入 dividend。1976 年 Black 修改為**期貨選擇權（futures option）**版本（Black 模型）；1983 年 Garman 與 Kohlhagen 修改為**外匯 option**版本。各版本只差在「如何計算 forward price」與「option 的 settlement 方式」，因此統稱 Black-Scholes 模型。
 
-推理邏輯與 5.2 節相同：為各種結果配機率、算期望值、折現。Black 與 Scholes 原本處理 call；put 可用類似方法，或用歐式選擇權特有的「同履約價同到期 call、put、標的」之間的唯一關係（買賣權平價，見 [ch15](ch15_option_arbitrage.md)）由 call 推出。
+推理邏輯與 5.2 節相同：為各種結果配機率、算 expected value、折現。Black 與 Scholes 原本處理 call；put 可用類似方法，或用 European option 特有的「同 strike 同到期 call、put、underlying」之間的唯一關係（買賣權平價（put-call parity），見 [ch15](ch15_option_arbitrage.md)）由 call 推出。
 
 **五個基本輸入**
 
@@ -222,131 +222,131 @@ $$E[\text{put}]=0.05\times8+0.21\times4=1.24\Rightarrow\frac{1.24}{1.015}=1.222$
   波動率 ──────┘
 ```
 
-（股票選擇權若有股利，還需輸入股利。）波動率與「市場速度」或「各結果的機率」有關，[ch06](ch06_volatility.md) 詳談。
+（股票 option 若有 dividend，還需輸入 dividend。）volatility 與「市場速度」或「各結果的機率」有關，[ch06](ch06_volatility.md) 詳談。
 
 **例題 5-6：Black-Scholes 數值（Python 驗證）**
-$S=50$、$K=50$、$t=0.25$ 年、$r=6\%$（連續複利）、無股利、波動率 25%：
+$S=50$、$K=50$、$t=0.25$ 年、$r=6\%$（連續複利）、無 dividend、volatility 25%：
 - call ≈ **2.863**，put ≈ **2.119**。
-- 若波動率改為 20% 或 30%，call 變成 2.373 或 3.354——波動率影響巨大。
+- 若 volatility 改為 20% 或 30%，call 變成 2.373 或 3.354——volatility 影響巨大。
 
 #### 無風險避險（Riskless Hedge）
 
-Black-Scholes 還引入一個關鍵概念：**每個選擇權部位都有一個理論上等價的標的部位**，在標的小幅變動時，兩者以相同速度增減價值。要利用錯價的選擇權，必須用**反向的標的部位**對沖，建立無風險避險；所需的標的比例稱為**避險比率（hedge ratio）**（即 [ch07](ch07_risk_measurement_1.md) 的 delta）。
+Black-Scholes 還引入一個關鍵概念：**每個 option position 都有一個理論上等價的 underlying position**，在 underlying 小幅變動時，兩者以相同速度增減價值。要利用錯價的 option，必須用**反向的 underlying position**對沖，建立無風險 hedge；所需的 underlying 比例稱為**避險比率（hedge ratio）**（即 [ch07](ch07_risk_measurement_1.md) 的 delta）。
 
-為什麼要避險？因為在 5.2 節的方法中，理論價值取決於各結果的機率，而**標的價格一變，機率就跟著變**。例如現價 50 時你給 60 的機率 25%；若標的跌到 45，60 的機率可能只剩 10%。先建立避險、再隨市況調整，就是把不斷變動的機率納入考量。
+為什麼要 hedge？因為在 5.2 節的方法中，theoretical value 取決於各結果的機率，而**underlying 價格一變，機率就跟著變**。例如現價 50 時你給 60 的機率 25%；若 underlying 跌到 45，60 的機率可能只剩 10%。先建立 hedge、再隨市況調整，就是把不斷變動的機率納入考量。
 
-從這個角度，選擇權是標的部位的**替代品**：call 替代多頭、put 替代空頭。替代品是否比直接持有標的好，取決於理論價值與市價的比較：
-- call 便宜（市價 < 理論價）或 put 貴（市價 > 理論價）→ 用「買 call」或「賣 put」做多，長期比直接買標的有利。
-- put 便宜或 call 貴 → 用「買 put」或「賣 call」做空，長期比直接放空標的有利。
+從這個角度，option 是 underlying position 的**替代品**：call 替代多頭、put 替代空頭。替代品是否比直接持有 underlying 好，取決於 theoretical value 與市價的比較：
+- call 便宜（市價 < 理論價）或 put 貴（市價 > 理論價）→ 用「買 call」或「賣 put」做多，長期比直接買 underlying 有利。
+- put 便宜或 call 貴 → 用「買 put」或「賣 call」做空，長期比直接放空 underlying 有利。
 
-| 選擇權部位 | 對應市場部位 | 正確避險 |
+| option position | 對應市場 position | 正確 hedge |
 |---|---|---|
-| 買 call | 多頭 | 賣標的 |
-| 賣 call | 空頭 | 買標的 |
-| 買 put | 空頭 | 買標的 |
-| 賣 put | 多頭 | 賣標的 |
+| 買 call | 多頭 | 賣 underlying |
+| 賣 call | 空頭 | 買 underlying |
+| 買 put | 空頭 | 買 underlying |
+| 賣 put | 多頭 | 賣 underlying |
 
-**口訣**：call 與標的**反向**操作（買 call 賣標的、賣 call 買標的）；put 與標的**同向**操作（買 put 買標的、賣 put 賣標的）。新手最常把 put 做反：買 put 又賣標的——那根本不是避險，而是加倍做空。
+**口訣**：call 與 underlying**反向**操作（買 call 賣 underlying、賣 call 買 underlying）；put 與 underlying**同向**操作（買 put 買 underlying、賣 put 賣 underlying）。新手最常把 put 做反：買 put 又賣 underlying——那根本不是 hedge，而是加倍做空。
 
 ---
 
 ### 5.4 各輸入的實務問題
 
-> 💡 **一句話**：標的價用你實際避險的 bid 或 ask，時間用日曆日 ÷ 365，利率最不敏感，股利看除息日，波動率最關鍵。
+> 💡 **一句話**：underlying 價用你實際 hedge 的 bid 或 ask，時間用日曆日 ÷ 365，利率最不敏感，dividend 看 ex-dividend date，volatility 最關鍵。
 
 模型輸出不會比輸入更好，所以逐一檢視。
 
 #### (1) 履約價（Exercise Price）
-合約固定、整個存續期間不變：9 月 100 put 不會變成 9 月 110 put。（股票分割或特別股利時交易所可能調整履約價，但那只是會計調整，合約經濟本質不變。）
+合約固定、整個存續期間不變：9 月 100 put 不會變成 9 月 110 put。（股票分割或特別 dividend 時交易所可能調整 strike，但那只是會計調整，合約經濟本質不變。）
 
 #### (2) 到期時間（Time to Expiration）
-到期日也固定，但距離到期的時間每天縮短。模型以**年**為單位，若以天計，要除以 365。多數軟體會自動轉換，你只要輸入剩餘天數。
+到期日（expiration date）也固定，但距離到期的時間每天縮短。模型以**年**為單位，若以天計，要除以 365。多數軟體會自動轉換，你只要輸入剩餘天數。
 
 看似有個難題：時間用在兩個地方——
-1. **估計標的價格變動的可能性**：只有營業日價格才會變，似乎該扣掉週末假日。
+1. **估計 underlying 價格變動的可能性**：只有營業日價格才會變，似乎該扣掉週末假日。
 2. **計算利息**：利息每天都在累積，必須用日曆日。
 
-其實不衝突：波動率是用**營業日**的價格變動觀察、再換算成**年化**數字後輸入模型；所以我們可以直接輸入實際的日曆天數，模型會正確解讀。
+其實不衝突：volatility 是用**營業日**的價格變動觀察、再換算成**年化**數字後輸入模型；所以我們可以直接輸入實際的日曆天數，模型會正確解讀。
 **例題**：剩 45 個日曆日 → $t=45/365=0.1233$ 年；其間約 31 個營業日，$31/252=0.1230$，兩者幾乎一樣。
 
 接近到期時，有人改用小時甚至分鐘。理論上越細越準，但實務上離散的時間輸入不一定能反映連續流逝的真實時間，且**越接近到期，輸入越不可靠**——許多交易員在最後階段乾脆不用模型值。
 
 #### (3) 標的價格（Underlying Price）
 任何時刻都有買價與賣價（bid-ask spread），該用哪一個？
-**例題 5-7（自創）**：標的最後成交 101.50，目前報價 **101.35 / 101.55**。候選：最後成交價 101.50、中價 101.45、bid、ask。
+**例題 5-7（自創）**：underlying 最後成交 101.50，目前報價（quote） **101.35 / 101.55**。候選：最後成交價 101.50、中價 101.45、bid、ask。
 
-有紀律、使用模型的交易員知道自己**必須用標的反向避險**，所以輸入的標的價應該是「他實際能做避險交易的價格」：
-- 打算**買 call 或賣 put**（市場多頭）→ 要**賣**標的避險 → 用接近 **bid（101.35）** 的價格。
-- 打算**賣 call 或買 put**（市場空頭）→ 要**買**標的避險 → 用接近 **ask（101.55）** 的價格。
+有紀律、使用模型的交易員知道自己**必須用 underlying 反向 hedge**，所以輸入的 underlying 價應該是「他實際能做 hedge 交易的價格」：
+- 打算**買 call 或賣 put**（市場多頭）→ 要**賣** underlying hedge → 用接近 **bid（101.35）** 的價格。
+- 打算**賣 call 或買 put**（市場空頭）→ 要**買** underlying hedge → 用接近 **ask（101.55）** 的價格。
 
-標的流動性好、價差窄、每檔量大時，用中價近似通常沒問題；流動性差、價差寬、價格快速變動時，連小單都可能無法在報價成交，要格外小心。
+underlying 流動性好、價差窄、每檔量大時，用中價近似通常沒問題；流動性差、價差寬、價格快速變動時，連小單都可能無法在 quote 成交，要格外小心。
 
-（沒有任何法律規定交易員一定要照模型交易；但若使用模型，就應該遵守它隱含的避險紀律。）
+（沒有任何法律規定交易員一定要照模型交易；但若使用模型，就應該遵守它隱含的 hedge 紀律。）
 
 #### (4) 利率（Interest Rates）
 利率有兩個作用：
-1. **影響遠期價格**：股票型結算的標的，利率越高，遠期價越高 → **call 價值上升、put 價值下降**。
-2. **影響選擇權的現值**：股票型結算的選擇權，利率越高，折現越多 → 選擇權現值下降。
+1. **影響 forward price**：stock-type settlement 的 underlying，利率越高，forward price 越高 → **call 價值上升、put 價值下降**。
+2. **影響 option 的現值**：stock-type settlement 的 option，利率越高，折現越多 → option 現值下降。
 
-多數情況兩者用同一個利率；外匯選擇權則需要兩個利率（外幣利率影響遠期、本幣利率影響折現），即 Garman-Kohlhagen 版本。
+多數情況兩者用同一個利率；外匯 option 則需要兩個利率（外幣利率影響遠期、本幣利率影響折現），即 Garman-Kohlhagen 版本。
 
-**例題 5-8（Python 驗證）**：例 5-6 的參數，利率從 6% 降到 2%：call 2.863 → 2.612，put 2.119 → 2.363（遠期價格效果主導）。
+**例題 5-8（Python 驗證）**：例 5-6 的參數，利率從 6% 降到 2%：call 2.863 → 2.612，put 2.119 → 2.363（forward price 效果主導）。
 
-**該用哪個利率？** 教科書常建議**無風險利率**（同天期公債殖利率，例如 60 天選擇權用 60 天國庫券）。但一般人無法以政府利率借貸，所以實務上常參考自由交易的利率市場（原書提到 LIBOR 與歐洲美元期貨；LIBOR 已於 2023 年退場，美元市場現多改用 SOFR 及 SOFR 期貨）。嚴格說，交易產生借方時該用借款利率、貸方時用存款利率。
-不過在標的價、時間、利率、波動率四個輸入中，**利率通常最不重要**，用一個「合理」的利率即可；只有在部位極大或天期極長時，小小的利率差才會有明顯影響。
+**該用哪個利率？** 教科書常建議**無風險利率**（同天期公債殖利率，例如 60 天 option 用 60 天國庫券）。但一般人無法以政府利率借貸，所以實務上常參考自由交易的利率市場（原書提到 LIBOR 與歐洲美元期貨（futures）；LIBOR 已於 2023 年退場，美元市場現多改用 SOFR 及 SOFR futures）。嚴格說，交易產生借方時該用借款利率、貸方時用存款利率。
+不過在 underlying 價、時間、利率、volatility 四個輸入中，**利率通常最不重要**，用一個「合理」的利率即可；只有在 position 極大或天期極長時，小小的利率差才會有明顯影響。
 
 #### (5) 股利（Dividends）
-股利只影響股票選擇權，而且只有在選擇權存續期間預期會配息時才相關。模型需要正確的遠期價格，因此要估計股利金額與日期。
-- 交易員關心的是**除息日**而非發放日：發放日只影響股利能賺多少利息（遠期價的小修正），但**能不能拿到股利取決於除息日當時是否持有股票**。深度價內選擇權雖然很像股票，但只有股票持有人能領股利。
-- 公司正式宣告前，股利都不確定：可能增加、減少或取消。一般假設延續過去政策（例如每季 $0.75）。
-- **除息日恰在到期前**時要特別小心：若延後幾天落到到期後，對選擇權而言等同取消股利。
+dividend 只影響股票 option，而且只有在 option 存續期間預期會配息時才相關。模型需要正確的 forward price，因此要估計 dividend 金額與日期。
+- 交易員關心的是**ex-dividend date**而非發放日：發放日只影響 dividend 能賺多少利息（forward price 的小修正），但**能不能拿到 dividend 取決於 ex-dividend date 當時是否持有股票**。深度價內（in-the-money, ITM）option 雖然很像股票，但只有股票持有人能領 dividend。
+- 公司正式宣告前，dividend 都不確定：可能增加、減少或取消。一般假設延續過去政策（例如每季 $0.75）。
+- **ex-dividend date 恰在到期前**時要特別小心：若延後幾天落到到期後，對 option 而言等同取消 dividend。
 
-**例題 5-9（Python 驗證）**：例 5-6 的股票若在到期前除息 $0.80（遠期價以 $F=Se^{rt}-D$ 近似），call 從 2.863 降到約 2.432，put 從 2.119 升到約 2.475。如果除息日延到到期後，這 0.43 的差異就會瞬間反轉。
+**例題 5-9（Python 驗證）**：例 5-6 的股票若在到期前除息 $0.80（forward price 以 $F=Se^{rt}-D$ 近似），call 從 2.863 降到約 2.432，put 從 2.119 升到約 2.475。如果 ex-dividend date 延到到期後，這 0.43 的差異就會瞬間反轉。
 
 #### (6) 波動率（Volatility）
-所有輸入中最難理解、但對交易決策影響最大的。波動率假設的改變會大幅改變選擇權價值；市場評估波動率的方式也會大幅改變選擇權價格。下一章 [ch06](ch06_volatility.md) 專門討論。
+所有輸入中最難理解、但對交易決策影響最大的。volatility 假設的改變會大幅改變 option 價值；市場評估 volatility 的方式也會大幅改變 option 價格。下一章 [ch06](ch06_volatility.md) 專門討論。
 
 ---
 
 ## 交易員視角
 
-1. **做市就是賣「長期期望值」**：你在 Optibook 上報 bid/ask，本質上就是賭場——以低於理論價買、高於理論價賣，累積理論優勢。但要活到「長期」：部位上限、避險、不要讓單一事件打爆你。
-2. **報價前先決定用哪個標的價**：若你在 Optibook 用最後成交價當模型輸入，一筆離譜成交就會讓你所有報價錯位。較穩健的做法是用最佳 bid/ask 中價，或依你要避險的方向偏向 bid／ask。
-3. **避險方向口訣**：被打了 call 的 ask（你賣出 call）→ 買標的；被打了 put 的 ask（你賣出 put）→ 賣標的。寫程式時把它寫成「依 delta 正負決定下單方向」，避免 put 的方向寫反。
-4. **時間輸入**：Optibook 的選擇權若以秒或分鐘計到期，要把剩餘時間換成年化（例如 `seconds / (365*24*3600)`），並與你估計波動率時的年化方式一致。
-5. **不要過度信任模型**：接近到期、標的報價稀疏、或模型輸入過時時，模型值的可靠度大降。此時寧可報寬一點、或縮小部位。
+1. **做市（market making）就是賣「長期 expected value」**：你在 Optibook 上報 bid/ask，本質上就是賭場——以低於理論價買、高於理論價賣，累積 theoretical edge。但要活到「長期」：部位上限（position limit）、hedge、不要讓單一事件打爆你。
+2. **quote 前先決定用哪個 underlying 價**：若你在 Optibook 用最後成交價當模型輸入，一筆離譜成交就會讓你所有 quote 錯位。較穩健的做法是用最佳 bid/ask 中價，或依你要 hedge 的方向偏向 bid／ask。
+3. **hedge 方向口訣**：被打了 call 的 ask（你賣出 call）→ 買 underlying；被打了 put 的 ask（你賣出 put）→ 賣 underlying。寫程式時把它寫成「依 delta 正負決定下單方向」，避免 put 的方向寫反。
+4. **時間輸入**：Optibook 的 option 若以秒或分鐘計到期，要把剩餘時間換成年化（例如 `seconds / (365*24*3600)`），並與你估計 volatility 時的年化方式一致。
+5. **不要過度信任模型**：接近到期、underlying quote 稀疏、或模型輸入過時時，模型值的可靠度大降。此時寧可報寬一點、或縮小 position。
 
 ## 常見誤區
 
-1. **誤解**：方向看對了，買選擇權就一定賺。
-   **正解**：還要速度夠快；時間價值流失可能抵銷方向上的獲利。
-2. **誤解**：期望值就是單次最可能拿到的金額。
-   **正解**：期望值是長期平均，單次結果可能根本不會是期望值。
-3. **誤解**：理論價值 = 期望值。
-   **正解**：理論價值還要考慮資金的時間價值（折現）及其他現金流（如股利）。
-4. **誤解**：分配應該以標的現價為中心。
-   **正解**：無套利要求以**遠期價格**為平均；分配不必對稱，只要平均等於遠期價。
-5. **誤解**：買 put 避險要賣標的。
-   **正解**：買 put 是市場空頭，要**買**標的避險；put 與標的同向操作。
+1. **誤解**：方向看對了，買 option 就一定賺。
+   **正解**：還要速度夠快；time value 流失可能抵銷方向上的獲利。
+2. **誤解**：expected value 就是單次最可能拿到的金額。
+   **正解**：expected value 是長期平均，單次結果可能根本不會是 expected value。
+3. **誤解**：theoretical value = expected value。
+   **正解**：theoretical value 還要考慮資金的 time value（折現）及其他現金流（如 dividend）。
+4. **誤解**：分配應該以 underlying 現價為中心。
+   **正解**：無 arbitrage 要求以**forward price**為平均；分配不必對稱，只要平均等於 forward price。
+5. **誤解**：買 put hedge 要賣 underlying。
+   **正解**：買 put 是市場空頭，要**買** underlying hedge；put 與 underlying 同向操作。
 6. **誤解**：利率是最重要的輸入，必須非常精確。
-   **正解**：利率通常是最不敏感的輸入；最關鍵的是波動率（以及標的價格）。
+   **正解**：利率通常是最不敏感的輸入；最關鍵的是 volatility（以及 underlying 價格）。
 
 ## 重點摘要
 
 | 主題 | 公式／規則 |
 |---|---|
-| 期望值 | $E=\sum p_i x_i$ |
-| 理論價值（股票型結算） | $TV=\dfrac{E}{1+rt}$（+ 其他現金流現值） |
-| Call 期望值 | $\sum p_i\max(S_i-X,0)$ |
-| Put 期望值 | $\sum p_i\max(X-S_i,0)$ |
-| 無套利限制 | $\sum p_iS_i=F$ |
-| 模型四步驟 | 價格 → 機率（平均=F）→ 期望值 → 現值 |
-| B-S 五輸入 | 履約價、到期時間、標的價、利率、波動率（+股利） |
-| 避險 | call 與標的反向、put 與標的同向 |
+| expected value | $E=\sum p_i x_i$ |
+| theoretical value（stock-type settlement） | $TV=\dfrac{E}{1+rt}$（+ 其他現金流現值） |
+| Call expected value | $\sum p_i\max(S_i-X,0)$ |
+| Put expected value | $\sum p_i\max(X-S_i,0)$ |
+| 無 arbitrage 限制 | $\sum p_iS_i=F$ |
+| 模型四步驟 | 價格 → 機率（平均=F）→ expected value → 現值 |
+| B-S 五輸入 | strike、到期時間、underlying 價、利率、volatility（+dividend） |
+| hedge | call 與 underlying 反向、put 與 underlying 同向 |
 | 利率影響（股票） | 利率↑ → 遠期↑ → call↑ put↓；同時折現↑ |
-| 標的價輸入 | 做多選擇權（要賣標的）用 bid；做空選擇權（要買標的）用 ask |
-| 時間輸入 | 日曆日 /365；波動率已年化 |
-| 股利 | 看除息日；未宣告前不確定 |
+| underlying 價輸入 | 做多 option（要賣 underlying）用 bid；做空 option（要買 underlying）用 ask |
+| 時間輸入 | 日曆日 /365；volatility 已年化 |
+| dividend | 看 ex-dividend date；未宣告前不確定 |
 
 ---
 
@@ -356,27 +356,27 @@ Black-Scholes 還引入一個關鍵概念：**每個選擇權部位都有一個�
 
 ### A. 概念題
 
-**A1.** 為什麼一個善於預測方向但不擅長判斷速度的交易員，應該交易標的而不是買選擇權？
+**A1.** 為什麼一個善於預測方向但不擅長判斷速度的交易員，應該交易 underlying 而不是買 option？
 
 <details><summary>解答</summary>
 
-買選擇權必須方向和速度都對才能獲利；標的只需要方向對。選擇權的時間價值會隨時間流失，若市場移動得太慢，即使方向正確也可能虧損。
+買 option 必須方向和速度都對才能獲利；underlying 只需要方向對。option 的 time value 會隨時間流失，若市場移動得太慢，即使方向正確也可能虧損。
 
 </details>
 
-**A2.** 賭場以 $1 賣出期望值 $0.973 的賭注，為什麼仍可能倒閉？這對選擇權交易員有什麼啟示？
+**A2.** 賭場以 $1 賣出 expected value $0.973 的賭注，為什麼仍可能倒閉？這對 option 交易員有什麼啟示？
 
 <details><summary>解答</summary>
 
-正期望值只在長期成立；短期內連續的壞運氣可能讓資本耗盡，等不到長期。交易員必須同時管理短期風險（部位大小、避險、資金），風險管理與理論價值同等重要。
+正 expected value 只在長期成立；短期內連續的壞運氣可能讓資本耗盡，等不到長期。交易員必須同時管理短期風險（position 大小、hedge、資金），風險管理與 theoretical value 同等重要。
 
 </details>
 
-**A3.** 為什麼在無套利的假設下，到期價格分配的平均數必須等於遠期價格？
+**A3.** 為什麼在無 arbitrage 的假設下，到期價格分配的平均數必須等於 forward price？
 
 <details><summary>解答</summary>
 
-若分配平均高於遠期價，代表以遠期價買入遠期合約長期會獲利；低於則賣出獲利。這樣的「預期利潤」會吸引交易把遠期價推回。在套利機制下，遠期價就是市場一致認定的到期平均值，否則就存在可套利的錯價。
+若分配平均高於 forward price，代表以 forward price 買入 forward contract 長期會獲利；低於則賣出獲利。這樣的「預期利潤」會吸引交易把 forward price 推回。在 arbitrage 機制下，forward price 就是市場一致認定的到期平均值，否則就存在可 arbitrage 的錯價。
 
 </details>
 
@@ -384,21 +384,21 @@ Black-Scholes 還引入一個關鍵概念：**每個選擇權部位都有一個�
 
 <details><summary>解答</summary>
 
-at the money 是履約價等於標的現價；at the forward 是履約價等於到期遠期價。高利率、無股利的長天期股票選擇權，遠期價明顯高於現價（例如現價 100、利率 5%、2 年，遠期約 110），此時 100 履約價是價平但遠低於 at the forward。
+at the money 是 strike 等於 underlying 現價；at the forward 是 strike 等於到期 forward price。高利率、無 dividend 的長天期股票 option，forward price 明顯高於現價（例如現價 100、利率 5%、2 年，遠期約 110），此時 100 strike 是 ATM 但遠低於 at the forward。
 
 </details>
 
-**A5.** ⭐ 交易員賣出 put，應如何避險？為什麼新手常做錯？
+**A5.** ⭐ 交易員賣出 put，應如何 hedge？為什麼新手常做錯？
 
 <details><summary>提示</summary>
 
-先想：賣 put 之後，你希望標的漲還是跌（市場部位是多還是空）？再用口訣「put 和標的同向」。
+先想：賣 put 之後，你希望 underlying 漲還是跌（市場 position 是多還是空）？再用口訣「put 和 underlying 同向」。
 
 </details>
 
 <details><summary>解答</summary>
 
-賣 put 是市場多頭（標的漲有利），應**賣出**標的避險。新手容易以為「賣東西就該買標的平衡」，忽略 put 本身是空頭工具，賣出 put 反而變成多頭。
+賣 put 是市場多頭（underlying 漲有利），應**賣出** underlying hedge。新手容易以為「賣東西就該買 underlying 平衡」，忽略 put 本身是空頭工具，賣出 put 反而變成多頭。
 
 </details>
 
@@ -406,17 +406,17 @@ at the money 是履約價等於標的現價；at the forward 是履約價等於�
 
 <details><summary>解答</summary>
 
-一般輸入日曆日即可。利息每天累積，必須用日曆日；價格變動雖只在營業日發生，但波動率是用營業日的變動估計後年化的，模型會用年化波動率乘上年化時間，兩者一致。
+一般輸入日曆日即可。利息每天累積，必須用日曆日；價格變動雖只在營業日發生，但 volatility 是用營業日的變動估計後年化的，模型會用年化 volatility 乘上年化時間，兩者一致。
 
 </details>
 
 ### B. 計算題
 
-**B1.** ⭐ 一張彩券有 1% 機率中 $500、4% 機率中 $50，其餘不中。期望值？若售價 $8，買家的優勢？
+**B1.** ⭐ 一張彩券有 1% 機率中 $500、4% 機率中 $50，其餘不中。expected value？若售價 $8，買家的優勢？
 
 <details><summary>提示</summary>
 
-期望值 = 中獎金額 × 機率，加總；優勢 = 期望值 − 售價（負的就是買家吃虧）。
+expected value = 中獎金額 × 機率，加總；優勢 = expected value − 售價（負的就是買家吃虧）。
 
 </details>
 
@@ -426,11 +426,11 @@ $E=0.01\times500+0.04\times50=7.00$；買家優勢 $7.00-8.00=-\$1.00$（每張�
 
 </details>
 
-**B2.** ⭐ 承 B1，若中獎金額 6 個月後才支付，利率 5%（單利），理論價值是多少？
+**B2.** ⭐ 承 B1，若中獎金額 6 個月後才支付，利率 5%（單利），theoretical value 是多少？
 
 <details><summary>提示</summary>
 
-用 B1 的期望值，除以（1 + 5% × 0.5）就是現值。
+用 B1 的 expected value，除以（1 + 5% × 0.5）就是現值。
 
 </details>
 
@@ -440,21 +440,21 @@ $7.00/(1+0.05\times0.5)=7.00/1.025=\$6.829$
 
 </details>
 
-**B3.** 期貨現價 100（期貨選擇權，股票型結算），到期可能值 90、95、100、105、110，機率 10%、20%、40%、20%、10%。利率 4%、3 個月到期。求 100 call 與 95 put 的理論價值。
+**B3.** futures 現價 100（futures option，stock-type settlement），到期可能值 90、95、100、105、110，機率 10%、20%、40%、20%、10%。利率 4%、3 個月到期。求 100 call 與 95 put 的 theoretical value。
 
 <details><summary>解答</summary>
 
-期貨的遠期價就是 100，分配平均 = 100 ✓。
+futures 的 forward price 就是 100，分配平均 = 100 ✓。
 - 100 call：$E=0.2\times5+0.1\times10=2.00$；$TV=2.00/1.01=1.980$
 - 95 put：$E=0.1\times5=0.50$；$TV=0.50/1.01=0.495$
 
 </details>
 
-**B4.** ⭐ 無股利股票現價 80，利率 5%，6 個月到期。(a) 遠期價？(b) 以遠期價為中心、間距 5、機率 10/20/40/20/10%，求 80 call 與 80 put 的理論價值。
+**B4.** ⭐ 無 dividend 股票現價 80，利率 5%，6 個月到期。(a) forward price？(b) 以 forward price 為中心、間距 5、機率 10/20/40/20/10%，求 80 call 與 80 put 的 theoretical value。
 
 <details><summary>提示</summary>
 
-第一步遠期價 = 80 ×（1 + 5% × 0.5）；第二步以遠期價為中心、每隔 5 列出五個結果；第三步算每個結果的 call、put 到期價值乘機率加總，最後折現。
+第一步 forward price = 80 ×（1 + 5% × 0.5）；第二步以 forward price 為中心、每隔 5 列出五個結果；第三步算每個結果的 call、put 到期價值乘機率加總，最後折現。
 
 </details>
 
@@ -467,7 +467,7 @@ $7.00/(1+0.05\times0.5)=7.00/1.025=\$6.829$
 
 </details>
 
-**B5.** 某標的遠期價 81。到期可能值 60、70、80、90、100，已知 60 和 100 的機率各 10%，70 的機率 25%。為了無套利，80 和 90 的機率應各是多少？
+**B5.** 某 underlying forward price 81。到期可能值 60、70、80、90、100，已知 60 和 100 的機率各 10%，70 的機率 25%。為了無 arbitrage，80 和 90 的機率應各是多少？
 
 <details><summary>解答</summary>
 
@@ -475,7 +475,7 @@ $7.00/(1+0.05\times0.5)=7.00/1.025=\$6.829$
 
 </details>
 
-**B6.** 選擇權剩 73 個日曆日到期，模型中的 $t$ 應輸入多少？
+**B6.** option 剩 73 個日曆日到期，模型中的 $t$ 應輸入多少？
 
 <details><summary>解答</summary>
 
@@ -483,36 +483,36 @@ $t=73/365=0.2$ 年。
 
 </details>
 
-**B7.** 標的報價 64.10 / 64.30，最後成交 64.25。(a) 你準備賣出 put 給客戶，評價時應輸入哪個標的價較合理？(b) 若準備賣出 call 呢？
+**B7.** underlying quote 64.10 / 64.30，最後成交 64.25。(a) 你準備賣出 put 給客戶，評價時應輸入哪個 underlying 價較合理？(b) 若準備賣出 call 呢？
 
 <details><summary>解答</summary>
 
-(a) 賣 put 是市場多頭，要賣標的避險，用接近 bid 的 64.10。
-(b) 賣 call 是市場空頭，要買標的避險，用接近 ask 的 64.30。
+(a) 賣 put 是市場多頭，要賣 underlying hedge，用接近 bid 的 64.10。
+(b) 賣 call 是市場空頭，要買 underlying hedge，用接近 ask 的 64.30。
 
 </details>
 
 ### C. 交易情境題
 
-**C1.** 你在 Optibook 做市某股票選擇權。股票流動性很差：bid/ask = 99.20 / 100.80，最後成交 100.70（是一小時前的成交）。同事建議直接用 100.70 當模型輸入。你怎麼看？你會如何報 call 的買賣價？
+**C1.** 你在 Optibook market making 某股票 option。股票流動性很差：bid/ask = 99.20 / 100.80，最後成交 100.70（是一小時前的成交）。同事建議直接用 100.70 當模型輸入。你怎麼看？你會如何報 call 的買賣價？
 
 <details><summary>解答</summary>
 
-100.70 是過時且偏向 ask 的價格，用它會高估 call、低估 put。價差寬達 1.60，避險成本高。合理做法：(1) 報 call 的 **bid**（你買 call → 要賣標的避險）時，用接近標的 bid 99.20 計算理論價；(2) 報 call 的 **ask**（你賣 call → 要買標的避險）時，用接近 100.80 計算。這樣你的報價自然變寬，反映標的避險成本，避免被知情交易者挑選。
+100.70 是過時且偏向 ask 的價格，用它會高估 call、低估 put。價差寬達 1.60，hedge 成本高。合理做法：(1) 報 call 的 **bid**（你買 call → 要賣 underlying hedge）時，用接近 underlying bid 99.20 計算理論價；(2) 報 call 的 **ask**（你賣 call → 要買 underlying hedge）時，用接近 100.80 計算。這樣你的 quote 自然變寬，反映 underlying hedge 成本，避免被知情交易者挑選。
 
 </details>
 
-**C2.** 某股預期在選擇權到期前兩天除息 $1.50，但公司歷史上除息日常會延後一週。你持有大量深度價內 call。你該擔心什麼？可以怎麼做？
+**C2.** 某股預期在 option 到期前兩天除息 $1.50，但公司歷史上 ex-dividend date 常會延後一週。你持有大量深度 ITM call。你該擔心什麼？可以怎麼做？
 
 <details><summary>解答</summary>
 
-若除息日如期在到期前，遠期價要扣 1.50，call 價值較低；若延後到到期後，遠期價不扣股利，call 價值會上升約 1.50 × 避險比率（深度價內接近 1.50）。不確定性很大。你可以：(1) 努力確認公司公告的除息日；(2) 在評價時以機率加權兩種情境；(3) 若為美式 call，考慮除息前提前履約以領取股利（見 [ch16](ch16_early_exercise.md)）；(4) 縮小部位以降低風險。
+若 ex-dividend date 如期在到期前，forward price 要扣 1.50，call 價值較低；若延後到到期後，forward price 不扣 dividend，call 價值會上升約 1.50 × hedge ratio（深度 ITM 接近 1.50）。不確定性很大。你可以：(1) 努力確認公司公告的 ex-dividend date；(2) 在評價時以機率加權兩種情境；(3) 若為美式 call，考慮除息前提前履約（early exercise）以領取 dividend（見 [ch16](ch16_early_exercise.md)）；(4) 縮小 position 以降低風險。
 
 </details>
 
 ### D. 挑戰題
 
-**D1.** 證明：在 5.2 節的離散模型下，**任何**平均數等於遠期價 $F$ 的分配，都滿足
+**D1.** 證明：在 5.2 節的離散模型下，**任何**平均數等於 forward price $F$ 的分配，都滿足
 $$TV_{\text{call}}-TV_{\text{put}}=\frac{F-X}{1+rt}$$
 並用 B4 的數字驗證。這個結果說明了什麼？
 
@@ -522,7 +522,7 @@ $$TV_{\text{call}}-TV_{\text{put}}=\frac{F-X}{1+rt}$$
 $$E[\text{call}]-E[\text{put}]=\sum p_i(S_i-X)=\sum p_iS_i-X=F-X$$
 折現後得到 $\dfrac{F-X}{1+rt}$。
 B4 驗證：$(3.40-1.40)/1.025=1.951$；$(82-80)/1.025=1.951$ ✓。
-意義：call 與 put 的價差**完全不受**分配形狀（也就是波動率假設）影響，只取決於遠期價、履約價與利率。這就是買賣權平價（put-call parity，[ch15](ch15_option_arbitrage.md)），也解釋了為何同履約價的 call 和 put 對波動率變動的反應幾乎相同（[ch06](ch06_volatility.md)）。
+意義：call 與 put 的價差**完全不受**分配形狀（也就是 volatility 假設）影響，只取決於 forward price、strike 與利率。這就是 put-call parity（put-call parity，[ch15](ch15_option_arbitrage.md)），也解釋了為何同 strike 的 call 和 put 對 volatility 變動的反應幾乎相同（[ch06](ch06_volatility.md)）。
 
 </details>
 
@@ -530,13 +530,13 @@ B4 驗證：$(3.40-1.40)/1.025=1.951$；$(82-80)/1.025=1.951$ ✓。
 
 ## 自我檢核清單
 
-- [ ] 能說明選擇權交易為何同時需要方向與速度判斷
-- [ ] 能計算期望值、優勢，以及考慮延遲支付的理論價值
-- [ ] 能用離散分配算出 call 與 put 的期望值與現值
-- [ ] 能檢查／設定分配使其平均等於遠期價格
+- [ ] 能說明 option 交易為何同時需要方向與速度判斷
+- [ ] 能計算 expected value、優勢，以及考慮延遲支付的 theoretical value
+- [ ] 能用離散分配算出 call 與 put 的 expected value 與現值
+- [ ] 能檢查／設定分配使其平均等於 forward price
 - [ ] 能背出模型四步驟與 Black-Scholes 五輸入
-- [ ] 能說出四種選擇權部位的市場方向與正確避險方向
-- [ ] 能說明時間、標的價、利率、股利輸入的實務選擇
+- [ ] 能說出四種 option position 的市場方向與正確 hedge 方向
+- [ ] 能說明時間、underlying 價、利率、dividend 輸入的實務選擇
 - [ ] 能解釋為什麼模型是「手電筒」而不是真相
 
 ## 對應 Lab
@@ -549,4 +549,4 @@ B4 驗證：$(3.40-1.40)/1.025=1.951$；$(82-80)/1.025=1.951$ ✓。
 
 **延伸練習（選做，不在自動測驗內；以下函式名稱只是建議）**
 
-- **lab03_pricing_models**（[../labs/](../labs/)）：實作 `expected_payoff(outcomes, probs, K, type)`、`theoretical_value(..., r, t)`，並寫一個檢查「分配平均是否等於遠期價」的函式；用例 5-4、5-5 與 B3～B5 驗證。接著把離散分配換成大量點的常態／對數常態分配，觀察結果如何逼近 Black-Scholes（例 5-6：call ≈ 2.863），為 [ch06](ch06_volatility.md) 與 [ch18](ch18_black_scholes.md) 鋪路。
+- **lab03_pricing_models**（[../labs/](../labs/)）：實作 `expected_payoff(outcomes, probs, K, type)`、`theoretical_value(..., r, t)`，並寫一個檢查「分配平均是否等於 forward price」的函式；用例 5-4、5-5 與 B3～B5 驗證。接著把離散分配換成大量點的常態／lognormal distribution，觀察結果如何逼近 Black-Scholes（例 5-6：call ≈ 2.863），為 [ch06](ch06_volatility.md) 與 [ch18](ch18_black_scholes.md) 鋪路。

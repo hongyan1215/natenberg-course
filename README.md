@@ -117,3 +117,5 @@ cd labs && ../.venv/bin/python -m pytest tests/test_lab05_greeks.py -q
 ```bash
 .venv/bin/python tools/build_site.py && .venv/bin/mkdocs serve
 ```
+
+**術語用詞**：專有名詞在每頁第一次出現寫「中文（English）」，之後只用英文。對照表在 `tools/glossary.tsv`；新增或修改內容後執行 `.venv/bin/python tools/apply_glossary.py` 統一轉換（標題、程式碼、數學式與連結不會改動，可重複執行）。

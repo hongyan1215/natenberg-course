@@ -8,7 +8,7 @@
 
 **你只需要先記住這 5 件事**
 
-1. **六大能力群可以濃縮成四個字：知道、快、做、穩。** 理論和機率是「知道」，心算是「快」，造市和整合實戰是「做」，風控和溝通是「穩」。難的是要同時做到。
+1. **六大能力群可以濃縮成四個字：知道、快、做、穩。** 理論和機率是「知道」，心算是「快」，造市（market making）和整合實戰是「做」，風控和溝通是「穩」。難的是要同時做到。
 2. **先量測再規劃。** 用 throughput（每分鐘答對題數）= 題數 × 正確率 ÷ 分鐘數。例：4 分鐘 12 題、正確率 75% → 每分鐘 2.25 題。
 3. **先練準，再練快。** 正確率低於 80% 先別壓時間；穩定在 90% 以上才開始計時。
 4. **8 週 × 每週 6 天 × 每天 90 分鐘 = 72 小時。** 弱項時間加倍；每天：暖身 10、主題 30–40、遊戲 15–20、大聲口述 10、復盤 5–10 分鐘。
@@ -32,7 +32,7 @@
 
 ## 本章定位
 
-你已經（或正在）走完 Natenberg 25 章，對選擇權定價、Greeks、波動率、價差策略有了系統的理解。交易員培訓要求的是另一層能力：**在時間壓力下把這些知識變成正確的決策、清楚地說出來、並且守住紀律**。這條「培訓準備軌道」（P1–P13）就是那座橋。本章是地圖：培訓大致在練什麼、各章對應什麼能力、入職前 8 週怎麼安排、每天怎麼練、怎麼面對壓力與回饋。
+你已經（或正在）走完 Natenberg 25 章，對選擇權（option）定價、Greeks、波動率（volatility）、價差策略有了系統的理解。交易員培訓要求的是另一層能力：**在時間壓力下把這些知識變成正確的決策、清楚地說出來、並且守住紀律**。這條「培訓準備軌道」（P1–P13）就是那座橋。本章是地圖：培訓大致在練什麼、各章對應什麼能力、入職前 8 週怎麼安排、每天怎麼練、怎麼面對壓力與回饋。
 
 > **關於資訊來源**：本軌道對培訓內容的描述，依公開分享與業界常見做法整理；網路上流傳的細節（題數、形式、淘汰方式等）屬未經證實的二手資訊，實際內容可能不同，請以公司正式說明為準。本軌道的目標是建立通用、正確、可遷移的交易員能力，不依賴任何特定流程。
 
@@ -53,14 +53,14 @@
 
 > 💡 **一句話**：能力分四種：知道、快、做、穩；培訓難在要同時做到，所以每項都要練到不用想。
 
-無論各公司的課程如何安排，選擇權造市交易員需要的能力大致可以分成六群：
+無論各公司的課程如何安排，option market making 交易員需要的能力大致可以分成六群：
 
 | 能力群 | 為什麼重要 | 本軌道章節 | Natenberg 章節 |
 |---|---|---|---|
-| ① 選擇權理論深化 | 高階 Greeks、曲面動態、到期行為決定風險的「第二層」 | [P2](p02_higher_order_greeks.md)、[P3](p03_surface_dynamics.md)、[P4](p04_expiration_pin_risk.md)、[P5](p05_surface_no_arbitrage.md) | [ch07](../lessons/ch07_risk_measurement_1.md)、[ch09](../lessons/ch09_risk_measurement_2.md)、[ch16](../lessons/ch16_early_exercise.md)、[ch24](../lessons/ch24_volatility_skews.md) |
+| ① option 理論深化 | 高階 Greeks、曲面動態、到期行為決定風險的「第二層」 | [P2](p02_higher_order_greeks.md)、[P3](p03_surface_dynamics.md)、[P4](p04_expiration_pin_risk.md)、[P5](p05_surface_no_arbitrage.md) | [ch07](../lessons/ch07_risk_measurement_1.md)、[ch09](../lessons/ch09_risk_measurement_2.md)、[ch16](../lessons/ch16_early_exercise.md)、[ch24](../lessons/ch24_volatility_skews.md) |
 | ② 心算與估算 | 3–5 秒內給出誤差已知的數字 | [P6](p06_mental_math.md) | [ch06](../lessons/ch06_volatility.md)、[ch18](../lessons/ch18_black_scholes.md)、[appB](../lessons/appB_useful_math.md) |
-| ③ 造市 | theo、edge、寬度、逆向選擇、庫存、跨市場 | [P7](p07_market_making_basics.md)、[P8](p08_adverse_selection.md)、[P9](p09_inventory_skewing.md)、[P10](p10_cross_asset_pricing.md) | [ch08](../lessons/ch08_dynamic_hedging.md)、[ch21](../lessons/ch21_position_analysis.md) |
-| ④ 機率與期望值 | 每個報價都是期望值問題；成交是資訊 | [P11](p11_probability_ev.md) | [ch05](../lessons/ch05_pricing_models.md) |
+| ③ market making | theo、edge、寬度、逆向選擇（adverse selection）、庫存（inventory）、跨市場 | [P7](p07_market_making_basics.md)、[P8](p08_adverse_selection.md)、[P9](p09_inventory_skewing.md)、[P10](p10_cross_asset_pricing.md) | [ch08](../lessons/ch08_dynamic_hedging.md)、[ch21](../lessons/ch21_position_analysis.md) |
+| ④ 機率與期望值（expected value, EV） | 每個報價（quote）都是 expected value 問題；成交是資訊 | [P11](p11_probability_ev.md) | [ch05](../lessons/ch05_pricing_models.md) |
 | ⑤ 風控紀律與溝通 | 符號錯誤、限額、即時口述、復盤 | [P12](p12_risk_discipline.md) | [ch13](../lessons/ch13_risk_considerations.md)、[ch21](../lessons/ch21_position_analysis.md) |
 | ⑥ 整合實戰 | 把以上全部在模擬交易中同時做到 | [P13](p13_mock_trading_playbook.md) | 全部 |
 
@@ -74,9 +74,9 @@
 
 | 形式 | 內容 | 本軌道的對應準備 |
 |---|---|---|
-| 課堂講授 | 選擇權理論、市場結構、公司系統 | Natenberg 課程 + P2–P5 |
-| 限時測驗 | 算術、估算、選擇權計算、機率 | P6、P11 + [心算速練](../tools/mental-math.md) |
-| 遊戲／模擬交易 | 骰子、牌、未知數報價；模擬交易所造市 | P11、P13 + [模擬造市遊戲](../tools/mock-market-making.md) |
+| 課堂講授 | option 理論、市場結構、公司系統 | Natenberg 課程 + P2–P5 |
+| 限時測驗 | 算術、估算、option 計算、機率 | P6、P11 + [心算速練](../tools/mental-math.md) |
+| 遊戲／模擬交易 | 骰子、牌、未知數 quote；模擬交易所 market making | P11、P13 + [模擬造市遊戲](../tools/mock-market-making.md) |
 | 教練即時提問 | 「你的 delta？為什麼這樣報？」 | P12 + [教練拍肩問](../tools/coach-questions.md) |
 | 回饋與檢討 | 每日或每週的表現回顧 | P12 的復盤模板 |
 
@@ -110,11 +110,11 @@ $$
 | 週 | 主題 | 閱讀 | 每日練習 | 週末檢核 |
 |---|---|---|---|---|
 | 1 | 打底與診斷 | P1、P6（前半）；複習 ch06、ch07 | √t、÷16、0.4 規則速練 | 重做診斷，記錄 throughput |
-| 2 | 心算與泰勒 | P6（後半）；ch08、ch09 | 泰勒 PnL、新 delta、跨式 theta/vega | 15 題速練 ≥ 85% |
-| 3 | 機率與期望值 | P11；ch05 | 骰子/牌期望值、貝氏更新、Kelly | 3 局骰子造市遊戲 |
-| 4 | 造市基礎 | P7、P8 | 報價寬度、edge、markout 計算 | 模擬造市 3 局，寫復盤 |
-| 5 | 庫存與跨市場 | P9、P10；ch21 | 偏移、保留價格、ETF/期貨 theo | 模擬造市含部位上限 |
-| 6 | 高階 Greeks 與曲面 | P2、P3、P5；ch24 | vanna/volga 符號、無套利秒判 | 套利偵測練習 |
+| 2 | 心算與泰勒 | P6（後半）；ch08、ch09 | 泰勒 PnL、新 delta、跨式（straddle） theta/vega | 15 題速練 ≥ 85% |
+| 3 | 機率與 expected value | P11；ch05 | 骰子/牌 expected value、貝氏更新、Kelly | 3 局骰子 market making 遊戲 |
+| 4 | market making 基礎 | P7、P8 | 報價寬度（quote width）、edge、markout 計算 | 模擬 market making 3 局，寫復盤 |
+| 5 | inventory 與跨市場 | P9、P10；ch21 | 偏移、保留價格、ETF/期貨（futures） theo | 模擬 market making 含部位上限（position limit） |
+| 6 | 高階 Greeks 與曲面 | P2、P3、P5；ch24 | vanna/volga 符號、無套利（arbitrage）秒判 | arbitrage 偵測練習 |
 | 7 | 到期與風控紀律 | P4、P12；ch13、ch16 | 符號對照表、五段式口述 | 教練提問 20 題錄音自評 |
 | 8 | 整合實戰 | P13；全部複習 | 每天一場完整模擬 + 復盤 | 模擬考、最終診斷 |
 
@@ -132,7 +132,7 @@ $$
 |---|---|---|---|
 | 暖身 | 10 分鐘 | 心算速練（√t、百分比、N(x) 地標） | throughput |
 | 主題 | 30–40 分鐘 | 當週章節的核心概念 + 練習題 | 練習正確率 |
-| 遊戲 | 15–20 分鐘 | 一局造市遊戲或機率題 | 損益、更新是否一致 |
+| 遊戲 | 15–20 分鐘 | 一局 market making 遊戲或機率題 | 損益、更新是否一致 |
 | 口述 | 10 分鐘 | 隨機抽 3 題教練提問，大聲回答（可錄音） | 是否用五段式、有無數字 |
 | 復盤 | 5–10 分鐘 | 寫下今天最大的錯誤與明天一件事 | 錯誤是否重複 |
 
@@ -153,7 +153,7 @@ $$
 | 生理基本面 | 睡眠、規律作息、適度運動 | 疲勞會直接降低心算速度與判斷力 |
 | 模擬壓力 | 練習時加計時、加干擾（有人在旁邊提問） | 讓真實情境變得熟悉 |
 
-**一個常見的陷阱**：犯了一個錯之後試圖「一次賺回來」，加大部位或放寬紀律。這是把一個小錯變成大錯的典型路徑（[P13 挑戰題](p13_mock_trading_playbook.md) 就是例子）。
+**一個常見的陷阱**：犯了一個錯之後試圖「一次賺回來」，加大部位（position）或放寬紀律。這是把一個小錯變成大錯的典型路徑（[P13 挑戰題](p13_mock_trading_playbook.md) 就是例子）。
 
 ### 1.7 可塑性（Coachability）
 
@@ -180,7 +180,7 @@ $$
 ## 交易員視角
 
 - **準備的目標是「可遷移」的能力**：心算、機率、風控紀律、清楚的溝通，在任何交易公司、任何市場都適用；不要花時間背網路上未經證實的「考古題」。
-- **模擬盤經驗是加分**：若能在 Optibook 類的模擬交易所寫一個簡單造市 bot（注意每隊一個連線、部位上限、速率限制、無成交通知），你會對報價管理、撤單與部位控管有第一手體會。
+- **模擬盤經驗是加分**：若能在 Optibook 類的模擬交易所寫一個簡單 market making bot（注意每隊一個連線、position limit、速率限制、無成交通知），你會對 quote 管理、撤單與 position 控管有第一手體會。
 - **把數據留下來**：每天的 throughput、每局模擬的損益分解與錯誤類型，8 週後就是一份能說明自己進步軌跡的紀錄，也能幫你在培訓中更快找到弱點。
 - **身心狀態是基礎建設**：培訓期間的學習強度高，提早建立規律作息比最後衝刺有效。
 
@@ -197,7 +197,7 @@ $$
 
 | 主題 | 要點 |
 |---|---|
-| 六大能力群 | 理論深化、心算估算、造市、機率期望值、風控溝通、整合實戰 |
+| 六大能力群 | 理論深化、心算估算、market making、機率 expected value、風控溝通、整合實戰 |
 | 診斷指標 | throughput = 題數 × 正確率 ÷ 分鐘；先練準（≥ 80%）再練快 |
 | 8 週計畫 | 每週 6 天 × 90 分鐘 = 72 小時；弱項時間加倍；每週一次完整模擬 |
 | 每日例行 | 暖身 10 + 主題 30–40 + 遊戲 15–20 + 口述 10 + 復盤 5–10 分鐘 |
@@ -215,7 +215,7 @@ $$
 
 <details><summary>解答</summary>
 
-知道：選擇權理論深化、機率與期望值；快：心算與估算；做：造市、整合實戰；穩：風控紀律與溝通。模擬交易時你要同時算 theo（知道 + 快）、管理報價與部位（做）、避免符號錯誤並口述（穩）；任何一項需要刻意思考，就會拖垮其他項，所以每一項都要練到自動化。
+知道：option 理論深化、機率與 expected value；快：心算與估算；做：market making、整合實戰；穩：風控紀律與溝通。模擬交易時你要同時算 theo（知道 + 快）、管理 quote 與 position（做）、避免符號錯誤並口述（穩）；任何一項需要刻意思考，就會拖垮其他項，所以每一項都要練到自動化。
 
 </details>
 
@@ -259,11 +259,11 @@ $$
 
 ### B. 計算題（迷你診斷：建議 8 分鐘內完成）
 
-**B1.** ⭐ 股價 200、年化波動率 24%。用 ÷16 規則估算每日一個標準差的移動。
+**B1.** ⭐ 股價 200、年化 volatility 24%。用 ÷16 規則估算每日一個標準差（standard deviation）的移動。
 
 <details><summary>提示</summary>
 
-先算一年一個標準差 = 股價 × 波動率，再除以 16。
+先算一年一個 standard deviation = 股價 × volatility，再除以 16。
 
 </details>
 
@@ -273,7 +273,7 @@ $200\times0.24/16=$ **3.00**。（[P6](p06_mental_math.md)）
 
 </details>
 
-**B2.** S = 60、σ = 30%、3 個月的 ATM 跨式，用 0.8 規則估算。
+**B2.** S = 60、σ = 30%、3 個月的 ATM straddle，用 0.8 規則估算。
 
 <details><summary>解答</summary>
 
@@ -281,15 +281,15 @@ $0.8\times60\times0.30\times0.5=$ **7.20**；BS 精確（$r=0$）7.17。（[P6](
 
 </details>
 
-**B3.** 4 顆骰子的和：期望值與標準差？
+**B3.** 4 顆骰子的和：expected value 與 standard deviation？
 
 <details><summary>解答</summary>
 
-期望 **14**；標準差 $\sqrt{4\times35/12}=$ **3.42**。（[P11](p11_probability_ev.md)）
+期望 **14**；standard deviation $\sqrt{4\times35/12}=$ **3.42**。（[P11](p11_probability_ev.md)）
 
 </details>
 
-**B4.** 你買進 40 口 delta 0.35 的買權（乘數 100）。要賣出多少股才 delta 中立？
+**B4.** 你買進 40 口 delta 0.35 的買權（call）（乘數 100）。要賣出多少股才 delta 中立？
 
 <details><summary>解答</summary>
 
@@ -297,7 +297,7 @@ $40\times100\times0.35=$ **1,400 股**。（[第 8 章](../lessons/ch08_dynamic_
 
 </details>
 
-**B5.** $r=0$、無股利。95 履約價買權 8.10、標的 100。同到期同履約價賣權的價格？
+**B5.** $r=0$、無股利（dividend）。95 履約價（strike price）call 8.10、標的（underlying） 100。同到期同 strike 賣權（put）的價格？
 
 <details><summary>解答</summary>
 
@@ -365,7 +365,7 @@ $P(120\mid\text{buy})=(0.5+0.25)\times0.5/0.5=0.75$；theo $=80+40\times0.75=$ *
 
 <details><summary>解答</summary>
 
-示範：「我剛剛連續兩筆打反了，現在 delta 多了大約 X，我已經在把它拉回來。」接著：(1) 止血到目標部位；(2) 報告影響；(3) 說明原因（例如「我沒有在下單前念方向」）；(4) 提出改變（「接下來每筆先念出『我買／我賣』」）。重點是主動、具體、不辯解（[P12](p12_risk_discipline.md)）。
+示範：「我剛剛連續兩筆打反了，現在 delta 多了大約 X，我已經在把它拉回來。」接著：(1) 止血到目標 position；(2) 報告影響；(3) 說明原因（例如「我沒有在下單前念方向」）；(4) 提出改變（「接下來每筆先念出『我買／我賣』」）。重點是主動、具體、不辯解（[P12](p12_risk_discipline.md)）。
 
 </details>
 
@@ -373,7 +373,7 @@ $P(120\mid\text{buy})=(0.5+0.25)\times0.5/0.5=0.75$；theo $=80+40\times0.75=$ *
 
 <details><summary>解答</summary>
 
-示範：「這類說法我沒辦法驗證，可能是二手或過時的資訊。與其猜題，我會繼續照能力地圖準備：心算、機率、造市、風控紀律、口述。如果傳言提到的題型剛好是我的弱項，我會把它當成一個練習方向，但不會因此打亂整個計畫。」
+示範：「這類說法我沒辦法驗證，可能是二手或過時的資訊。與其猜題，我會繼續照能力地圖準備：心算、機率、market making、風控紀律、口述。如果傳言提到的題型剛好是我的弱項，我會把它當成一個練習方向，但不會因此打亂整個計畫。」
 
 </details>
 
@@ -389,9 +389,9 @@ $P(120\mid\text{buy})=(0.5+0.25)\times0.5/0.5=0.75$；theo $=80+40\times0.75=$ *
 
 (b) 分配：機率 13.5 小時（第 3 週 + 第 4、5 週各 2.25 小時）、風控口述 13.5 小時（第 7 週 + 每天 10 分鐘口述累計）；其他主題按比例縮減，但心算暖身每天保留 10 分鐘。
 
-(c) 週末檢核例：第 1 週 throughput ≥ 3；第 3 週骰子期望/標準差 10 題全對、貝氏更新 5 題 ≥ 80%；第 4 週模擬造市 3 局且每局有完整復盤；第 7 週教練提問 20 題全部用五段式並含數字；第 8 週模擬考 ≥ 80%。
+(c) 週末檢核例：第 1 週 throughput ≥ 3；第 3 週骰子期望/standard deviation 10 題全對、貝氏更新 5 題 ≥ 80%；第 4 週模擬 market making 3 局且每局有完整復盤；第 7 週教練提問 20 題全部用五段式並含數字；第 8 週模擬考 ≥ 80%。
 
-(d) 第 4 週：重做完整診斷，若弱項 throughput 提升不到 50%，再從強項挪 3–4 小時；若已達標，把時間轉到下一個弱項。第 8 週：最終診斷與模擬考，列出仍未達標的兩項，作為培訓期間的優先關注點。關鍵是**用數據而不是感覺**決定調整。
+(d) 第 4 週：重做完整診斷，若弱項 throughput 提升不到 50%，再從強項挪 3–4 小時；若已達標，把時間轉到下一個弱項。第 8 週：最終診斷與模擬考，列出仍未達 underlying 兩項，作為培訓期間的優先關注點。關鍵是**用數據而不是感覺**決定調整。
 
 </details>
 

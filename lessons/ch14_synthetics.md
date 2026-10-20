@@ -4,67 +4,67 @@
 
 > 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
 
-**一句話**：選擇權像樂高——買權、賣權、標的三塊積木，任兩塊拼起來就能「變出」第三塊。看懂這個，很多看起來陌生的部位一拆就認得。
+**一句話**：選擇權（option）像樂高——買權（call）、賣權（put）、標的（underlying）三塊積木，任兩塊拼起來就能「變出」第三塊。看懂這個，很多看起來陌生的部位（position）一拆就認得。
 
 **你只需要先記住這 5 件事**
 
-1. **買買權 + 賣賣權（同履約價、同到期）= 合成多頭標的。** 到期時不管標的在哪，你都會用履約價買進標的。反過來就是合成空頭。
-2. **口訣：一張選擇權 + 用標的避險 = 它的伴隨選擇權。** 例：買買權再賣標的避險，等於持有同履約價的賣權。
-3. **買權 delta − 賣權 delta ≈ 100。** 例：50 買權 delta 63 → 50 賣權 delta 約 −37。
-4. **同履約價、同到期的買權和賣權，gamma、vega 完全一樣。** 波動率風險只看履約價和到期日，不看是買權還是賣權。theta 可能不同（股票要算利息成本）。
-5. **換個寫法，策略就現形。** 買權價差 + 賣權價差 = 履約價間距；買傳統蝶式 = 賣鐵蝶式；2 張買權 − 1 標的 = 買跨式。
+1. **買 call + 賣 put（同履約價（strike price）、同到期）= 合成多頭標的（synthetic long underlying）。** 到期時不管 underlying 在哪，你都會用 strike 買進 underlying。反過來就是合成空頭（synthetic short）。
+2. **口訣：一張 option + 用 underlying 避險（hedge） = 它的伴隨選擇權（companion option）。** 例：買 call 再賣 underlying hedge，等於持有同 strike 的 put。
+3. **call delta − put delta ≈ 100。** 例：50 call delta 63 → 50 put delta 約 −37。
+4. **同 strike、同到期的 call 和 put，gamma、vega 完全一樣。** 波動率（volatility）風險只看 strike 和到期日（expiration date），不看是 call 還是 put。theta 可能不同（股票要算利息成本）。
+5. **換個寫法，策略就現形。** call 價差 + put 價差 = strike 間距；買傳統蝶式（butterfly） = 賣鐵蝶式（iron butterfly）；2 張 call − 1 underlying = 買跨式（straddle）。
 
 **必背卡**
 
 | 要算什麼 | 怎麼算 |
 |---|---|
-| 合成多頭標的 | 買買權 + 賣賣權 |
-| 合成多頭買權 | 買標的 + 買賣權 |
-| 合成多頭賣權 | 賣標的 + 買買權 |
-| 伴隨賣權 delta | 買權 delta − 100 |
-| 買權價差 + 賣權價差（同履約價對） | 無利息時 = 履約價間距 |
-| 蝶式 + 鐵蝶式 | 無利息時 = 履約價間距 |
+| synthetic long underlying | 買 call + 賣 put |
+| 合成多頭（synthetic long）call | 買 underlying + 買賣權 |
+| synthetic long put | 賣 underlying + 買 call |
+| 伴隨 put delta | call delta − 100 |
+| call 價差 + put 價差（同 strike 對） | 無利息時 = strike 間距 |
+| butterfly + iron butterfly | 無利息時 = strike 間距 |
 
 **必做練習（約 20 分鐘）**：A2、B1、B4、C2（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
 
-**想看圖？** 打開網站的[策略損益建構器](https://hongyan1215.github.io/natenberg-course/tools/strategy-builder/)，組「買 50 買權 + 賣 50 賣權」，對照直接買標的，看兩條損益線是不是一樣。
+**想看圖？** 打開網站的[策略損益建構器](https://hongyan1215.github.io/natenberg-course/tools/strategy-builder/)，組「買 50 call + 賣 50 put」，對照直接買 underlying，看兩條損益線是不是一樣。
 
 ---
 
 ## 本章定位
 
-選擇權可以彼此組合、或與標的組合，複製出另一個合約的特性。這種「合成」關係是後面所有套利定價（[ch15](ch15_option_arbitrage.md)）、提前履約分析（[ch16](ch16_early_exercise.md)）與避險（[ch17](ch17_hedging_with_options.md)）的基礎。前置：到期損益與 parity graph（[ch04](ch04_expiration_pnl.md)）、Greeks（[ch07](ch07_risk_measurement_1.md)）、價差分類（[ch10](ch10_intro_spreading.md)–[ch12](ch12_bull_bear_spreads.md)）。
+option 可以彼此組合、或與 underlying 組合，複製出另一個合約的特性。這種「合成（synthetic）」關係是後面所有套利（arbitrage）定價（[ch15](ch15_option_arbitrage.md)）、提前履約（early exercise）分析（[ch16](ch16_early_exercise.md)）與 hedge（[ch17](ch17_hedging_with_options.md)）的基礎。前置：到期損益與 parity graph（[ch04](ch04_expiration_pnl.md)）、Greeks（[ch07](ch07_risk_measurement_1.md)）、價差分類（[ch10](ch10_intro_spreading.md)–[ch12](ch12_bull_bear_spreads.md)）。
 
 ## 學習目標
 
-1. 能寫出六種基本合成部位（標的多/空、買權多/空、賣權多/空）的組成。
-2. 能用「單一選擇權 + 標的避險 = 伴隨選擇權（companion option）」口訣快速判斷合成結果。
-3. 能說明伴隨買權與賣權的 delta、gamma、vega、theta 關係，以及 theta 何時不相等。
-4. 能用合成關係證明買權價差與賣權價差的價值和等於履約價間距（的現值）。
-5. 能把看似陌生的部位（如 2 買權 − 1 標的、聖誕樹價差）改寫成熟悉的策略。
-6. 能計算蝶式與鐵蝶式（iron butterfly）、禿鷹與鐵禿鷹（iron condor）之間的價格關係。
+1. 能寫出六種基本合成部位（synthetic position）（underlying 多/空、call 多/空、put 多/空）的組成。
+2. 能用「單一 option + underlying hedge = companion option」口訣快速判斷 synthetic 結果。
+3. 能說明伴隨 call 與 put 的 delta、gamma、vega、theta 關係，以及 theta 何時不相等。
+4. 能用 synthetic 關係證明 call 價差與 put 價差的價值和等於 strike 間距（的現值）。
+5. 能把看似陌生的 position（如 2 call − 1 underlying、聖誕樹價差）改寫成熟悉的策略。
+6. 能計算 butterfly 與 iron butterfly、禿鷹（condor）與鐵禿鷹（iron condor）之間的價格關係。
 
 ## 核心概念
 
 ### 14.1 合成標的（Synthetic Underlying）
 
-> 💡 **一句話**：買買權 + 賣賣權（同履約價、同到期）到期一定以履約價買進標的；delta 合計約 100。
+> 💡 **一句話**：買 call + 賣 put（同 strike、同到期）到期一定以 strike 買進 underlying；delta 合計約 100。
 
-**直覺**：考慮歐式選擇權（不能提前履約）：
+**直覺**：考慮歐式選擇權（European option）（不能 early exercise）：
 
-- 買 1 張 6 月 50 買權、賣 1 張 6 月 50 賣權。
+- 買 1 張 6 月 50 call、賣 1 張 6 月 50 put。
 
 到期時：
 
-- 標的 > 50：賣權作廢，你履約買權 → **以 50 買進標的**（自願）。
-- 標的 < 50：買權作廢，你被指派賣權 → **以 50 買進標的**（被迫）。
+- underlying > 50：put 作廢，你履約（exercise）call → **以 50 買進 underlying**（自願）。
+- underlying < 50：call 作廢，你被指派（assign / assignment）put → **以 50 買進 underlying**（被迫）。
 
-除了剛好等於 50 的特殊情況，**不論標的在哪裡，你都會以 50 買進標的**。這就是**合成多頭標的**（synthetic long underlying）。反過來，賣買權、買賣權就是**合成空頭標的**。
+除了剛好等於 50 的特殊情況，**不論 underlying 在哪裡，你都會以 50 買進 underlying**。這就是**synthetic long underlying**。反過來，賣 call、買賣權就是**合成空頭標的（synthetic short underlying）**。
 
 $$\text{合成多頭標的} \approx \text{買買權} + \text{賣賣權}$$
 $$\text{合成空頭標的} \approx \text{賣買權} + \text{買賣權}$$
 
-條件：**同履約價、同到期**。任何履約價都可以：買 55C + 賣 55P 一樣是合成多頭，只是到期時以 55 買進。用「≈」而非「=」，因為它到期才真正變成標的；更精確的名稱是**合成遠期**（synthetic forward），其定價取決於遠期價值（下一章）。
+條件：**同 strike、同到期**。任何 strike 都可以：買 55C + 賣 55P 一樣是 synthetic long，只是到期時以 55 買進。用「≈」而非「=」，因為它到期才真正變成 underlying；更精確的名稱是**合成遠期**（synthetic forward），其定價取決於遠期價值（forward value）（下一章）。
 
 **Parity graph**：
 
@@ -77,60 +77,60 @@ ___/              /                     /
 （斜率 0→+1）    （斜率 +1→0）     （斜率處處 +1）
 ```
 
-**delta 推論**：標的漲 1 點，合成多頭約漲 1 點 → 合成部位 delta ≈ 100：
+**delta 推論**：underlying 漲 1 點，synthetic long 約漲 1 點 → synthetic position delta ≈ 100：
 
 $$\Delta_{\text{call}} - \Delta_{\text{put}} \approx 100 \quad\text{（即 } |\Delta_{\text{call}}| + |\Delta_{\text{put}}| \approx 100\text{）}$$
 
-**例題 14-1**　6 月 50 買權 delta 63 → 6 月 50 賣權 delta ≈ −37。若 6 月 50 賣權 delta −71 → 6 月 50 買權 delta ≈ 29。
+**例題 14-1**　6 月 50 call delta 63 → 6 月 50 put delta ≈ −37。若 6 月 50 put delta −71 → 6 月 50 call delta ≈ 29。
 
-結算方式、利率、提前履約會讓總和略偏離 100（第 15、16 章），例如股票型結算的期貨選擇權：$\Delta_c - \Delta_p = e^{-rt}$，3 個月、利率 5% 時約 98.8。
+結算（settlement）方式、利率、early exercise 會讓總和略偏離 100（第 15、16 章），例如股票型結算（stock-type settlement）的期貨選擇權（futures option）：$\Delta_c - \Delta_p = e^{-rt}$，3 個月、利率 5% 時約 98.8。
 
 ### 14.2 合成選擇權（Synthetic Options）
 
-> 💡 **一句話**：一張選擇權用標的避險，就變成它的伴隨選擇權；特性看斜率，不看成交價。
+> 💡 **一句話**：一張 option 用 underlying hedge，就變成它的 companion option；特性看斜率，不看成交價。
 
-把合成標的的組成移項，得到四個合成選擇權：
+把 synthetic underlying 的組成移項，得到四個合成選擇權（synthetic option）：
 
-| 合成部位 | ≈ 組成 |
+| synthetic position | ≈ 組成 |
 |---|---|
-| 合成多頭買權 | 買標的 + 買賣權 |
-| 合成空頭買權 | 賣標的 + 賣賣權 |
-| 合成多頭賣權 | 賣標的 + 買買權 |
-| 合成空頭賣權 | 買標的 + 賣買權 |
+| synthetic long call | 買 underlying + 買賣權 |
+| synthetic short call | 賣 underlying + 賣 put |
+| synthetic long put | 賣 underlying + 買 call |
+| synthetic short put | 買 underlying + 賣 call |
 
-（皆需同履約價、同到期。）
+（皆需同 strike、同到期。）
 
-**口訣**：**交易一張選擇權並用標的避險，等於合成地持有它的伴隨選擇權**（companion option：同履約價、同到期、相反類型）。
+**口訣**：**交易一張 option 並用 underlying hedge，等於 synthetic 地持有它的 companion option**（companion option：同 strike、同到期、相反類型）。
 
-- 買買權 + 賣標的避險 → 合成**買賣權**
-- 賣買權 + 買標的避險 → 合成**賣賣權**
-- 買賣權 + 買標的避險 → 合成**買買權**
-- 賣賣權 + 賣標的避險 → 合成**賣買權**
+- 買 call + 賣 underlying hedge → synthetic**買賣權**
+- 賣 call + 買 underlying hedge → synthetic**賣 put**
+- 買賣權 + 買 underlying hedge → synthetic**買 call**
+- 賣 put + 賣 underlying hedge → synthetic**賣 call**
 
-**為什麼標的成交價不重要？** 合成部位的「特性」來自各合約的**斜率**，不是價格。例如以 52 買進標的、同時買 50 賣權：parity graph 是一條在 50 以下水平、50 以上斜率 +1 的折線——就是 50 買權的形狀（只是上下平移）。價格只影響「這樣做划不划算」，那是下一章的主題。
+**為什麼 underlying 成交價不重要？** synthetic position 的「特性」來自各合約的**斜率**，不是價格。例如以 52 買進 underlying、同時買 50 put：parity graph 是一條在 50 以下水平、50 以上斜率 +1 的折線——就是 50 call 的形狀（只是上下平移）。價格只影響「這樣做划不划算」，那是下一章的主題。
 
 ### 14.3 六種合成關係與風險特性
 
-> 💡 **一句話**：伴隨買權和賣權 gamma、vega 一樣；theta 只在沒有持有成本時才一樣。
+> 💡 **一句話**：伴隨 call 和 put gamma、vega 一樣；theta 只在沒有持有成本（cost of carry）時才一樣。
 
 以 6 月 50 為例：
 
-| 合約 | 合成等價 |
+| 合約 | synthetic 等價 |
 |---|---|
-| 多頭標的 | +1 6 月 50C、−1 6 月 50P |
-| 空頭標的 | −1 6 月 50C、+1 6 月 50P |
-| 多頭 6 月 50C | +1 標的、+1 6 月 50P |
-| 空頭 6 月 50C | −1 標的、−1 6 月 50P |
-| 多頭 6 月 50P | −1 標的、+1 6 月 50C |
-| 空頭 6 月 50P | +1 標的、−1 6 月 50C |
+| 多頭 underlying | +1 6 月 50C、−1 6 月 50P |
+| 空頭 underlying | −1 6 月 50C、+1 6 月 50P |
+| 多頭 6 月 50C | +1 underlying、+1 6 月 50P |
+| 空頭 6 月 50C | −1 underlying、−1 6 月 50P |
+| 多頭 6 月 50P | −1 underlying、+1 6 月 50C |
+| 空頭 6 月 50P | +1 underlying、−1 6 月 50C |
 
-**gamma 與 vega**：標的的 gamma、vega 都是 0。既然「買權 − 賣權 = 標的」，
+**gamma 與 vega**：underlying 的 gamma、vega 都是 0。既然「call − put = underlying」，
 
 $$\Gamma_{\text{call}} - \Gamma_{\text{put}} = 0,\quad \text{vega}_{\text{call}} - \text{vega}_{\text{put}} = 0$$
 
-**伴隨買權、賣權的 gamma、vega 完全相同。**
+**伴隨 call、put 的 gamma、vega 完全相同。**
 
-**例題 14-2**（股票 50、履約價 50、3 個月、利率 5%、波動率 30%、無股利，Black-Scholes）
+**例題 14-2**（股票 50、strike 50、3 個月、利率 5%、volatility 30%、無股利（dividend），Black-Scholes）
 
 | | 50C | 50P |
 |---|---|---|
@@ -144,149 +144,149 @@ $$\Gamma_{\text{call}} - \Gamma_{\text{put}} = 0,\quad \text{vega}_{\text{call}}
 - gamma、vega 相同 ✔
 - theta 不同：差額 −0.0068 = $-rKe^{-rt}/365$，正是「借錢持有股票的利息成本」。
 
-**意涵**：專注波動率的交易員不區分同履約價、同到期的買權與賣權——它們的波動率特性完全一樣。持有買權卻想要賣權？賣出標的即可；持有賣權想要買權？買進標的即可。**部位的波動率風險取決於履約價與到期日的組合，而不是買權或賣權。**
+**意涵**：專注 volatility 的交易員不區分同 strike、同到期的 call 與 put——它們的 volatility 特性完全一樣。持有 call 卻想要 put？賣出 underlying 即可；持有 put 想要 call？買進 underlying 即可。**position 的 volatility 風險取決於 strike 與 expiration date 的組合，而不是 call 或 put。**
 
-**為什麼 theta 不一定相同？** 來自持有成本（cost of carry）：
+**為什麼 theta 不一定相同？** 來自 cost of carry：
 
 | 情況 | 伴隨買賣權 theta 是否相同 | 原因 |
 |---|---|---|
-| 股票選擇權 | 否 | 持有股票要付利息；合成標的的 theta 反映這個成本 |
-| 期貨選擇權、股票型結算（買選擇權要付現） | 價平時相同；兩者價格不同時不同 | 選擇權本身有資金成本，價格不同 → 持有成本不同 |
-| 期貨選擇權、期貨型結算 | 相同 | 標的與選擇權都沒有持有成本 |
+| 股票 option | 否 | 持有股票要付利息；synthetic underlying 的 theta 反映這個成本 |
+| futures option、stock-type settlement（買 option 要付現） | 價平（at-the-money, ATM）時相同；兩者價格不同時不同 | option 本身有資金成本，價格不同 → cost of carry 不同 |
+| futures option、期貨型結算（futures-type settlement） | 相同 | underlying 與 option 都沒有 cost of carry |
 
-（期貨型結算驗證：期貨 50、履約價 45、3 個月、利率 5%、波動率 30%、股票型結算時，45C theta −0.0112、45P theta −0.0118，差額 = $r(C-P)/365$ = 0.00068；若改成期貨型結算（等同利率 0），兩者 theta 相同。）
+（futures-type settlement 驗證：期貨（futures） 50、strike 45、3 個月、利率 5%、volatility 30%、stock-type settlement 時，45C theta −0.0112、45P theta −0.0118，差額 = $r(C-P)/365$ = 0.00068；若改成 futures-type settlement（等同利率 0），兩者 theta 相同。）
 
 ### 14.4 用合成解釋垂直價差
 
-> 💡 **一句話**：多頭買權價差 = 多頭賣權價差換個寫法；兩者價值相加 = 履約價間距（或現值）。
+> 💡 **一句話**：多頭買權價差（bull call spread） = 多頭賣權價差（bull put spread）換個寫法；兩者價值相加 = strike 間距（或現值）。
 
-第 12 章說「不論買權或賣權，買低賣高就是多頭」。用合成改寫：
+第 12 章說「不論 call 或 put，買低賣高就是多頭」。用 synthetic 改寫：
 
-| 多頭買權價差 | 合成等價 |
+| bull call spread | synthetic 等價 |
 |---|---|
-| +1 6 月 60C | +1 6 月 60P、+1 標的 |
-| −1 6 月 65C | −1 6 月 65P、−1 標的 |
+| +1 6 月 60C | +1 6 月 60P、+1 underlying |
+| −1 6 月 65C | −1 6 月 65P、−1 underlying |
 
-標的一多一空抵銷，剩下 +1 60P、−1 65P——**正是多頭賣權價差**。
+underlying 一多一空抵銷，剩下 +1 60P、−1 65P——**正是 bull put spread**。
 
-兩者特性相同，差別在現金流：買權價差是付出（debit），賣權價差是收入（credit）。到期時：
+兩者特性相同，差別在現金流：call 價差是付出（debit），put 價差是收入（credit）。到期時：
 
 $$\text{買權價差價值} + \text{賣權價差價值（以收入額計）} = K_H - K_L$$
 
-**例題 14-3**　60/65 買權價差 3.10。
-- 無利息：60/65 賣權價差應為 5 − 3.10 = **1.90**。
-- 股票型結算、利率 4%、6 個月：兩者今日價值和 = $5/(1+0.04\times0.5) = 4.902$ → 賣權價差 = 4.902 − 3.10 = **1.80**。
+**例題 14-3**　60/65 call 價差 3.10。
+- 無利息：60/65 put 價差應為 5 − 3.10 = **1.90**。
+- stock-type settlement、利率 4%、6 個月：兩者今日價值和 = $5/(1+0.04\times0.5) = 4.902$ → put 價差 = 4.902 − 3.10 = **1.80**。
 
 ### 14.5 在價差策略中使用合成
 
-> 💡 **一句話**：2 張買權 − 1 標的就是買跨式；同一個策略有好幾種做法，挑最便宜的。
+> 💡 **一句話**：2 張 call − 1 underlying 就是買 straddle；同一個策略有好幾種做法，挑最便宜的。
 
-任何策略都能用合成部位改寫，所以同一個策略常有多種做法。
+任何策略都能用 synthetic position 改寫，所以同一個策略常有多種做法。
 
-**例題 14-4**　部位：+2 張 6 月 50C、−1 標的。
+**例題 14-4**　position：+2 張 6 月 50C、−1 underlying。
 
-拆成 +1 50C 與（+1 50C、−1 標的）。後者 = 合成多頭 50P。所以整體 = +1 50C、+1 50P = **買跨式**。
+拆成 +1 50C 與（+1 50C、−1 underlying）。後者 = synthetic long 50P。所以整體 = +1 50C、+1 50P = **買 straddle**。
 
-同理，+2 張 50P、+1 標的 = +1 50P +（+1 50P、+1 標的）= +1 50P、+1 合成 50C = **買跨式**。
+同理，+2 張 50P、+1 underlying = +1 50P +（+1 50P、+1 underlying）= +1 50P、+1 synthetic 50C = **買 straddle**。
 
-**買跨式的三種方法**：
+**買 straddle 的三種方法**：
 
-1. 買買權、買賣權；
-2. 買買權、合成買賣權（再買 1 張買權 + 賣標的）；
-3. 買賣權、合成買買權（再買 1 張賣權 + 買標的）。
+1. 買 call、買賣權；
+2. 買 call、synthetic 買賣權（再買 1 張 call + 賣 underlying）；
+3. 買賣權、synthetic 買 call（再買 1 張 put + 買 underlying）。
 
-哪個最好取決於合成部位與真實合約的相對價格（第 15 章例題）。
+哪個最好取決於 synthetic position 與真實合約的相對價格（第 15 章例題）。
 
 ### 14.6 鐵蝶式與鐵禿鷹（Iron Butterflies and Iron Condors）
 
-> 💡 **一句話**：買蝶式 = 賣鐵蝶式、買禿鷹 = 賣鐵禿鷹；兩者價值相加 = 履約價間距。
+> 💡 **一句話**：買 butterfly = 賣 iron butterfly、買 condor = 賣 iron condor；兩者價值相加 = strike 間距。
 
-**組合一個買勒式與一個賣跨式**：
+**組合一個買勒式（strangle）與一個賣 straddle**：
 
-- 買 6 月 45P、買 6 月 55C（勒式）
-- 賣 6 月 50C、賣 6 月 50P（跨式）
+- 買 6 月 45P、買 6 月 55C（strangle）
+- 賣 6 月 50C、賣 6 月 50P（straddle）
 
-把賣權都改寫成合成買權（P = C − 標的）：
+把 put 都改寫成 synthetic call（P = C − underlying）：
 
-| 原部位 | 合成等價 |
+| 原 position | synthetic 等價 |
 |---|---|
-| +1 45P | +1 45C、−1 標的 |
+| +1 45P | +1 45C、−1 underlying |
 | −1 50C | −1 50C |
-| −1 50P | −1 50C、+1 標的 |
+| −1 50P | −1 50C、+1 underlying |
 | +1 55C | +1 55C |
 
-標的抵銷 → +1 45C、−2 50C、+1 55C = **多頭蝶式**。若全部改寫成賣權，也會得到多頭賣權蝶式——買權蝶式與賣權蝶式本質相同，一個是另一個的合成版本。
+underlying 抵銷 → +1 45C、−2 50C、+1 55C = **多頭 butterfly**。若全部改寫成 put，也會得到多頭 put butterfly——call butterfly 與 put butterfly 本質相同，一個是另一個的 synthetic 版本。
 
-**鐵蝶式**（iron butterfly）= 跨式 + 勒式，跨式位於勒式正中間。
+**iron butterfly**= straddle + strangle，straddle 位於 strangle 正中間。
 
-- 傳統多頭蝶式（買外側、賣中間）是付出 → 「long」。
-- 等價的「買勒式、賣跨式」是**收入**（跨式一定比勒式貴）→ 收錢就叫做**賣出鐵蝶式**。
-- **買傳統蝶式 ≡ 賣鐵蝶式**：兩者都希望標的停在中間履約價。
+- 傳統多頭 butterfly（買外側、賣中間）是付出 → 「long」。
+- 等價的「買 strangle、賣 straddle」是**收入**（straddle 一定比 strangle 貴）→ 收錢就叫做**賣出 iron butterfly**。
+- **買傳統 butterfly ≡ 賣 iron butterfly**：兩者都希望 underlying 停在中間 strike。
 
-**價值關係**：到期時蝶式 + 鐵蝶式 = 履約價間距（今天則為其現值）。
+**價值關係**：到期時 butterfly + iron butterfly = strike 間距（今天則為其現值）。
 
-**例題 14-5**　利率 0，45/50/55 蝶式 1.60 → 45/50/55 鐵蝶式應為 5 − 1.60 = **3.40**。不論以 1.60 買蝶式或以 3.40 賣鐵蝶式，損益輪廓相同：標的停在 50 時最大獲利 3.40。
+**例題 14-5**　利率 0，45/50/55 butterfly 1.60 → 45/50/55 iron butterfly 應為 5 − 1.60 = **3.40**。不論以 1.60 買 butterfly 或以 3.40 賣 iron butterfly，損益輪廓相同：underlying 停在 50 時最大獲利 3.40。
 
-**禿鷹也能這樣合成**：買 6 月 40/60 勒式（+40P、+60C）+ 賣 6 月 45/55 勒式（−45P、−55C）：
+**condor 也能這樣 synthetic**：買 6 月 40/60 strangle（+40P、+60C）+ 賣 6 月 45/55 strangle（−45P、−55C）：
 
-| 原部位 | 合成等價 |
+| 原 position | synthetic 等價 |
 |---|---|
-| +1 40P | +1 40C、−1 標的 |
-| −1 45P | −1 45C、+1 標的 |
+| +1 40P | +1 40C、−1 underlying |
+| −1 45P | −1 45C、+1 underlying |
 | −1 55C | −1 55C |
 | +1 60C | +1 60C |
 
-→ +40C、−45C、−55C、+60C = **多頭禿鷹**（long condor）。
+→ +40C、−45C、−55C、+60C = **多頭 condor**。
 
-**鐵禿鷹**（iron condor）= 一個勒式套在另一個勒式外面。傳統多頭禿鷹付出；等價的「賣內側勒式、買外側勒式」收入 → 稱為**賣出鐵禿鷹**。**買傳統禿鷹 ≡ 賣鐵禿鷹**。
+**iron condor**= 一個 strangle 套在另一個 strangle 外面。傳統多頭 condor 付出；等價的「賣內側 strangle、買外側 strangle」收入 → 稱為**賣出 iron condor**。**買傳統 condor ≡ 賣 iron condor**。
 
-**例題 14-6**　利率 0，40/45/55/60 禿鷹 3.20 → 鐵禿鷹應為 5 − 3.20 = **1.80**（這裡 5 是內外履約價間距 45−40）。兩者都希望標的留在 45–55 之間。
+**例題 14-6**　利率 0，40/45/55/60 condor 3.20 → iron condor 應為 5 − 3.20 = **1.80**（這裡 5 是內外 strike 間距 45−40）。兩者都希望 underlying 留在 45–55 之間。
 
-**用合成看穿聖誕樹價差**（第 11 章）：多頭買權聖誕樹 +1 45C、−1 50C、−1 55C。把 45C、50C 改寫成賣權：
+**用 synthetic 看穿聖誕樹價差**（第 11 章）：多頭 call 聖誕樹 +1 45C、−1 50C、−1 55C。把 45C、50C 改寫成 put：
 
-| 原部位 | 合成等價 |
+| 原 position | synthetic 等價 |
 |---|---|
-| +1 45C | +1 45P、+1 標的 |
-| −1 50C | −1 50P、−1 標的 |
+| +1 45C | +1 45P、+1 underlying |
+| −1 50C | −1 50P、−1 underlying |
 | −1 55C | −1 55C |
 
 → +1 45P、−1 50P、−1 55C。
 
-- 看 50P 與 55C：一個賣出的 50/55 勒式，再加買一張更低的 45P 保護。
-- 看 45P 與 50P：一個多頭賣權價差，再加賣一張更高的 55C。
+- 看 50P 與 55C：一個賣出的 50/55 strangle，再加買一張更低的 45P 保護。
+- 看 45P 與 50P：一個 bull put spread，再加賣一張更高的 55C。
 
 兩種角度都說明：**下檔風險有限、上檔風險無限**。
 
 ## 交易員視角
 
-- **報價一致性**：做市時，同履約價的買權與賣權必須透過合成關係一起報價。若你把 50C 報低、50P 報高，對手可以組出便宜的合成標的，與實際標的對做（下一章的 conversion/reversal）。
-- **Optibook 的 delta 避險**：如果你手上是買權部位卻希望持有賣權的特性，不必在冷門的賣權委託簿上找流動性——直接賣出對應數量的標的就完成了。反之亦然。
-- **波動率部位看履約價，不看類型**：風險報表可以把同履約價、同到期的買權與賣權合併成「該履約價的總 gamma/vega」，再另外記錄合成標的造成的 delta。
-- **部位上限**：合成標的會吃掉選擇權的部位額度。若標的部位已到上限，可以用合成方式取得 delta，但要注意兩邊的限制是否分開計算。
+- **報價（quote）一致性**：做市（market making）時，同 strike 的 call 與 put 必須透過 synthetic 關係一起 quote。若你把 50C 報低、50P 報高，對手可以組出便宜的 synthetic underlying，與實際 underlying 對做（下一章的 conversion/reversal）。
+- **Optibook 的 delta hedge**：如果你手上是 call position 卻希望持有 put 的特性，不必在冷門的 put 委託簿上找流動性——直接賣出對應數量的 underlying 就完成了。反之亦然。
+- **volatility position 看 strike，不看類型**：風險報表可以把同 strike、同到期的 call 與 put 合併成「該 strike 的總 gamma/vega」，再另外記錄 synthetic underlying 造成的 delta。
+- **部位上限（position limit）**：synthetic underlying 會吃掉 option 的 position 額度。若 underlying position 已到上限，可以用 synthetic 方式取得 delta，但要注意兩邊的限制是否分開計算。
 
 ## 常見誤區
 
-1. **誤解**：「買權和賣權的波動率風險相反。」→ **正解**：同履約價、同到期的伴隨買權與賣權 gamma、vega 完全相同。
-2. **誤解**：「合成標的就是標的，完全沒差。」→ **正解**：它到期才變成標的；結算方式、利率、股利、提前履約與 pin risk 都可能讓兩者不同（第 15、16 章）。
-3. **誤解**：「伴隨買權與賣權 theta 也一定相同。」→ **正解**：只有在無持有成本（例如期貨型結算）時才相同；股票選擇權的 theta 差額等於履約價的利息成本。
-4. **誤解**：「鐵蝶式收錢，所以是『買進』。」→ **正解**：收入的部位是賣出鐵蝶式；它等價於買進傳統蝶式。
-5. **誤解**：「合成部位的特性取決於標的成交價。」→ **正解**：特性取決於斜率；價格只決定合成是否划算。
+1. **誤解**：「call 和 put 的 volatility 風險相反。」→ **正解**：同 strike、同到期的伴隨 call 與 put gamma、vega 完全相同。
+2. **誤解**：「synthetic underlying 就是 underlying，完全沒差。」→ **正解**：它到期才變成 underlying；settlement 方式、利率、dividend、early exercise 與 pin risk 都可能讓兩者不同（第 15、16 章）。
+3. **誤解**：「伴隨 call 與 put theta 也一定相同。」→ **正解**：只有在無 cost of carry（例如 futures-type settlement）時才相同；股票 option 的 theta 差額等於 strike 的利息成本。
+4. **誤解**：「iron butterfly 收錢，所以是『買進』。」→ **正解**：收入的 position 是賣出 iron butterfly；它等價於買進傳統 butterfly。
+5. **誤解**：「synthetic position 的特性取決於 underlying 成交價。」→ **正解**：特性取決於斜率；價格只決定 synthetic 是否划算。
 
 ## 重點摘要
 
 | 關係 | 公式 / 規則 |
 |---|---|
-| 合成多頭標的 | $+C - P$（同 K、同到期） |
-| 合成多頭買權 | $+S + P$ |
-| 合成多頭賣權 | $-S + C$ |
-| 口訣 | 一張選擇權 + 標的避險 = 伴隨選擇權 |
-| delta | $\Delta_C - \Delta_P \approx 1$（股票型結算期貨選擇權為 $e^{-rt}$） |
-| gamma、vega | 伴隨買權 = 伴隨賣權 |
-| theta | 股票：$\Theta_C - \Theta_P = -rKe^{-rt}/365$；期貨型結算：相等 |
-| 垂直價差 | 買權價差 + 賣權價差 = $K_H - K_L$（或其現值） |
-| 蝶式 vs 鐵蝶式 | 蝶式 + 鐵蝶式 = 履約價間距（或現值）；買蝶 ≡ 賣鐵蝶 |
-| 禿鷹 vs 鐵禿鷹 | 禿鷹 + 鐵禿鷹 = 內外履約價間距（或現值）；買禿鷹 ≡ 賣鐵禿鷹 |
-| 跨式的三種買法 | C+P；C + 合成 P（2C − S）；P + 合成 C（2P + S） |
+| synthetic long underlying | $+C - P$（同 K、同到期） |
+| synthetic long call | $+S + P$ |
+| synthetic long put | $-S + C$ |
+| 口訣 | 一張 option + underlying hedge = companion option |
+| delta | $\Delta_C - \Delta_P \approx 1$（stock-type settlement futures option 為 $e^{-rt}$） |
+| gamma、vega | 伴隨 call = 伴隨 put |
+| theta | 股票：$\Theta_C - \Theta_P = -rKe^{-rt}/365$；futures-type settlement：相等 |
+| 垂直價差（vertical spread） | call 價差 + put 價差 = $K_H - K_L$（或其現值） |
+| butterfly vs iron butterfly | butterfly + iron butterfly = strike 間距（或現值）；買蝶 ≡ 賣鐵蝶 |
+| condor vs iron condor | condor + iron condor = 內外 strike 間距（或現值）；買 condor ≡ 賣 iron condor |
+| straddle 的三種買法 | C+P；C + synthetic P（2C − S）；P + synthetic C（2P + S） |
 
 ## 練習題
 
@@ -294,107 +294,107 @@ $$\text{買權價差價值} + \text{賣權價差價值（以收入額計）} = K
 
 ### A. 概念題
 
-**A1.** 為什麼「買 50C、賣 50P」到期時一定會以 50 買進標的？
+**A1.** 為什麼「買 50C、賣 50P」到期時一定會以 50 買進 underlying？
 
 <details><summary>解答</summary>
 
-標的 > 50 時買權有價值，你主動履約以 50 買進；標的 < 50 時賣權有價值，對手履約，你被指派以 50 買進。兩種情況都以 50 買進（只有剛好 50 時不確定）。
+underlying > 50 時 call 有價值，你主動 exercise 以 50 買進；underlying < 50 時 put 有價值，對手 exercise，你被 assign 以 50 買進。兩種情況都以 50 買進（只有剛好 50 時不確定）。
 
 </details>
 
-**A2.** ⭐ 用口訣判斷：賣出 1 張 70 賣權，並賣出標的避險，合成出什麼部位？
+**A2.** ⭐ 用口訣判斷：賣出 1 張 70 put，並賣出 underlying hedge，synthetic 出什麼 position？
 
 <details><summary>提示</summary>
 
-套口訣：一張選擇權 + 標的避險 = 同履約價、相反類型的選擇權。買或賣的方向和原來那張一樣。
+套口訣：一張 option + underlying hedge = 同 strike、相反類型的 option。買或賣的方向和原來那張一樣。
 
 </details>
 
 <details><summary>解答</summary>
 
-一張選擇權 + 標的避險 = 伴隨選擇權。賣賣權 + 賣標的 = 合成**賣出 70 買權**（−P − S = −C）。
+一張 option + underlying hedge = companion option。賣 put + 賣 underlying = synthetic**賣出 70 call**（−P − S = −C）。
 
 </details>
 
-**A3.** 為什麼專注波動率的交易員認為「同履約價的買權與賣權沒有差別」？
+**A3.** 為什麼專注 volatility 的交易員認為「同 strike 的 call 與 put 沒有差別」？
 
 <details><summary>解答</summary>
 
-買權 − 賣權 = 合成標的，而標的 gamma、vega 為 0，所以伴隨買賣權的 gamma、vega 相同。要把一張換成另一張，只需買賣標的，不改變波動率特性。
+call − put = synthetic underlying，而 underlying gamma、vega 為 0，所以伴隨買賣權的 gamma、vega 相同。要把一張換成另一張，只需買賣 underlying，不改變 volatility 特性。
 
 </details>
 
-**A4.** 股票選擇權的伴隨買權與賣權 theta 為什麼不同？期貨型結算的期貨選擇權為什麼相同？
+**A4.** 股票 option 的伴隨 call 與 put theta 為什麼不同？futures-type settlement 的 futures option 為什麼相同？
 
 <details><summary>解答</summary>
 
-合成標的（買權 − 賣權）的 theta 必須反映持有標的的成本。股票要用資金購買，有利息成本，所以 $\Theta_C - \Theta_P = -rKe^{-rt}$（每年）。期貨型結算下，期貨與選擇權都不需付現，沒有持有成本，合成標的 theta 為 0，伴隨買賣權 theta 相同。
+synthetic underlying（call − put）的 theta 必須反映持有 underlying 的成本。股票要用資金購買，有利息成本，所以 $\Theta_C - \Theta_P = -rKe^{-rt}$（每年）。futures-type settlement 下，futures 與 option 都不需付現，沒有 cost of carry，synthetic underlying theta 為 0，伴隨買賣權 theta 相同。
 
 </details>
 
-**A5.** 為什麼買傳統蝶式等價於賣鐵蝶式？
+**A5.** 為什麼買傳統 butterfly 等價於賣 iron butterfly？
 
 <details><summary>解答</summary>
 
-把鐵蝶式（買勒式、賣跨式）的賣權用合成買權改寫，標的抵銷後就是多頭買權蝶式。鐵蝶式是收入，所以「買勒式、賣跨式」被稱為賣出鐵蝶式；它與買進傳統蝶式有相同損益輪廓，都希望標的停在中間履約價。
+把 iron butterfly（買 strangle、賣 straddle）的 put 用 synthetic call 改寫，underlying 抵銷後就是多頭 call butterfly。iron butterfly 是收入，所以「買 strangle、賣 straddle」被稱為賣出 iron butterfly；它與買進傳統 butterfly 有相同損益輪廓，都希望 underlying 停在中間 strike。
 
 </details>
 
 ### B. 計算題
 
-**B1.** ⭐ 某 55 買權 delta 0.42。依合成關係，55 賣權 delta 約多少？若部位是 +30 張 55C、−30 張 55P，總 delta 約多少口標的？
+**B1.** ⭐ 某 55 call delta 0.42。依 synthetic 關係，55 put delta 約多少？若 position 是 +30 張 55C、−30 張 55P，總 delta 約多少口 underlying？
 
 <details><summary>提示</summary>
 
-用「買權 delta − 賣權 delta ≈ 1」先求賣權 delta。再算每組（+1 買權、−1 賣權）的 delta，乘上 30。
+用「call delta − put delta ≈ 1」先求 put delta。再算每組（+1 call、−1 put）的 delta，乘上 30。
 
 </details>
 
 <details><summary>解答</summary>
 
-55P delta ≈ 0.42 − 1 = −0.58。部位 delta = 30 × (0.42 − (−0.58)) = 30 × 1.00 = 30 口標的（合成多頭 30 口）。
+55P delta ≈ 0.42 − 1 = −0.58。position delta = 30 × (0.42 − (−0.58)) = 30 × 1.00 = 30 口 underlying（synthetic long 30 口）。
 
 </details>
 
-**B2.** 無利息時 80/90 賣權價差（買 90P、賣 80P）值 6.35，80/90 買權價差應值多少？
+**B2.** 無利息時 80/90 put 價差（買 90P、賣 80P）值 6.35，80/90 call 價差應值多少？
 
 <details><summary>解答</summary>
 
-買權價差 + 賣權價差 = 10 → 買權價差 = 10 − 6.35 = **3.65**。
+call 價差 + put 價差 = 10 → call 價差 = 10 − 6.35 = **3.65**。
 
 </details>
 
-**B3.** 股票型結算、利率 6%、4 個月。100/110 買權價差 5.20，100/110 賣權價差（以付出計，買 110P 賣 100P）應值多少？（單利）
+**B3.** stock-type settlement、利率 6%、4 個月。100/110 call 價差 5.20，100/110 put 價差（以付出計，買 110P 賣 100P）應值多少？（單利）
 
 <details><summary>解答</summary>
 
-兩者和 = 10/(1 + 0.06 × 4/12) = 10/1.02 = 9.804。賣權價差 = 9.804 − 5.20 = **4.60**。
+兩者和 = 10/(1 + 0.06 × 4/12) = 10/1.02 = 9.804。put 價差 = 9.804 − 5.20 = **4.60**。
 
 </details>
 
-**B4.** ⭐ 無利息時 95/100/105 鐵蝶式報價 3.65，對應的傳統蝶式應值多少？若以 3.65 賣出鐵蝶式，標的到期在 100 時獲利多少？在 92 時呢？
+**B4.** ⭐ 無利息時 95/100/105 iron butterfly quote 3.65，對應的傳統 butterfly 應值多少？若以 3.65 賣出 iron butterfly，underlying 到期在 100 時獲利多少？在 92 時呢？
 
 <details><summary>提示</summary>
 
-先用「蝶式 + 鐵蝶式 = 履約價間距」求蝶式。賣鐵蝶式 = 買 95P、賣 100P、賣 100C、買 105C；到期在 100 和 92 時，逐張算每張值多少，再跟收到的 3.65 比。
+先用「butterfly + iron butterfly = strike 間距」求 butterfly。賣 iron butterfly = 買 95P、賣 100P、賣 100C、買 105C；到期在 100 和 92 時，逐張算每張值多少，再跟收到的 3.65 比。
 
 </details>
 
 <details><summary>解答</summary>
 
-蝶式 = 5 − 3.65 = **1.35**。賣鐵蝶式收 3.65：到期 100 時所有選擇權歸零，獲利 **+3.65**；到期 92 時，95P 值 3、100P 值 8（被指派）、其餘 0 → 部位價值 = +3 − 8 = −5，損益 = 3.65 − 5 = **−1.35**（等於買蝶式的最大損失）。
+butterfly = 5 − 3.65 = **1.35**。賣 iron butterfly 收 3.65：到期 100 時所有 option 歸零，獲利 **+3.65**；到期 92 時，95P 值 3、100P 值 8（被 assign）、其餘 0 → position 價值 = +3 − 8 = −5，損益 = 3.65 − 5 = **−1.35**（等於買 butterfly 的最大損失）。
 
 </details>
 
-**B5.** 無利息時 30/35/45/50 鐵禿鷹值 1.45，傳統禿鷹應值多少？最大獲利與最大損失分別為何（以買傳統禿鷹計）？
+**B5.** 無利息時 30/35/45/50 iron condor 值 1.45，傳統 condor 應值多少？最大獲利與最大損失分別為何（以買傳統 condor 計）？
 
 <details><summary>解答</summary>
 
-禿鷹 = 5 − 1.45 = **3.55**。買禿鷹最大獲利 = 5 − 3.55 = 1.45（標的在 35–45 之間）；最大損失 = 3.55（標的 ≤30 或 ≥50）。
+condor = 5 − 1.45 = **3.55**。買 condor 最大獲利 = 5 − 3.55 = 1.45（underlying 在 35–45 之間）；最大損失 = 3.55（underlying ≤30 或 ≥50）。
 
 </details>
 
-**B6.** 股票 50、履約價 50、利率 5%、3 個月（連續複利）。依 $\Theta_C - \Theta_P = -rKe^{-rt}/365$，伴隨買權與賣權的每日 theta 差多少？
+**B6.** 股票 50、strike 50、利率 5%、3 個月（連續複利）。依 $\Theta_C - \Theta_P = -rKe^{-rt}/365$，伴隨 call 與 put 的每日 theta 差多少？
 
 <details><summary>解答</summary>
 
@@ -404,48 +404,48 @@ $-0.05 \times 50 \times e^{-0.0125}/365 = -2.469/365 \approx$ **−0.00676**，�
 
 ### C. 交易情境題
 
-**C1.** 你在 Optibook 想對某股票的 100 履約價建立買跨式 20 組。100P 的委託簿很薄，只有 5 張賣單；100C 與股票都很活絡。你會怎麼做？
+**C1.** 你在 Optibook 想對某股票的 100 strike 建立買 straddle 20 組。100P 的委託簿很薄，只有 5 張賣單；100C 與股票都很活絡。你會怎麼做？
 
 <details><summary>解答</summary>
 
-用合成：買 5 張真實 100P，其餘 15 張賣權以「買 15 張 100C + 賣出 15 口（對應股數）股票」合成。總共買 35 張 100C、5 張 100P、賣 15 口股票，gamma/vega 等同 20 組跨式。需確認合成賣權的隱含價格（第 15 章的 parity 計算）不比真實賣權差太多，並注意股票空頭部位是否受部位上限或借券成本限制。
+用 synthetic：買 5 張真實 100P，其餘 15 張 put 以「買 15 張 100C + 賣出 15 口（對應股數）股票」synthetic。總共買 35 張 100C、5 張 100P、賣 15 口股票，gamma/vega 等同 20 組 straddle。需確認 synthetic put 的隱含價格（第 15 章的 parity 計算）不比真實 put 差太多，並注意股票空頭部位（short position）是否受 position limit 或借券成本限制。
 
 </details>
 
-**C2.** ⭐ 同事說他的部位是「+1 45C、−1 50C、−1 55C」，覺得它只是個略偏多的買權價差，風險不大。你如何用合成說服他重新評估？
+**C2.** ⭐ 同事說他的 position 是「+1 45C、−1 50C、−1 55C」，覺得它只是個略偏多的 call 價差，風險不大。你如何用 synthetic 說服他重新評估？
 
 <details><summary>提示</summary>
 
-用「買權 = 賣權 + 標的」把 45C、50C 改寫成賣權，標的一多一空會抵銷。看剩下的部位，上檔有沒有一張沒被保護的賣出買權？
+用「call = put + underlying」把 45C、50C 改寫成 put，underlying 一多一空會抵銷。看剩下的 position，上檔有沒有一張沒被保護的賣出 call？
 
 </details>
 
 <details><summary>解答</summary>
 
-把 45C、50C 改寫為賣權：+1 45P + 標的、−1 50P − 標的，標的抵銷 → +1 45P、−1 50P、−1 55C。這等於賣出 50/55 勒式再加一張 45P 保護：下檔損失有限（45P 保護），但上檔有一張未被覆蓋的賣出 55C，**上檔風險無限**。它是負 gamma、負 vega 的波動率部位，不只是方向價差。
+把 45C、50C 改寫為 put：+1 45P + underlying、−1 50P − underlying，underlying 抵銷 → +1 45P、−1 50P、−1 55C。這等於賣出 50/55 strangle 再加一張 45P 保護：下檔損失有限（45P 保護），但上檔有一張未被覆蓋的賣出 55C，**上檔風險無限**。它是負 gamma、負 vega 的 volatility position，不只是方向價差。
 
 </details>
 
 ### D. 挑戰題
 
-**D1.** 證明在利率 0 下，任何「買 1 張 $K_1$P、賣 1 張 $K_2$C、賣 1 張 $K_2$P、買 1 張 $K_3$C」（$K_2 - K_1 = K_3 - K_2 = w$）的鐵蝶式，其價值加上同履約價買權蝶式的價值等於 $w$。進一步說明在股票型結算、利率 $r$ 時改為 $w/(1+rt)$ 的理由。
+**D1.** 證明在利率 0 下，任何「買 1 張 $K_1$P、賣 1 張 $K_2$C、賣 1 張 $K_2$P、買 1 張 $K_3$C」（$K_2 - K_1 = K_3 - K_2 = w$）的 iron butterfly，其價值加上同 strike call butterfly 的價值等於 $w$。進一步說明在 stock-type settlement、利率 $r$ 時改為 $w/(1+rt)$ 的理由。
 
 <details><summary>解答</summary>
 
-用合成 $P = C - S + K/(1+rt)$（無股利；利率 0 時為 $C - S + K$）。鐵蝶式（以收入計）$= C_{K2} + P_{K2} - P_{K1} - C_{K3}$。代入 $P_{K2} - P_{K1} = (C_{K2} - C_{K1}) + (K_2 - K_1)/(1+rt)$：
-鐵蝶式 $= C_{K2} + C_{K2} - C_{K1} - C_{K3} + w/(1+rt) = -(C_{K1} - 2C_{K2} + C_{K3}) + w/(1+rt)$。
-所以 鐵蝶式 + 買權蝶式 $= w/(1+rt)$，利率 0 時為 $w$。直覺：兩者合在一起，等於在 $K_1$ 合成買進、在 $K_2$ 合成賣出（一個 box），到期價值固定為 $w$，今天的價值是其現值。
+用 synthetic $P = C - S + K/(1+rt)$（無 dividend；利率 0 時為 $C - S + K$）。iron butterfly（以收入計）$= C_{K2} + P_{K2} - P_{K1} - C_{K3}$。代入 $P_{K2} - P_{K1} = (C_{K2} - C_{K1}) + (K_2 - K_1)/(1+rt)$：
+iron butterfly $= C_{K2} + C_{K2} - C_{K1} - C_{K3} + w/(1+rt) = -(C_{K1} - 2C_{K2} + C_{K3}) + w/(1+rt)$。
+所以 iron butterfly + call butterfly $= w/(1+rt)$，利率 0 時為 $w$。直覺：兩者合在一起，等於在 $K_1$ synthetic 買進、在 $K_2$ synthetic 賣出（一個 box），到期價值固定為 $w$，今天的價值是其現值。
 
 </details>
 
 ## 自我檢核清單
 
-- [ ] 不看筆記寫出六種合成關係。
-- [ ] 能用口訣在 3 秒內判斷「選擇權 + 標的」等於什麼。
+- [ ] 不看筆記寫出六種 synthetic 關係。
+- [ ] 能用口訣在 3 秒內判斷「option + underlying」等於什麼。
 - [ ] 能說明伴隨買賣權 gamma、vega 相等而 theta 未必相等的原因。
-- [ ] 能用合成證明買權價差 + 賣權價差 = 履約價間距（現值）。
-- [ ] 能把 2C − S、2P + S 認出是跨式。
-- [ ] 能在蝶式/鐵蝶式、禿鷹/鐵禿鷹之間換算價格。
+- [ ] 能用 synthetic 證明 call 價差 + put 價差 = strike 間距（現值）。
+- [ ] 能把 2C − S、2P + S 認出是 straddle。
+- [ ] 能在 butterfly/iron butterfly、condor/iron condor 之間換算價格。
 - [ ] 能把聖誕樹價差改寫並指出無限風險在哪一邊。
 
 ## 對應 Lab
@@ -458,4 +458,4 @@ $-0.05 \times 50 \times e^{-0.0125}/365 = -2.469/365 \approx$ **−0.00676**，�
 
 **延伸練習（選做，不在自動測驗內；以下函式名稱只是建議）**
 
-- **lab08_synthetics_arbitrage**（[../labs/](../labs/)）：寫一個函式，輸入任意部位（買權、賣權、標的的組合），自動把所有賣權改寫為「買權 + 標的」並合併，輸出等價的純買權表示；用它驗證 14.5、14.6 的例子（2C − S = 跨式、鐵蝶式 = 蝶式、聖誕樹改寫）。再用 Black-Scholes 驗證例題 14-2 的 gamma/vega 相等與 theta 差額。
+- **lab08_synthetics_arbitrage**（[../labs/](../labs/)）：寫一個函式，輸入任意 position（call、put、underlying 的組合），自動把所有 put 改寫為「call + underlying」並合併，輸出等價的純 call 表示；用它驗證 14.5、14.6 的例子（2C − S = straddle、iron butterfly = butterfly、聖誕樹改寫）。再用 Black-Scholes 驗證例題 14-2 的 gamma/vega 相等與 theta 差額。

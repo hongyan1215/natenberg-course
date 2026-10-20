@@ -1,0 +1,159 @@
+# 中文	英文（之後使用）	首次出現的括號說明（空白＝同英文）
+買賣權平價	put-call parity
+合成多頭標的	synthetic long underlying
+合成空頭標的	synthetic short underlying
+合成多頭	synthetic long
+合成空頭	synthetic short
+合成遠期	synthetic forward
+合成選擇權	synthetic option
+遠期價值	forward value
+遠期波動率	forward volatility
+價平遠期	at-the-forward
+期貨型結算	futures-type settlement
+期貨式結算	futures-type settlement
+股票型結算	stock-type settlement
+股票式結算	stock-type settlement
+現金結算	cash settlement
+結算會員	clearing member
+結算所	clearinghouse
+變動保證金	variation margin
+隱含股利	implied dividend
+股利率	dividend yield
+保護性選擇權	protective option
+伴隨選擇權	companion option
+時間蝶式	time butterfly
+時間盒式	time box
+長跨式	long straddle
+短跨式	short straddle
+長蝶式	long butterfly
+短蝶式	short butterfly
+固定履約價	sticky strike
+浮動偏斜	floating skew
+投資型偏斜	investment skew
+需求型偏斜	demand skew
+平衡型偏斜	balanced skew
+報價量	quote size
+報價寬度	quote width
+隱含波動率	implied volatility
+未來實現波動率	future realized volatility
+歷史實現波動率	historical realized volatility
+實現波動率	realized volatility
+歷史波動率	historical volatility
+預測波動率	forecast volatility
+損益兩平波動率	breakeven volatility
+波動率曲面	volatility surface
+波動率偏斜	volatility skew
+波動率微笑	volatility smile
+波動率價差	volatility spread
+波動率錐	volatility cone
+波動率點數	vol points
+波動率點	vol point
+波動率	volatility
+對數常態分配	lognormal distribution
+對數常態	lognormal
+常態分配	normal distribution
+標準差	standard deviation
+隨機漫步	random walk
+均值回歸	mean reversion
+偏態	skewness
+峰態	kurtosis
+肥尾	fat tails
+期望值	expected value	expected value, EV
+二元樹	binomial tree
+偽機率	pseudo-probability
+理論價值	theoretical value
+理論優勢	theoretical edge
+內含價值	intrinsic value
+時間價值	time value
+權利金	premium
+深價內	deep ITM	deep in-the-money, deep ITM
+深價外	deep OTM	deep out-of-the-money, deep OTM
+價平	ATM	at-the-money, ATM
+價內	ITM	in-the-money, ITM
+價外	OTM	out-of-the-money, OTM
+價內外程度	moneyness
+平遠期	at-the-forward
+履約價格	strike	strike price
+履約價	strike	strike price
+提前履約	early exercise
+履約	exercise
+指派	assign	assign / assignment
+到期日	expiration date
+歐式選擇權	European option
+美式選擇權	American option
+期貨選擇權	futures option
+股價指數選擇權	stock index option
+選擇權	option
+買權	call
+賣權	put
+標的資產	underlying asset
+標的	underlying
+遠期價格	forward price
+遠期價	forward price
+遠期合約	forward contract
+期貨合約	futures contract
+股價指數期貨	stock index futures
+期貨	futures
+持有成本	cost of carry
+便利收益	convenience yield
+現貨持有套利	cash-and-carry arbitrage
+正價差	contango
+逆價差	backwardation
+基差	basis
+除息日	ex-dividend date
+股利	dividend
+保證金	margin
+結算價	settlement price
+結算	settlement
+名目價值	notional value
+未平倉量	open interest	open interest, OI
+多頭部位	long position
+空頭部位	short position
+部位限制	position limit
+部位上限	position limit
+合成部位	synthetic position
+部位	position
+動態避險	dynamic hedging
+避險比率	hedge ratio
+避險	hedge
+跨式	straddle
+勒式	strangle
+鐵蝶式	iron butterfly
+蝶式	butterfly
+鐵禿鷹	iron condor
+鐵兀鷹	iron condor
+禿鷹	condor
+兀鷹	condor
+日曆價差	calendar spread
+垂直價差	vertical spread
+對角價差	diagonal spread
+比率價差	ratio spread
+比例價差	ratio spread
+多頭買權價差	bull call spread
+多頭賣權價差	bull put spread
+空頭買權價差	bear call spread
+空頭賣權價差	bear put spread
+多頭價差	bull spread
+空頭價差	bear spread
+買賣價差	bid-ask spread
+風險逆轉	risk reversal
+掩護性賣出	covered write
+保護性賣權	protective put
+保護性買權	protective call
+領口	collar
+合成	synthetic
+逆轉換	reversal
+盒式	box
+捲式	roll
+指數套利	index arbitrage
+套利	arbitrage
+程式交易	program trading
+造市商	market maker
+做市商	market maker
+造市	market making
+做市	market making
+逆向選擇	adverse selection
+庫存	inventory
+報價	quote
+偏斜	skew
+損益兩平	breakeven

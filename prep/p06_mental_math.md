@@ -4,26 +4,26 @@
 
 > 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
 
-**一句話**：交易員的心算不是比誰乘法快，而是 3–5 秒內給出一個「知道大概錯多少」的數字：跨式多少錢、這一跳賺賠多少、新的 delta 是多少。
+**一句話**：交易員的心算不是比誰乘法快，而是 3–5 秒內給出一個「知道大概錯多少」的數字：跨式（straddle）多少錢、這一跳賺賠多少、新的 delta 是多少。
 
 **你只需要先記住這 5 件事**
 
-1. **時間要開根號，背幾個 √t 就夠。** 每日 ÷ 16（交易日）、每週 ÷ 7.2、1 個月 × 0.29、3 個月 × 0.5、半年 × 0.71。例：股價 64、波動率 25% → 一天約動 1 元。
-2. **0.4 規則、0.8 規則。** 價平 call ≈ 0.4 × 價格 × 波動率 × √t，跨式 ≈ 0.8 × 價格 × 波動率 × √t。它永遠略微高估，但大部分情況誤差 < 1%。例：100 元、vol 20、一個月跨式 ≈ 4.6。
-3. **delta 心算。** 價平（遠期）call ≈ 0.5 + 0.2 × σ√t；不是價平就先算 d1 再查 N(x) 地標：0.5 → 0.69、1 → 0.84、1.645 → 0.95、1.96 → 0.975。
+1. **時間要開根號，背幾個 √t 就夠。** 每日 ÷ 16（交易日）、每週 ÷ 7.2、1 個月 × 0.29、3 個月 × 0.5、半年 × 0.71。例：股價 64、波動率（volatility） 25% → 一天約動 1 元。
+2. **0.4 規則、0.8 規則。** 價平（at-the-money, ATM） call ≈ 0.4 × 價格 × volatility × √t，straddle ≈ 0.8 × 價格 × volatility × √t。它永遠略微高估，但大部分情況誤差 < 1%。例：100 元、vol 20、一個月 straddle ≈ 4.6。
+3. **delta 心算。** ATM（遠期）call ≈ 0.5 + 0.2 × σ√t；不是 ATM 就先算 d1 再查 N(x) 地標：0.5 → 0.69、1 → 0.84、1.645 → 0.95、1.96 → 0.975。
 4. **泰勒展開算損益**：delta × 移動 + ½ × gamma × 移動² + vega × vol 變動 + theta × 天數；新 delta ≈ delta + gamma × 移動。賣方的四個 Greeks 全部變號。大移動又碰上 vol 大動時，就別心算，回去重新定價。
-5. **跨式捷徑。** 每日 theta ≈ 跨式價格 ÷（2 × 剩餘天數）；每 vol 點 vega ≈ 跨式價格 ÷ vol 點數。獨立的移動要把變異數相加，不是把標準差相加。
+5. **straddle 捷徑。** 每日 theta ≈ straddle 價格 ÷（2 × 剩餘天數）；每 vol 點 vega ≈ straddle 價格 ÷ vol 點數。獨立的移動要把變異數相加，不是把標準差（standard deviation）相加。
 
 **必背卡**
 
 | 要算什麼 | 怎麼算 |
 |---|---|
-| 每日／每週 1 個標準差 | 價格 × σ ÷ 16／價格 × σ ÷ 7.2 |
-| 價平 call／跨式 | 0.4／0.8 × 價格 × σ × √t |
-| 由跨式反推隱含波動率 | 跨式 ÷（0.8 × 價格 × √t） |
-| 價平 call delta | 0.5 + 0.2 × σ√t |
+| 每日／每週 1 個 standard deviation | 價格 × σ ÷ 16／價格 × σ ÷ 7.2 |
+| ATM call／straddle | 0.4／0.8 × 價格 × σ × √t |
+| 由 straddle 反推隱含波動率（implied volatility） | straddle ÷（0.8 × 價格 × √t） |
+| ATM call delta | 0.5 + 0.2 × σ√t |
 | 泰勒損益 | Δ × 移動 + ½Γ × 移動² + vega × vol 變動 + θ × 天數 |
-| 跨式 theta／vega | 跨式 ÷（2 × 天數）／跨式 ÷ vol 點數 |
+| straddle theta／vega | straddle ÷（2 × 天數）／straddle ÷ vol 點數 |
 
 **必做練習（約 20 分鐘）**：A3、B1、B5、C2（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
 
@@ -33,17 +33,17 @@
 
 ## 本章定位
 
-交易員的心算不是比誰乘法快，而是**在 3–5 秒內給出一個「誤差已知」的數字**：跨式大概多少錢、這一跳我賺賠多少、新的 delta 是多少、要不要再避險。本章把 Natenberg 課程裡散落的近似式整理成一套可以反覆練習的工具箱，每個捷徑都附上「什麼時候會錯、錯多少」（全部用 Python 對照 Black-Scholes 驗證）。
+交易員的心算不是比誰乘法快，而是**在 3–5 秒內給出一個「誤差已知」的數字**：straddle 大概多少錢、這一跳我賺賠多少、新的 delta 是多少、要不要再避險（hedge）。本章把 Natenberg 課程裡散落的近似式整理成一套可以反覆練習的工具箱，每個捷徑都附上「什麼時候會錯、錯多少」（全部用 Python 對照 Black-Scholes 驗證）。
 
 前置章節：[第 6 章 波動率](../lessons/ch06_volatility.md)（÷16 規則）、[第 7 章 風險衡量 I](../lessons/ch07_risk_measurement_1.md)（delta、gamma、theta、vega）、[第 9 章 風險衡量 II](../lessons/ch09_risk_measurement_2.md)、[第 18 章 Black-Scholes](../lessons/ch18_black_scholes.md)（0.4 規則的來源）、[附錄 B 實用數學](../lessons/appB_useful_math.md)。
 
 ## 學習目標
 
-1. 能在 5 秒內把年化波動率換算成每日、每週、任意天數的一個標準差價格移動（含 √t 速查表）。
-2. 能用 $0.4\,S\sigma\sqrt t$、$0.8\,S\sigma\sqrt t$ 估算價平選擇權與跨式價格，並反推隱含波動率，說出誤差大小。
+1. 能在 5 秒內把年化 volatility 換算成每日、每週、任意天數的一個 standard deviation 價格移動（含 √t 速查表）。
+2. 能用 $0.4\,S\sigma\sqrt t$、$0.8\,S\sigma\sqrt t$ 估算 ATM 選擇權（option）與 straddle 價格，並反推 implied volatility，說出誤差大小。
 3. 能用 $N(x)$ 地標值與 $0.5+0.2\,\sigma\sqrt t$ 估算 delta，知道線性近似在哪裡失效。
-4. 能用泰勒展開 $\Delta V\approx\Delta\,\delta S+\tfrac12\Gamma\,\delta S^2+\mathcal V\,\delta\sigma+\Theta\,\delta t$ 估算部位損益與新 delta，且正負號不出錯。
-5. 能用跨式價格心算 ATM 的 theta、vega、gamma 與損益兩平移動。
+4. 能用泰勒展開 $\Delta V\approx\Delta\,\delta S+\tfrac12\Gamma\,\delta S^2+\mathcal V\,\delta\sigma+\Theta\,\delta t$ 估算部位（position）損益與新 delta，且正負號不出錯。
+5. 能用 straddle 價格心算 ATM 的 theta、vega、gamma 與損益兩平（breakeven）移動。
 6. 能做百分比、基點、複利、對數、平方根的快速近似，並知道每一個近似的誤差量級。
 7. 能用費米估算（Fermi estimation）把未知量拆成可估的因子，並給出區間。
 
@@ -61,13 +61,13 @@
 
 交易員會這樣說：「大概 4.6，捷徑會高估一點點，真實值應該在 4.60 附近。」比起「4.6188」更有用，因為它同時告訴聽的人**可信度**。
 
-> 本章所有「誤差」都以 Black-Scholes（$r=0$、無股利，除非另外註明）為基準計算；真實市場還有 skew、利率、股利，捷徑的目的是**快速定位**，不是取代模型。
+> 本章所有「誤差」都以 Black-Scholes（$r=0$、無股利（dividend），除非另外註明）為基準計算；真實市場還有 skew、利率、dividend，捷徑的目的是**快速定位**，不是取代模型。
 
 ### 6.2 時間平方根：√t 速查表與 ÷16 規則
 
 > 💡 **一句話**：每日 ÷16、每週 ÷7.2、1 個月 ×0.29、3 個月 ×0.5；最怕的是日曆日和交易日混用。
 
-**直覺**：波動率是年化標準差；期間 $t$（以年計）的標準差 $=\sigma\sqrt t$。所以所有選擇權心算都繞著 $\sqrt t$ 轉。
+**直覺**：volatility 是年化 standard deviation；期間 $t$（以年計）的 standard deviation $=\sigma\sqrt t$。所以所有 option 心算都繞著 $\sqrt t$ 轉。
 
 **兩種計日慣例**：
 
@@ -93,7 +93,7 @@
 
 另外三個常用：64 個交易日 → 0.5；16 個交易日 → 0.25；4 個交易日 → 0.125（都是 $\sqrt{d}/16$ 的完全平方）。
 
-**數值例**：股價 64、波動率 25%。
+**數值例**：股價 64、volatility 25%。
 
 - 每日 1σ（交易日）：$64\times0.25/16=1.00$
 - 每週 1σ（日曆）：$64\times0.25/7.2=2.22$
@@ -107,15 +107,15 @@
 | ÷7.2（每週） | ÷7.211 | 高估約 0.15% |
 | ÷19.1（日曆日） | ÷19.105 | 0.03% |
 
-這些誤差遠小於你對波動率本身的不確定性（波動率差 1 個點就是 4–5% 的相對差），所以**放心用**。真正要小心的是慣例混用：用 365 天換算每日 σ、卻拿交易日價格變動來比，會系統性低估約 16%（$19.1/16\approx1.19$）。
+這些誤差遠小於你對 volatility 本身的不確定性（volatility 差 1 個點就是 4–5% 的相對差），所以**放心用**。真正要小心的是慣例混用：用 365 天換算每日 σ、卻拿交易日價格變動來比，會系統性低估約 16%（$19.1/16\approx1.19$）。
 
-**交易員會怎麼說**：「年化 32 的票，一天正常走 2%，今天走 5% 是 2.5 個標準差，我要重新看我的 vol。」
+**交易員會怎麼說**：「年化 32 的票，一天正常走 2%，今天走 5% 是 2.5 個 standard deviation，我要重新看我的 vol。」
 
 ### 6.3 N(x) 地標值與線性近似
 
 > 💡 **一句話**：|x| ≤ 0.5 用 0.5 + 0.4x；更遠就背地標值（1 → 0.84、1.645 → 0.95、1.96 → 0.975）。
 
-**直覺**：$N(x)$ 是標準常態累積分配。delta、履約機率、區間機率都要用它。背幾個地標值，中間用內插。
+**直覺**：$N(x)$ 是標準常態累積分配。delta、履約（exercise）機率、區間機率都要用它。背幾個地標值，中間用內插。
 
 **N(x) 地標表**（Python 驗證）：
 
@@ -146,19 +146,19 @@
 
 ### 6.4 價平選擇權與跨式：0.4 規則、0.8 規則
 
-> 💡 **一句話**：價平 call ≈ 0.4Sσ√t、跨式 ≈ 0.8Sσ√t，永遠略微高估；跨式價格 ≈ 市場預期的平均絕對移動。
+> 💡 **一句話**：ATM call ≈ 0.4Sσ√t、straddle ≈ 0.8Sσ√t，永遠略微高估；straddle 價格 ≈ 市場預期的平均絕對移動。
 
-**直覺**：價平遠期（at-the-forward, ATMF）買權在 $r=0$ 時的精確值是 $S\,[2N(\sigma\sqrt t/2)-1]$。把 $N$ 在 0 附近線性展開，得到 $S\cdot2\cdot n(0)\cdot\sigma\sqrt t/2=0.3989\,S\sigma\sqrt t$。
+**直覺**：價平遠期（at-the-forward, ATMF）買權（call）在 $r=0$ 時的精確值是 $S\,[2N(\sigma\sqrt t/2)-1]$。把 $N$ 在 0 附近線性展開，得到 $S\cdot2\cdot n(0)\cdot\sigma\sqrt t/2=0.3989\,S\sigma\sqrt t$。
 
 $$
 C_{\text{ATMF}}\approx0.4\,S\sigma\sqrt t,\qquad \text{Straddle}_{\text{ATMF}}\approx0.8\,S\sigma\sqrt t
 $$
 
-**一個很有用的解讀**：常態分配的平均絕對偏差是 $\sqrt{2/\pi}\,\sigma=0.798\,\sigma$。所以 **ATM 跨式價格 ≈ 市場預期的「平均絕對移動」**。跨式 4.60 代表市場預期到期時標的平均離現價約 4.60。
+**一個很有用的解讀**：常態分配（normal distribution）的平均絕對偏差是 $\sqrt{2/\pi}\,\sigma=0.798\,\sigma$。所以 **ATM straddle 價格 ≈ 市場預期的「平均絕對移動」**。straddle 4.60 代表市場預期到期時標的（underlying）平均離現價約 4.60。
 
 **誤差（相對於 BS，$r=0$）**：
 
-| $\sigma\sqrt t$ | 精確（每 100 元標的） | 0.4 規則 | 0.4 的相對誤差 | 用 0.3989 的相對誤差 |
+| $\sigma\sqrt t$ | 精確（每 100 元 underlying） | 0.4 規則 | 0.4 的相對誤差 | 用 0.3989 的相對誤差 |
 |---|---|---|---|---|
 | 0.05 | 1.9945 | 2.00 | +0.28% | +0.01% |
 | 0.10 | 3.9878 | 4.00 | +0.31% | +0.04% |
@@ -167,17 +167,17 @@ $$
 | 0.50 | 19.7413 | 20.00 | +1.31% | +1.04% |
 | 1.00 | 38.2925 | 40.00 | +4.46% | +4.18% |
 
-規律：**0.4 規則永遠高估**，相對誤差 ≈ $0.27\%+(\sigma\sqrt t)^2/24$。前半是 0.4 比 0.3989 大，後半是 $N$ 的凹性。$\sigma\sqrt t\le0.4$（大部分上市選擇權）時誤差 < 1%。
+規律：**0.4 規則永遠高估**，相對誤差 ≈ $0.27\%+(\sigma\sqrt t)^2/24$。前半是 0.4 比 0.3989 大，後半是 $N$ 的凹性。$\sigma\sqrt t\le0.4$（大部分上市 option）時誤差 < 1%。
 
-**反推隱含波動率**：
+**反推 implied volatility**：
 
 $$
 \sigma\approx\frac{\text{Straddle}}{0.8\,S\sqrt t}
 $$
 
-例：標的 80、一個月跨式 3.20 → $\sigma\approx3.20/(0.8\times80\times0.2887)=17.32\%$；精確反推 17.37%（因為 0.8 規則高估價格，反推的 vol 會略低估）。
+例：underlying 80、一個月 straddle 3.20 → $\sigma\approx3.20/(0.8\times80\times0.2887)=17.32\%$；精確反推 17.37%（因為 0.8 規則高估價格，反推的 vol 會略低估）。
 
-**價平現貨（ATM spot）而非價平遠期**：有利率時，$K=S$ 的買權比 ATMF 貴、賣權比 ATMF 便宜：
+**ATM 現貨（ATM spot）而非 at-the-forward**：有利率時，$K=S$ 的 call 比 ATMF 貴、賣權（put）比 ATMF 便宜：
 
 $$
 C_{K=S}\approx0.4\,S\sigma\sqrt t+\tfrac12 Srt,\qquad P_{K=S}\approx0.4\,S\sigma\sqrt t-\tfrac12 Srt
@@ -192,15 +192,15 @@ $rt$ 大的時候誤差到 0.05–0.1；短天期幾乎精確。
 
 ### 6.5 Delta 的心算：0.5 + 修正
 
-> 💡 **一句話**：價平遠期 call delta ≈ 0.5 + 0.2σ√t；不是價平就先算 d1 再查地標表，別亂用線性。
+> 💡 **一句話**：at-the-forward call delta ≈ 0.5 + 0.2σ√t；不是 ATM 就先算 d1 再查地標表，別亂用線性。
 
-**ATMF 買權 delta**：$K=F$ 時 $d_1=\sigma\sqrt t/2$，所以
+**ATMF call delta**：$K=F$ 時 $d_1=\sigma\sqrt t/2$，所以
 
 $$
 \Delta_{\text{call,ATMF}}=N\!\left(\tfrac12\sigma\sqrt t\right)\approx0.5+0.2\,\sigma\sqrt t
 $$
 
-賣權 delta $=\Delta_{\text{call}}-1\approx-0.5+0.2\,\sigma\sqrt t$。推論：**ATMF 跨式不是 delta 中立，而是約 $+0.4\,\sigma\sqrt t$ 的多頭 delta**。delta 中立跨式（DNS）的履約價略高於遠期：$K_{\text{DNS}}=Fe^{\sigma^2t/2}$。
+put delta $=\Delta_{\text{call}}-1\approx-0.5+0.2\,\sigma\sqrt t$。推論：**ATMF straddle 不是 delta 中立，而是約 $+0.4\,\sigma\sqrt t$ 的多頭 delta**。delta 中立 straddle 的履約價（strike price）略高於遠期：$K_{\text{DNS}}=Fe^{\sigma^2t/2}$。
 
 | $\sigma$ | $t$ | $\sigma\sqrt t$ | 精確 $N(\sigma\sqrt t/2)$ | $0.5+0.2\sigma\sqrt t$ | 誤差 |
 |---|---|---|---|---|---|
@@ -210,7 +210,7 @@ $$
 | 50% | 1 | 0.50 | 0.5987 | 0.6000 | +0.0013 |
 | 100% | 1 | 1.00 | 0.6915 | 0.7000 | +0.0085 |
 
-**非價平選擇權**：先心算 $d_1=\dfrac{\ln(F/K)}{\sigma\sqrt t}+\dfrac{\sigma\sqrt t}{2}$，再查 6.3 的地標表。$\ln(F/K)$ 用 $(F-K)/F$ 近似即可（5% 以內誤差很小）。
+**非 ATM option**：先心算 $d_1=\dfrac{\ln(F/K)}{\sigma\sqrt t}+\dfrac{\sigma\sqrt t}{2}$，再查 6.3 的地標表。$\ln(F/K)$ 用 $(F-K)/F$ 近似即可（5% 以內誤差很小）。
 
 例：$F=100$、$K=110$、$\sigma=25\%$、$t=0.25$ → $\sigma\sqrt t=0.125$。$\ln(100/110)=-0.0953$，$d_1=-0.0953/0.125+0.0625=-0.70$ → $N(-0.70)\approx1-0.758=0.242$。精確 0.2420。
 
@@ -218,36 +218,36 @@ $$
 
 **delta 地標**：
 
-- 1 個標準差價外（$d_1\approx-1$）的買權 ≈ 16 delta。
-- 25 delta 買權的履約價約在 $F\,e^{0.674\sigma\sqrt t+\sigma^2t/2}$；$\sigma=20\%$、$t=0.25$ 時 ≈ 107.5（精確 107.51）。只用 $F(1+0.674\sigma\sqrt t)$ 會得到 106.7，低估。
+- 1 個 standard deviation 價外（out-of-the-money, OTM）（$d_1\approx-1$）的 call ≈ 16 delta。
+- 25 delta call 的 strike 約在 $F\,e^{0.674\sigma\sqrt t+\sigma^2t/2}$；$\sigma=20\%$、$t=0.25$ 時 ≈ 107.5（精確 107.51）。只用 $F(1+0.674\sigma\sqrt t)$ 會得到 106.7，低估。
 
 ### 6.6 ATM Greeks 的心算：全部從跨式價格出發
 
-> 💡 **一句話**：跨式每日 theta ≈ 跨式 ÷（2 × 天數），vega ≈ 跨式 ÷ vol 點數；損益兩平的一天移動就是一日 1σ。
+> 💡 **一句話**：straddle 每日 theta ≈ straddle ÷（2 × 天數），vega ≈ straddle ÷ vol 點數；breakeven 的一天移動就是一日 1σ。
 
 $r=0$、ATM 時，Black-Scholes 的 Greeks 都可以用 $n(0)\approx0.4$ 寫成簡單形式：
 
-| Greek | 單一 ATM 選擇權 | 用跨式價格 $\Pi$ 表達（跨式 = 2 口） | $S=100,\sigma=20\%,t=0.25$ 精確 | 捷徑 |
+| Greek | 單一 ATM option | 用 straddle 價格 $\Pi$ 表達（straddle = 2 口） | $S=100,\sigma=20\%,t=0.25$ 精確 | 捷徑 |
 |---|---|---|---|---|
 | 價格 | $0.4S\sigma\sqrt t$ | $\Pi=0.8S\sigma\sqrt t$ | 3.988 | 4.00 |
 | Gamma（每 1 元） | $0.4/(S\sigma\sqrt t)$ | — | 0.03984 | 0.04 |
 | Vega（每 1 vol 點） | $0.004\,S\sqrt t$ | $\Pi/\sigma_{\text{pts}}$ | 0.1992 | 0.20 |
 | Theta（每日曆日） | $-0.2S\sigma/(\sqrt t\cdot365)$ | $-\Pi/(2\times\text{days})$ | −0.02183 | −0.02192 |
 
-兩條特別好用的「跨式捷徑」：
+兩條特別好用的「straddle 捷徑」：
 
-- **跨式每日 theta ≈ 跨式價格 ÷（2 × 剩餘天數）**。因為 $\Pi\propto\sqrt T$，$d\Pi/dT=\Pi/(2T)$。例：90 天、跨式 6.00 → 每天約 $6/180=0.033$。
-- **跨式 vega（每 vol 點）≈ 跨式價格 ÷ 波動率點數**。因為 $\Pi\propto\sigma$。例：跨式 8.00、vol 20 → 每 vol 點約 0.40。
+- **straddle 每日 theta ≈ straddle 價格 ÷（2 × 剩餘天數）**。因為 $\Pi\propto\sqrt T$，$d\Pi/dT=\Pi/(2T)$。例：90 天、straddle 6.00 → 每天約 $6/180=0.033$。
+- **straddle vega（每 vol 點）≈ straddle 價格 ÷ 波動率點數（vol points）**。因為 $\Pi\propto\sigma$。例：straddle 8.00、vol 20 → 每 vol 點約 0.40。
 
-**Gamma 與 theta 的連結**（$r=0$）：$\Theta=-\tfrac12\Gamma S^2\sigma^2$（每年）。所以 delta 中立長 gamma 部位一天的**損益兩平移動**：
+**Gamma 與 theta 的連結**（$r=0$）：$\Theta=-\tfrac12\Gamma S^2\sigma^2$（每年）。所以 delta 中立長 gamma position 一天的**breakeven 移動**：
 
 $$
 \tfrac12\Gamma\,\delta S^2=\lvert\Theta_{\text{day}}\rvert\ \Rightarrow\ \delta S_{\text{BE}}=\sqrt{2\lvert\Theta_{\text{day}}\rvert/\Gamma}\approx\frac{S\sigma}{19.1}
 $$
 
-上例：$\sqrt{2\times0.02183/0.03984}=1.047$，而 $100\times0.20/19.1=1.047$。兩者一致——**損益兩平的一天移動，就是隱含波動率換算的一日 1σ**（日曆日慣例）。詳細推導見 [第 8 章](../lessons/ch08_dynamic_hedging.md)。
+上例：$\sqrt{2\times0.02183/0.03984}=1.047$，而 $100\times0.20/19.1=1.047$。兩者一致——**breakeven 的一天移動，就是 implied volatility 換算的一日 1σ**（日曆日慣例）。詳細推導見 [第 8 章](../lessons/ch08_dynamic_hedging.md)。
 
-**誤差**：上表的捷徑對 ATM 在 0.5% 以內；離價平越遠越不準（gamma、vega 會比 ATM 小，可用 $n(d_1)/n(0)$ 修正，例如 $d_1=\pm1$ 時乘以 0.61）。
+**誤差**：上表的捷徑對 ATM 在 0.5% 以內；離 ATM 越遠越不準（gamma、vega 會比 ATM 小，可用 $n(d_1)/n(0)$ 修正，例如 $d_1=\pm1$ 時乘以 0.61）。
 
 ### 6.7 泰勒展開損益：公式與正負號慣例
 
@@ -263,11 +263,11 @@ $$
 
 | 項目 | 慣例 | 常見陷阱 |
 |---|---|---|
-| $\Delta$ | 部位 delta，以「股數／標的單位」表示（多頭為正） | 混用「每口 delta 0.52」與「52 deltas」與「乘數 100」 |
-| $\Gamma$ | 每 1 元標的變動，delta 改變多少（部位） | 用「每 1%」的 gamma 卻代入元的 $\delta S$ |
+| $\Delta$ | position delta，以「股數／underlying 單位」表示（多頭為正） | 混用「每口 delta 0.52」與「52 deltas」與「乘數 100」 |
+| $\Gamma$ | 每 1 元 underlying 變動，delta 改變多少（position） | 用「每 1%」的 gamma 卻代入元的 $\delta S$ |
 | $\mathcal V$ | 每 1 個 vol 點（例：20% → 21%）的價值變動 | $\delta\sigma$ 用 0.01 卻配上「每點 vega」，差 100 倍 |
-| $\Theta$ | 每 1 天的價值變動，**多頭選擇權為負** | 把 theta 寫成正數再「減掉」，結果減兩次 |
-| 部位方向 | 賣方的所有 Greeks 變號 | 只記得 delta 變號，忘了 gamma、vega、theta 也變號 |
+| $\Theta$ | 每 1 天的價值變動，**多頭 option 為負** | 把 theta 寫成正數再「減掉」，結果減兩次 |
+| position 方向 | 賣方的所有 Greeks 變號 | 只記得 delta 變號，忘了 gamma、vega、theta 也變號 |
 
 **新 delta**：
 
@@ -277,7 +277,7 @@ $$
 
 （高階 Greeks 見 [P2 高階 Greeks](p02_higher_order_greeks.md)。）
 
-**數值例 1：部位層級**。你的部位：$\Delta=-300$ 股、$\Gamma=+150$（每 1 元）、$\mathcal V=+2{,}500$（每 vol 點）、$\Theta=-1{,}800$（每天）。隔天標的 +2.00、vol −1.5 點。
+**數值例 1：position 層級**。你的 position：$\Delta=-300$ 股、$\Gamma=+150$（每 1 元）、$\mathcal V=+2{,}500$（每 vol 點）、$\Theta=-1{,}800$（每天）。隔天 underlying +2.00、vol −1.5 點。
 
 | 項目 | 計算 | 損益 |
 |---|---|---|
@@ -289,7 +289,7 @@ $$
 
 新 delta $=-300+150\times2=0$。交易員會說：「方向上剛好打平，主要是 vol 掉了 1.5 點吃了 3,750，加上一天 theta。」
 
-**數值例 2：單一選擇權，測試誤差**。ATM 買權 $S=K=100$、$\sigma=20\%$、$t=0.25$：$\Delta=0.5199$、$\Gamma=0.03984$、$\mathcal V=0.1992$、$\Theta=-0.02183$。全額重新定價（full revaluation）vs 泰勒四項：
+**數值例 2：單一 option，測試誤差**。ATM call $S=K=100$、$\sigma=20\%$、$t=0.25$：$\Delta=0.5199$、$\Gamma=0.03984$、$\mathcal V=0.1992$、$\Theta=-0.02183$。全額重新定價（full revaluation）vs 泰勒四項：
 
 | 情境（$\sigma\sqrt t\cdot S=10$ 為 1σ） | 全額重估 | 泰勒 | 誤差 |
 |---|---|---|---|
@@ -334,19 +334,19 @@ $$
 
 > 💡 **一句話**：獨立的移動要把變異數相加；財報波動 = 總變異數 − 平常日子的變異數。
 
-**直覺**：獨立的移動，**變異數相加**，標準差不相加。財報週的跨式同時包含「平常日子」和「財報跳空」。
+**直覺**：獨立的移動，**變異數相加**，standard deviation 不相加。財報週的 straddle 同時包含「平常日子」和「財報跳空」。
 
 $$
 \sigma_{\text{total}}^2\,t_{\text{total}}=\sigma_{\text{base}}^2\,t_{\text{base}}+\sigma_{\text{event}}^2
 $$
 
-例：S = 100，一週（5 個交易日）跨式 5.00，含財報。平常 vol 25%。
+例：S = 100，一週（5 個交易日）straddle 5.00，含財報。平常 vol 25%。
 
 - 總 1σ（%）≈ $5.00/0.8/100=6.25\%$ → 變異數 39.06
 - 平常 5 天：每日 $25/16=1.5625\%$ → 變異數 $1.5625^2\times5=12.21$
 - 財報的變異數 $=39.06-12.21=26.86$ → 財報 1σ ≈ **5.18%**
 
-同樣的邏輯用在兩個到期日之間的**遠期波動率**：1 個月 30%、2 個月 25% → 第 2 個月的遠期 vol $=\sqrt{(0.25^2\times2-0.30^2\times1)/1}=18.7\%$（若 total variance 遞減就是日曆套利，見 [P5](p05_surface_no_arbitrage.md)）。
+同樣的邏輯用在兩個到期日（expiration date）之間的**遠期波動率（forward volatility）**：1 個月 30%、2 個月 25% → 第 2 個月的遠期 vol $=\sqrt{(0.25^2\times2-0.30^2\times1)/1}=18.7\%$（若 total variance 遞減就是日曆套利（arbitrage），見 [P5](p05_surface_no_arbitrage.md)）。
 
 ### 6.10 費米估算：把未知量拆開
 
@@ -361,7 +361,7 @@ $$
 - 每人每週杯數：1–3，取 2 → 每年約 100 杯
 - 乘積：約 11.5 億杯，區間大約 5 億～25 億
 
-**交易員會怎麼說**：「我的中心是 12 億，log 不確定性大概一倍，所以我會報很寬，例如 6 億買、20 億賣，等成交資訊再收窄。」對未知量報價的完整打法見 [P13 模擬交易手冊](p13_mock_trading_playbook.md)。
+**交易員會怎麼說**：「我的中心是 12 億，log 不確定性大概一倍，所以我會報很寬，例如 6 億買、20 億賣，等成交資訊再收窄。」對未知量報價（quote）的完整打法見 [P13 模擬交易手冊](p13_mock_trading_playbook.md)。
 
 ### 6.11 速練：15 題（建議計時，每題 ≤ 10 秒）
 
@@ -371,16 +371,16 @@ $$
 |---|---|---|---|---|
 | 1 | S=64、σ=25%，每日 1σ（交易日） | 64×0.25/16 | 1.00 | 252 天慣例 1.008 |
 | 2 | S=150、σ=40%，每週 1σ | 150×0.4/7.2 | 8.33 | 8.32 |
-| 3 | S=50、σ=30%、3 個月 ATM 跨式 | 0.8×50×0.3×0.5 | 6.00 | 5.979 |
-| 4 | S=200、σ=18%、1 個月 ATM 買權 | 0.4×200×0.18×0.289 | 4.16 | 4.145 |
-| 5 | S=80、1 個月跨式 3.20，隱含 vol | 3.2/(0.8×80×0.289) | 17.3% | 17.37% |
-| 6 | 跨式 6.00、90 天，每日 theta | 6/180 | 0.033 | |
+| 3 | S=50、σ=30%、3 個月 ATM straddle | 0.8×50×0.3×0.5 | 6.00 | 5.979 |
+| 4 | S=200、σ=18%、1 個月 ATM call | 0.4×200×0.18×0.289 | 4.16 | 4.145 |
+| 5 | S=80、1 個月 straddle 3.20，隱含 vol | 3.2/(0.8×80×0.289) | 17.3% | 17.37% |
+| 6 | straddle 6.00、90 天，每日 theta | 6/180 | 0.033 | |
 | 7 | S=100、t=0.5，ATM vega（每點） | 0.004×100×0.71 | 0.28 | 0.2814 |
 | 8 | S=100、σ=20%、t=0.25，ATM gamma | 0.4/(100×0.1) | 0.040 | 0.0398 |
-| 9 | σ=40%、t=1，ATMF 買權 delta | 0.5+0.2×0.4 | 0.58 | 0.5793 |
-| 10 | F=100、K=110、σ=25%、t=0.25，買權 delta | $d_1\approx-0.70$ | 0.24 | 0.2420 |
-| 11 | ATM gamma 0.04、theta −0.0218/天，損益兩平移動 | √(2×0.0218/0.04) | 1.04 | 1.047 |
-| 12 | 一週跨式 5.00（S=100，含財報），平常 vol 25% | 39.06 − 12.21 | 5.2% | 5.18% |
+| 9 | σ=40%、t=1，ATMF call delta | 0.5+0.2×0.4 | 0.58 | 0.5793 |
+| 10 | F=100、K=110、σ=25%、t=0.25，call delta | $d_1\approx-0.70$ | 0.24 | 0.2420 |
+| 11 | ATM gamma 0.04、theta −0.0218/天，breakeven 移動 | √(2×0.0218/0.04) | 1.04 | 1.047 |
+| 12 | 一週 straddle 5.00（S=100，含財報），平常 vol 25% | 39.06 − 12.21 | 5.2% | 5.18% |
 | 13 | 2,400,000 的 37 bp | 2.4M×0.0037 | 8,880 | 精確 |
 | 14 | $1.06^5$ | 1+0.30+0.036 | 1.336 | 1.3382 |
 | 15 | 97×103 | 100² − 9 | 9,991 | 精確 |
@@ -389,19 +389,19 @@ $$
 
 ## 交易員視角
 
-- **培訓的考法**：常見的形式是限時的算術與估算題組，以及教練在模擬盤中途「拍肩」問：「你現在的 delta？剛剛那一跳賺多少？跨式值多少？」重點是**速度 + 正負號正確 + 能說出誤差方向**。具體題型與時間限制各期可能不同，以實際說明為準。
-- **模擬盤上**：在 Optibook 類的模擬交易所，你常常需要在一個輪詢週期內（程式裡至少 `time.sleep(0.2)`）判斷要不要撤單。用 ÷16 判斷「這一跳是不是異常」、用泰勒展開判斷「我的部位這一跳賺賠多少」、用 $\Gamma\cdot\delta S$ 判斷「要不要再避險」，都比每次跑完整模型快。
+- **培訓的考法**：常見的形式是限時的算術與估算題組，以及教練在模擬盤中途「拍肩」問：「你現在的 delta？剛剛那一跳賺多少？straddle 值多少？」重點是**速度 + 正負號正確 + 能說出誤差方向**。具體題型與時間限制各期可能不同，以實際說明為準。
+- **模擬盤上**：在 Optibook 類的模擬交易所，你常常需要在一個輪詢週期內（程式裡至少 `time.sleep(0.2)`）判斷要不要撤單。用 ÷16 判斷「這一跳是不是異常」、用泰勒展開判斷「我的 position 這一跳賺賠多少」、用 $\Gamma\cdot\delta S$ 判斷「要不要再 hedge」，都比每次跑完整模型快。
 - **真實 desk 上**：系統會算精確 Greeks，但交易員仍需要心算來**抓錯**——系統顯示的 PnL 若和你的泰勒估算差一個數量級，通常是乘數、單位或正負號設定錯了，而不是市場真的這樣走。
-- **報價時**：心算出的 theo 只是「定位」，報價時再加上寬度（[P7 造市基礎](p07_market_making_basics.md)）。不確定性越大，寬度越寬。
+- **quote 時**：心算出的 theo 只是「定位」，quote 時再加上寬度（[P7 造市基礎](p07_market_making_basics.md)）。不確定性越大，寬度越寬。
 
 ## 常見誤區
 
 1. **誤解**：0.4 規則是精確公式。→ **正解**：它永遠高估，相對誤差 ≈ 0.27% + $(\sigma\sqrt t)^2/24$；長天期、高波動時要往下修正。
-2. **誤解**：ATM 跨式是 delta 中立。→ **正解**：ATMF 跨式約有 $+0.4\sigma\sqrt t$ 的 delta；$\sigma\sqrt t=0.5$ 時就是 +0.2，不可忽略。
+2. **誤解**：ATM straddle 是 delta 中立。→ **正解**：ATMF straddle 約有 $+0.4\sigma\sqrt t$ 的 delta；$\sigma\sqrt t=0.5$ 時就是 +0.2，不可忽略。
 3. **誤解**：$N(x)\approx0.5+0.4x$ 到處能用。→ **正解**：只在 $\lvert x\rvert\le0.5$ 準；$x=1$ 時誤差 0.06，更遠甚至超過 1。
-4. **誤解**：賣出選擇權時只有 delta 變號。→ **正解**：gamma、vega、theta 全部變號；空頭選擇權的 theta 是正的。
+4. **誤解**：賣出 option 時只有 delta 變號。→ **正解**：gamma、vega、theta 全部變號；空頭 option 的 theta 是正的。
 5. **誤解**：泰勒展開在大行情也能用。→ **正解**：1σ 以上的移動、或價格與 vol 同時大動時，誤差可到 10–20%，要重新定價。
-6. **誤解**：每日波動和每週波動可以相加。→ **正解**：獨立移動加的是變異數；標準差按 $\sqrt t$ 成長。
+6. **誤解**：每日波動和每週波動可以相加。→ **正解**：獨立移動加的是變異數；standard deviation 按 $\sqrt t$ 成長。
 
 ## 重點摘要
 
@@ -410,14 +410,14 @@ $$
 | 每日 1σ | $S\sigma/16$（交易日）、$S\sigma/19.1$（日曆日） | < 1%（慣例混用才危險） |
 | 每週 1σ | $S\sigma/7.2$ | 0.15% |
 | √t 地標 | 1 個月 0.29、3 個月 0.5、6 個月 0.71 | — |
-| ATM 買權／跨式 | $0.4S\sigma\sqrt t$／$0.8S\sigma\sqrt t$ | 高估 0.27% + $(\sigma\sqrt t)^2/24$ |
+| ATM call／straddle | $0.4S\sigma\sqrt t$／$0.8S\sigma\sqrt t$ | 高估 0.27% + $(\sigma\sqrt t)^2/24$ |
 | 反推 vol | $\Pi/(0.8S\sqrt t)$ | 略低估 |
 | ATMF delta | $0.5+0.2\sigma\sqrt t$ | $\sigma\sqrt t\le0.5$ 時 < 0.002 |
 | $N(x)$ | 0.5 → 0.69、1 → 0.84、1.645 → 0.95、1.96 → 0.975 | 線性只用於 $\lvert x\rvert\le0.5$ |
 | ATM gamma | $0.4/(S\sigma\sqrt t)$ | < 0.5% |
-| 跨式 theta/天 | $\Pi/(2\cdot\text{days})$ | < 0.5% |
-| 跨式 vega/點 | $\Pi/\sigma_{\text{pts}}$ | < 0.5% |
-| 損益兩平一日移動 | $S\sigma/19.1$ | 與 gamma-theta 一致 |
+| straddle theta/天 | $\Pi/(2\cdot\text{days})$ | < 0.5% |
+| straddle vega/點 | $\Pi/\sigma_{\text{pts}}$ | < 0.5% |
+| breakeven 一日移動 | $S\sigma/19.1$ | 與 gamma-theta 一致 |
 | 泰勒 PnL | $\Delta\delta S+\tfrac12\Gamma\delta S^2+\mathcal V\delta\sigma+\Theta\delta t$ | ≤ 0.3σ 時 < 0.3% |
 | 新 delta | $\Delta+\Gamma\delta S$ | 大移動時明顯高估變化 |
 | 事件 vol | 變異數相減 | — |
@@ -428,7 +428,7 @@ $$
 
 ### A. 概念題
 
-**A1.** 為什麼 0.4 規則對價平選擇權價格「永遠」高估？請指出兩個來源。
+**A1.** 為什麼 0.4 規則對 ATM option 價格「永遠」高估？請指出兩個來源。
 
 <details><summary>解答</summary>
 
@@ -436,25 +436,25 @@ $$
 
 </details>
 
-**A2.** 為什麼 ATMF 跨式有正 delta？大約多少？
+**A2.** 為什麼 ATMF straddle 有正 delta？大約多少？
 
 <details><summary>解答</summary>
 
-ATMF 時 $d_1=\sigma\sqrt t/2>0$，買權 delta $\approx0.5+0.2\sigma\sqrt t$，賣權 delta $\approx-0.5+0.2\sigma\sqrt t$，相加 $\approx+0.4\sigma\sqrt t$。直覺：對數常態分配右偏，遠期價格以上的「上漲尾巴」比較長，買權在 $K=F$ 時的 delta 略高於 0.5。
+ATMF 時 $d_1=\sigma\sqrt t/2>0$，call delta $\approx0.5+0.2\sigma\sqrt t$，put delta $\approx-0.5+0.2\sigma\sqrt t$，相加 $\approx+0.4\sigma\sqrt t$。直覺：對數常態分配（lognormal distribution）右偏，遠期價格（forward price）以上的「上漲尾巴」比較長，call 在 $K=F$ 時的 delta 略高於 0.5。
 
 </details>
 
-**A3.** ⭐ 你賣出 20 口 ATM 買權。寫出這個部位在泰勒展開中四個 Greek 的正負號，並說明隔天若標的完全不動、vol 不變，損益的正負號。
+**A3.** ⭐ 你賣出 20 口 ATM call。寫出這個 position 在泰勒展開中四個 Greek 的正負號，並說明隔天若 underlying 完全不動、vol 不變，損益的正負號。
 
 <details><summary>提示</summary>
 
-賣方的 Greeks 和買方全部相反。先想買進 call 的 delta、gamma、vega、theta 各是正還是負；標的和 vol 都不動時，泰勒四項只剩哪一項？
+賣方的 Greeks 和買方全部相反。先想買進 call 的 delta、gamma、vega、theta 各是正還是負；underlying 和 vol 都不動時，泰勒四項只剩哪一項？
 
 </details>
 
 <details><summary>解答</summary>
 
-空頭買權：delta 負、gamma 負、vega 負、theta 正。標的與 vol 都不動時，只剩 $\Theta\cdot\delta t>0$，所以賺錢（收時間價值）。
+空頭 call：delta 負、gamma 負、vega 負、theta 正。underlying 與 vol 都不動時，只剩 $\Theta\cdot\delta t>0$，所以賺錢（收時間價值（time value））。
 
 </details>
 
@@ -462,23 +462,23 @@ ATMF 時 $d_1=\sigma\sqrt t/2>0$，買權 delta $\approx0.5+0.2\sigma\sqrt t$，
 
 <details><summary>解答</summary>
 
-(1) 標的大移動（≥ 1 個剩餘期間 σ），三階項（speed）不可忽略；(2) 價格與 vol 同時大動，交叉項（vanna，以及 vega 隨價性改變）主導；(3) 接近到期、接近履約價時 gamma 隨價格劇烈變化。另外，跳空（gap）也會讓連續近似失去意義。
+(1) underlying 大移動（≥ 1 個剩餘期間 σ），三階項（speed）不可忽略；(2) 價格與 vol 同時大動，交叉項（vanna，以及 vega 隨價性改變）主導；(3) 接近到期、接近 strike 時 gamma 隨價格劇烈變化。另外，跳空（gap）也會讓連續近似失去意義。
 
 </details>
 
-**A5.** 為什麼「跨式每日 theta ≈ 跨式價格 ÷（2 × 剩餘天數）」？這個捷徑有哪些前提？
+**A5.** 為什麼「straddle 每日 theta ≈ straddle 價格 ÷（2 × 剩餘天數）」？這個捷徑有哪些前提？
 
 <details><summary>解答</summary>
 
-ATM 跨式 $\Pi\approx0.8S\sigma\sqrt T$，對 $T$ 微分得 $d\Pi/dT=0.4S\sigma/\sqrt T=\Pi/(2T)$；一天的流失就是 $\Pi/(2\cdot\text{days})$。前提：ATM、$r\approx0$、vol 不變、用同一套天數慣例（日曆日或交易日一致），且不是在最後幾天（那時 theta 已不再平滑）。
+ATM straddle $\Pi\approx0.8S\sigma\sqrt T$，對 $T$ 微分得 $d\Pi/dT=0.4S\sigma/\sqrt T=\Pi/(2T)$；一天的流失就是 $\Pi/(2\cdot\text{days})$。前提：ATM、$r\approx0$、vol 不變、用同一套天數慣例（日曆日或交易日一致），且不是在最後幾天（那時 theta 已不再平滑）。
 
 </details>
 
-**A6.** 解釋「ATM 跨式價格 ≈ 市場預期的平均絕對移動」。
+**A6.** 解釋「ATM straddle 價格 ≈ 市場預期的平均絕對移動」。
 
 <details><summary>解答</summary>
 
-常態分配的平均絕對偏差 $E\lvert X-\mu\rvert=\sqrt{2/\pi}\,\sigma\approx0.798\sigma$。跨式到期價值 $=\lvert S_T-K\rvert$，在 $K\approx F$ 時其期望值就是平均絕對偏差 $\approx0.8S\sigma\sqrt t$，正好是 0.8 規則。
+normal distribution 的平均絕對偏差 $E\lvert X-\mu\rvert=\sqrt{2/\pi}\,\sigma\approx0.798\sigma$。straddle 到期價值 $=\lvert S_T-K\rvert$，在 $K\approx F$ 時其期望值（expected value, EV）就是平均絕對偏差 $\approx0.8S\sigma\sqrt t$，正好是 0.8 規則。
 
 </details>
 
@@ -488,7 +488,7 @@ ATM 跨式 $\Pi\approx0.8S\sigma\sqrt T$，對 $T$ 微分得 $d\Pi/dT=0.4S\sigma
 
 <details><summary>提示</summary>
 
-先算一年 1 個標準差 = 180 × 24%，再除以 16（每日）或 7.2（每週）；2σ 區間 = 現價 ± 2 × 每日 1σ。
+先算一年 1 個 standard deviation = 180 × 24%，再除以 16（每日）或 7.2（每週）；2σ 區間 = 現價 ± 2 × 每日 1σ。
 
 </details>
 
@@ -498,7 +498,7 @@ ATM 跨式 $\Pi\approx0.8S\sigma\sqrt T$，對 $T$ 微分得 $d\Pi/dT=0.4S\sigma
 
 </details>
 
-**B2.** S = 90、σ = 35%、60 個日曆日，估算 ATM 跨式並與精確值比較。
+**B2.** S = 90、σ = 35%、60 個日曆日，估算 ATM straddle 並與精確值比較。
 
 <details><summary>解答</summary>
 
@@ -506,7 +506,7 @@ $\sqrt{60/365}=0.4054$；$0.8\times90\times0.35\times0.4054=10.22$。BS（$r=0$�
 
 </details>
 
-**B3.** S = 250，7 個日曆日的 ATM 跨式報 7.50，反推隱含波動率。
+**B3.** S = 250，7 個日曆日的 ATM straddle 報 7.50，反推 implied volatility。
 
 <details><summary>解答</summary>
 
@@ -514,15 +514,15 @@ $\sqrt{7/365}=0.1385$；$\sigma\approx7.50/(0.8\times250\times0.1385)=27.1\%$。
 
 </details>
 
-**B4.** $F=100$、$K=95$ 的賣權，$\sigma=20\%$、$t=0.25$，用 $d_1$ 與地標表心算賣權 delta。
+**B4.** $F=100$、$K=95$ 的 put，$\sigma=20\%$、$t=0.25$，用 $d_1$ 與地標表心算 put delta。
 
 <details><summary>解答</summary>
 
-$\sigma\sqrt t=0.10$；$\ln(100/95)=0.0513$；$d_1=0.513+0.05=0.563$。內插 $N(0.563)\approx0.6915+\frac{0.063}{0.174}\times0.0585\approx0.713$。賣權 delta $=0.713-1\approx-0.287$。精確 −0.2867。
+$\sigma\sqrt t=0.10$；$\ln(100/95)=0.0513$；$d_1=0.513+0.05=0.563$。內插 $N(0.563)\approx0.6915+\frac{0.063}{0.174}\times0.0585\approx0.713$。put delta $=0.713-1\approx-0.287$。精確 −0.2867。
 
 </details>
 
-**B5.** ⭐ 部位：$\Delta=+1{,}200$、$\Gamma=-400$（每 1 元）、$\mathcal V=-3{,}000$（每 vol 點）、$\Theta=+2{,}500$（每天）。一天後標的 −3.00、vol +2 點。估算損益與新 delta。
+**B5.** ⭐ position：$\Delta=+1{,}200$、$\Gamma=-400$（每 1 元）、$\mathcal V=-3{,}000$（每 vol 點）、$\Theta=+2{,}500$（每天）。一天後 underlying −3.00、vol +2 點。估算損益與新 delta。
 
 <details><summary>提示</summary>
 
@@ -532,11 +532,11 @@ $\sigma\sqrt t=0.10$；$\ln(100/95)=0.0513$；$d_1=0.513+0.05=0.563$。內插 $N
 
 <details><summary>解答</summary>
 
-Delta：$1200\times(-3)=-3{,}600$；Gamma：$\tfrac12\times(-400)\times9=-1{,}800$；Vega：$-3000\times2=-6{,}000$；Theta：+2,500。合計 **−8,900**。新 delta $=1200+(-400)(-3)=+2{,}400$——空 gamma 部位在下跌時變得更多頭，對你不利，這正是空 gamma 的特徵。
+Delta：$1200\times(-3)=-3{,}600$；Gamma：$\tfrac12\times(-400)\times9=-1{,}800$；Vega：$-3000\times2=-6{,}000$；Theta：+2,500。合計 **−8,900**。新 delta $=1200+(-400)(-3)=+2{,}400$——空 gamma position 在下跌時變得更多頭，對你不利，這正是空 gamma 的特徵。
 
 </details>
 
-**B6.** S = 100，兩週（10 個交易日）跨式 8.00，期間含財報；平常 vol 30%。估計財報當天的 1σ 移動（%）。
+**B6.** S = 100，兩週（10 個交易日）straddle 8.00，期間含財報；平常 vol 30%。估計財報當天的 1σ 移動（%）。
 
 <details><summary>解答</summary>
 
@@ -544,15 +544,15 @@ Delta：$1200\times(-3)=-3{,}600$；Gamma：$\tfrac12\times(-400)\times9=-1{,}80
 
 </details>
 
-**B7.** 你買進 50 口 ATM 買權（乘數 100），S = 40、σ = 30%、30 個日曆日。估算部位 gamma（每 1 元，股數）、每日 theta、以及損益兩平的一日移動。
+**B7.** 你買進 50 口 ATM call（乘數 100），S = 40、σ = 30%、30 個日曆日。估算 position gamma（每 1 元，股數）、每日 theta、以及 breakeven 的一日移動。
 
 <details><summary>解答</summary>
 
-$\sigma\sqrt t=0.3\times0.2867=0.0860$。每口 gamma ≈ $0.4/(40\times0.0860)=0.1163$，部位 $5000\times0.1163\approx581$ 股／元（精確 579）。每口價格 ≈ $0.4\times40\times0.0860=1.376$，每日 theta ≈ $1.376/60=0.0229$，部位約 −115／天（精確 −114.3）。損益兩平 $\sqrt{2\times115/581}=0.63$，與 $40\times0.30/19.1=0.63$ 一致。
+$\sigma\sqrt t=0.3\times0.2867=0.0860$。每口 gamma ≈ $0.4/(40\times0.0860)=0.1163$，position $5000\times0.1163\approx581$ 股／元（精確 579）。每口價格 ≈ $0.4\times40\times0.0860=1.376$，每日 theta ≈ $1.376/60=0.0229$，position 約 −115／天（精確 −114.3）。breakeven $\sqrt{2\times115/581}=0.63$，與 $40\times0.30/19.1=0.63$ 一致。
 
 </details>
 
-**B8.** $S=K=50$、$r=5\%$、$t=0.5$、無股利，買權 3.10。用單利近似估算同履約價賣權，並說明與精確值的差異來源。
+**B8.** $S=K=50$、$r=5\%$、$t=0.5$、無 dividend，call 3.10。用單利近似估算同 strike put，並說明與精確值的差異來源。
 
 <details><summary>解答</summary>
 
@@ -562,15 +562,15 @@ $F\approx50\times1.025=51.25$，折現 ≈ 0.975：$P\approx3.10-1.25\times0.975
 
 ### C. 情境題
 
-**C1.** 教練在你旁邊：「股票剛跌 2%，現價 200。你的部位 delta −800、gamma +250、vega +1,500。vol 同時漲了 1.5 點。你現在賺還賠？大概多少？新的 delta？」請用口述句回答。
+**C1.** 教練在你旁邊：「股票剛跌 2%，現價 200。你的 position delta −800、gamma +250、vega +1,500。vol 同時漲了 1.5 點。你現在賺還賠？大概多少？新的 delta？」請用口述句回答。
 
 <details><summary>解答</summary>
 
-口述示範：「跌 2% 是 −4 元。delta −800 賺 3,200；gamma +250，½×250×16 再賺 2,000；vega +1,500 乘 1.5 點賺 2,250。合計大約 **+7,450**，還沒算今天的 theta。新的 delta 是 −800 + 250×(−4) = **−1,800**，比剛才更空，如果我想維持中立要買回大約 1,800 股；但我是長 gamma，跌的時候本來就該買，所以這是順勢的再避險。」
+口述示範：「跌 2% 是 −4 元。delta −800 賺 3,200；gamma +250，½×250×16 再賺 2,000；vega +1,500 乘 1.5 點賺 2,250。合計大約 **+7,450**，還沒算今天的 theta。新的 delta 是 −800 + 250×(−4) = **−1,800**，比剛才更空，如果我想維持中立要買回大約 1,800 股；但我是長 gamma，跌的時候本來就該買，所以這是順勢的再 hedge。」
 
 </details>
 
-**C2.** ⭐ 模擬喊價中，對手問：「100 塊的股票、vol 20、一個月 ATM 跨式，你的價？」你有 5 秒。
+**C2.** ⭐ 模擬喊價中，對手問：「100 塊的股票、vol 20、一個月 ATM straddle，你的價？」你有 5 秒。
 
 <details><summary>提示</summary>
 
@@ -580,7 +580,7 @@ $F\approx50\times1.025=51.25$，折現 ≈ 0.975：$P\approx3.10-1.25\times0.975
 
 <details><summary>解答</summary>
 
-口述：「0.8 × 100 × 0.2 × 0.29，大約 4.6。」再加寬度：「4.40 買、4.80 賣。」精確（$r=0$）為 4.606；0.8 規則給 4.619，高估約 0.01，遠小於報價寬度，所以完全可用。
+口述：「0.8 × 100 × 0.2 × 0.29，大約 4.6。」再加寬度：「4.40 買、4.80 賣。」精確（$r=0$）為 4.606；0.8 規則給 4.619，高估約 0.01，遠小於報價寬度（quote width），所以完全可用。
 
 </details>
 
@@ -588,36 +588,36 @@ $F\approx50\times1.025=51.25$，折現 ≈ 0.975：$P\approx3.10-1.25\times0.975
 
 <details><summary>解答</summary>
 
-損失 $2000\times3=6{,}000$，相當於 $6000/600=10$ 天的 theta。口述：「這一跳吃掉 10 天的時間價值。我先確認這是一次性的重新定價還是實現波動率也變高了——如果標的每天也開始走超過 σ/16，我的空 gamma 還會繼續虧，就應該買回一部分選擇權降低 vega 和 gamma；如果只是隱含 vol 被推高、標的很安靜，我可以維持部位，但不加碼，直到確認。」
+損失 $2000\times3=6{,}000$，相當於 $6000/600=10$ 天的 theta。口述：「這一跳吃掉 10 天的 time value。我先確認這是一次性的重新定價還是實現波動率（realized volatility）也變高了——如果 underlying 每天也開始走超過 σ/16，我的空 gamma 還會繼續虧，就應該買回一部分 option 降低 vega 和 gamma；如果只是隱含 vol 被推高、underlying 很安靜，我可以維持 position，但不加碼，直到確認。」
 
 </details>
 
 ### D. 挑戰題
 
-**D1.** (a) 由 $C_{\text{ATMF}}=S[2N(x/2)-1]$（$x=\sigma\sqrt t$）出發，用 $N$ 的泰勒展開推導 $C\approx n(0)Sx\,(1-x^2/24)$，並說明 0.4 規則相對誤差 ≈ $0.27\%+x^2/24$。(b) 一個月期 ATM vol 30%、兩個月期 25%，求第一個月到第二個月之間的遠期波動率；並說明若兩個月期是 20%，代表什麼問題。
+**D1.** (a) 由 $C_{\text{ATMF}}=S[2N(x/2)-1]$（$x=\sigma\sqrt t$）出發，用 $N$ 的泰勒展開推導 $C\approx n(0)Sx\,(1-x^2/24)$，並說明 0.4 規則相對誤差 ≈ $0.27\%+x^2/24$。(b) 一個月期 ATM vol 30%、兩個月期 25%，求第一個月到第二個月之間的 forward volatility；並說明若兩個月期是 20%，代表什麼問題。
 
 <details><summary>解答</summary>
 
 (a) $N(y)=\tfrac12+n(0)(y-y^3/6+\dots)$。代入 $y=x/2$：$2N(x/2)-1=2n(0)(x/2-x^3/48)=n(0)x(1-x^2/24)$。0.4 規則的比值 $\dfrac{0.4x}{n(0)x(1-x^2/24)}\approx1.0027\times(1+x^2/24)$，即相對誤差 ≈ 0.27% + $x^2/24$。驗證：$x=0.5$ 時預測 0.27% + 1.04% = 1.31%，Python 精確 1.31%。
 
-(b) Total variance：一個月 $0.30^2\times1/12$，兩個月 $0.25^2\times2/12$。遠期變異數（以年化、一個月期間計）$=(0.0625\times2-0.09\times1)/1=0.035$，遠期 vol $=18.7\%$。若兩個月期是 20%：$0.04\times2-0.09=-0.01<0$，total variance 隨期限遞減，違反日曆無套利（買兩個月、賣一個月的 ATM 日曆價差理論上有套利），見 [P5](p05_surface_no_arbitrage.md)。
+(b) Total variance：一個月 $0.30^2\times1/12$，兩個月 $0.25^2\times2/12$。遠期變異數（以年化、一個月期間計）$=(0.0625\times2-0.09\times1)/1=0.035$，遠期 vol $=18.7\%$。若兩個月期是 20%：$0.04\times2-0.09=-0.01<0$，total variance 隨期限遞減，違反日曆無 arbitrage（買兩個月、賣一個月的 ATM 日曆價差（calendar spread）理論上有 arbitrage），見 [P5](p05_surface_no_arbitrage.md)。
 
 </details>
 
 ## 自我檢核清單
 
 - [ ] 不看表能說出 1、7、30、90 個日曆日與 1、16、64 個交易日的 $\sqrt t$。
-- [ ] 能在 5 秒內估算 ATM 買權與跨式，並說出 0.4 規則高估的原因與量級。
+- [ ] 能在 5 秒內估算 ATM call 與 straddle，並說出 0.4 規則高估的原因與量級。
 - [ ] 能背出 $N(x)$ 在 0.5、0.674、1、1.28、1.645、1.96、2.33 的值。
-- [ ] 能用 $d_1$ + 地標表估算任意履約價的 delta，知道線性近似的有效範圍。
-- [ ] 能用跨式價格心算 ATM theta、vega，並算出損益兩平的一日移動。
-- [ ] 能寫出泰勒展開損益的四項，並在空頭部位時正確翻轉所有正負號。
-- [ ] 能用變異數相加估計財報（事件）波動率與遠期波動率。
+- [ ] 能用 $d_1$ + 地標表估算任意 strike 的 delta，知道線性近似的有效範圍。
+- [ ] 能用 straddle 價格心算 ATM theta、vega，並算出 breakeven 的一日移動。
+- [ ] 能寫出泰勒展開損益的四項，並在空頭部位（short position）時正確翻轉所有正負號。
+- [ ] 能用變異數相加估計財報（事件）volatility 與 forward volatility。
 - [ ] 能把一個未知量拆成 3–5 個因子做費米估算，並給出區間。
 
 ## 對應練習工具
 
 - [心算速練](../tools/mental-math.md)：計時練習 √t、0.4 規則、delta、泰勒 PnL、百分比。
 - [教練拍肩問](../tools/coach-questions.md)：口述「我現在賺賠多少、新 delta 多少」。
-- [模擬造市遊戲](../tools/mock-market-making.md)：在時間壓力下用心算 theo 報價。
+- [模擬造市遊戲](../tools/mock-market-making.md)：在時間壓力下用心算 theo quote。
 - 相關 Natenberg 章節：[第 6 章](../lessons/ch06_volatility.md)、[第 7 章](../lessons/ch07_risk_measurement_1.md)、[第 8 章](../lessons/ch08_dynamic_hedging.md)、[第 9 章](../lessons/ch09_risk_measurement_2.md)、[第 18 章](../lessons/ch18_black_scholes.md)、[附錄 B](../lessons/appB_useful_math.md)。

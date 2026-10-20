@@ -1,198 +1,22 @@
 [
- {
-  "id": "p02-01",
-  "type": "mc",
-  "q": "Vanna 的定義是：",
-  "choices": [
-   "delta 對時間的導數",
-   "delta 對波動率的導數（也等於 vega 對現貨的導數）",
-   "gamma 對波動率的導數",
-   "vega 對時間的導數"
-  ],
-  "answer": "B",
-  "explain": "Vanna = ∂²V/∂S∂σ = ∂Δ/∂σ = ∂Vega/∂S。"
- },
- {
-  "id": "p02-02",
-  "type": "mc",
-  "q": "在 BS（r=q=0）下，下列哪一組關係成立？",
-  "choices": [
-   "Charm = −σ/(2τ) × Vanna",
-   "Charm = −σ/(2τ) × Volga",
-   "Color = −σ/(2τ) × Vanna",
-   "Veta = −σ/(2τ) × Volga"
-  ],
-  "answer": "A",
-  "explain": "delta 與 S·Γ 只透過 σ√τ 依賴時間與波動率，所以 ∂/∂t = −(σ/2τ)∂/∂σ 對 delta、gamma 成立：Charm = −σ/(2τ)·Vanna、Color = −σ/(2τ)·Zomma。Vega 有顯式 √τ 因子，不適用。"
- },
- {
-  "id": "p02-03",
-  "type": "mc",
-  "q": "1 個月、20% 波動率的市場中，買進一口 25Δ put（低履約價）的 vanna 符號為：",
-  "choices": [
-   "正",
-   "負",
-   "恆為零",
-   "視利率而定，通常為正"
-  ],
-  "answer": "B",
-  "explain": "Vanna 的符號由 −d2 決定：低履約價 d2 > 0，vanna 為負；call 與 put 同履約價 vanna 相同。"
- },
- {
-  "id": "p02-04",
-  "type": "mc",
-  "q": "哪一種部位最接近「純 vanna」部位？",
-  "choices": [
-   "ATM 跨式",
-   "25Δ 風險逆轉（買 call、賣 put）",
-   "vega 中性 25Δ 蝶式",
-   "深價內 call"
-  ],
-  "answer": "B",
-  "explain": "風險逆轉兩腿 vega 抵銷、vanna 同號相加；蝶式是 volga 部位；跨式是 vega/gamma 部位。"
- },
- {
-  "id": "p02-05",
-  "type": "mc",
-  "q": "固定在 25Δ、波動率不變，把期限從 3 個月縮短到 1 週，哪一個 Greek 幾乎不變？",
-  "choices": [
-   "Gamma",
-   "Charm",
-   "Vanna",
-   "Color"
-  ],
-  "answer": "C",
-  "explain": "r=q=0 時 Vanna = −φ(d1)d2/σ；固定 delta 即固定 d1，d2 只隨 √τ 小幅變動，所以 vanna 幾乎不變。Gamma ∝ τ^−1/2、Charm ∝ τ^−1、Color ∝ τ^−3/2。"
- },
- {
-  "id": "p02-06",
-  "type": "mc",
-  "q": "固定 delta 時，color 大約與剩餘時間 τ 的哪個次方成正比？",
-  "choices": [
-   "τ^(1/2)",
-   "τ^0",
-   "τ^(−1)",
-   "τ^(−3/2)"
-  ],
-  "answer": "D",
-  "explain": "Color = −σ/(2τ)·Zomma，而 zomma ∝ τ^−1/2，所以 color ∝ τ^−3/2。"
- },
- {
-  "id": "p02-07",
-  "type": "tf",
-  "q": "價平選擇權的 zomma 為負，代表波動率上升時價平 gamma 下降。",
-  "answer": true,
-  "explain": "Zomma = Γ(d1d2 − 1)/σ；價平附近 d1d2 ≈ 0，zomma ≈ −Γ/σ < 0。"
- },
- {
-  "id": "p02-08",
-  "type": "tf",
-  "q": "同履約價、同到期的 call 與 put，charm 永遠相同。",
-  "answer": false,
-  "explain": "Charm_call − Charm_put = q·e^{−qτ}；只有 q = 0 時相同。"
- },
- {
-  "id": "p02-09",
-  "type": "tf",
-  "q": "在 r=q=0 的 BS 下，veta（vega 對日曆時間的導數）幾乎永遠為負。",
-  "answer": true,
-  "explain": "Veta = −Vega(1 + d1d2)/(2τ)；d1d2 ≥ −σ²τ/4，除非 σ²τ > 4，否則 1 + d1d2 > 0。"
- },
- {
-  "id": "p02-10",
-  "type": "tf",
-  "q": "對價格直接做二階中央差分求 volga 時，步長取 1e-8 會比 1e-3 準。",
-  "answer": false,
-  "explain": "步長太小時分子是兩個非常接近的數相減，捨入誤差主導；二階差分建議 1e-3 左右，或對解析 vega 做一階差分。"
- },
- {
-  "id": "p02-11",
-  "type": "num",
-  "q": "S=100、K=105、τ=0.5 年、σ=25%、r=3%、q=1% 的 call，求 vanna（每 1 個 vol 點的 delta 變化，小數，取到 0.0001）。",
-  "answer": 0.004846,
-  "tol": 0.0002,
-  "explain": "d1=−0.1310、d2=−0.3078；Vanna = −e^{−qτ}φ(d1)d2/σ = 0.4846（原始）÷100 = 0.00485。"
- },
- {
-  "id": "p02-12",
-  "type": "num",
-  "q": "S=100、K=104、剩 30 天、σ=20%、r=q=0 的 call，charm 每日曆日是多少？（delta 小數，例如 −0.0050）",
-  "answer": -0.003823,
-  "tol": 0.0003,
-  "explain": "Charm = φ(d1)d2/(2τ)，d1=−0.6554、d2=−0.7127 → 每年 −1.395，÷365 = −0.00382。"
- },
- {
-  "id": "p02-13",
-  "type": "num",
-  "q": "部位 delta +120、gamma +15、vanna 每 vol 點 +8。現貨 +3、波動率 −2 點後，新 delta 約為多少？",
-  "answer": 149.0,
-  "tol": 0.5,
-  "explain": "120 + 15×3 + 8×(−2) = 149。"
- },
- {
-  "id": "p02-14",
-  "type": "num",
-  "q": "部位 delta −40、gamma +6、vega 每點 +25、theta 每日 −9、vanna 每點 −3、volga 每點² +0.8。一天內現貨 +2、波動率 −1.5 點，歸因合計損益是多少？",
-  "answer": -104.6,
-  "tol": 0.1,
-  "explain": "−80 + 12 − 37.5 − 9 + 9 + 0.9 = −104.6。"
- },
- {
-  "id": "p02-15",
-  "type": "num",
-  "q": "1 個月（30 天）ATM gamma 為 0.0695。用「固定 delta 時 gamma ∝ τ^−1/2」估計 1 週（7 天）ATM gamma（取 3 位小數）。",
-  "answer": 0.143879,
-  "tol": 0.002,
-  "explain": "0.0695×√(30/7) = 0.144。"
- },
- {
-  "id": "p02-16",
-  "type": "num",
-  "q": "1 個月（30 天）ATM（S=K=100、σ=20%、r=q=0）的 zomma 原始值為 −0.348（gamma / 1.00 vol）。用 Color = −σ/(2τ)·Zomma 求每日 color（取到 0.0001）。",
-  "answer": 0.00116,
-  "tol": 5e-05,
-  "explain": "σ/(2τ) = 0.20/(2×30/365) = 1.2167；1.2167×0.348 = 0.4234 每年，÷365 = 0.00116。"
- },
- {
-  "id": "p02-17",
-  "type": "num",
-  "q": "某 call 的 vanna 為每 vol 點 +0.009。現貨上漲 4 元，vega（每點）大約增加多少？",
-  "answer": 0.036,
-  "tol": 0.001,
-  "explain": "Vanna 也是 ∂Vega/∂S；交易員單位下數字相同：0.009×4 = 0.036。"
- },
- {
-  "id": "p02-18",
-  "type": "num",
-  "q": "95 put：delta −0.2648、gamma 0.03268、vanna 每點 −0.00859。現貨跌 5 元、波動率漲 3 點，用 gamma + vanna 估計新 delta（取 3 位小數）。",
-  "answer": -0.45397,
-  "tol": 0.003,
-  "explain": "−0.2648 + 0.03268×(−5) + (−0.00859)×3 = −0.454；全重算 −0.4538。"
- },
- {
-  "id": "p02-19",
-  "type": "mc",
-  "q": "一個已 delta 避險的「賣 25Δ put、買 25Δ call」部位，在股指急跌且偏斜變陡（put vol 漲得比 call 多）的一天，最主要的二階虧損來源通常是：",
-  "choices": [
-   "gamma 項",
-   "theta 項",
-   "vanna 項（δS·δσ 交叉）",
-   "rho 項"
-  ],
-  "answer": "C",
-  "explain": "部位 vanna 為正（短 put 的負 vanna 反號 + 長 call 的正 vanna），δS < 0、δσ > 0，乘積為負；gamma 因兩腿抵銷而很小。"
- },
- {
-  "id": "p02-20",
-  "type": "mc",
-  "q": "PnL 歸因只用單一 ATM 波動率變動，結果殘差很大。最可能被遺漏的是：",
-  "choices": [
-   "各履約價波動率變動不同（偏斜移動）",
-   "delta 項",
-   "持有成本",
-   "手續費以外的任何東西都不可能"
-  ],
-  "answer": "A",
-  "explain": "偏斜變陡或變平時，不同履約價的 δσ 不同；只用 ATM δσ 會把這部分損益丟到殘差。"
- }
+  {"id": "p02-01", "type": "mc", "q": "Vanna 的定義是：", "choices": ["delta 對時間的導數", "delta 對波動率（volatility）的導數（也等於 vega 對現貨的導數）", "gamma 對 volatility 的導數", "vega 對時間的導數"], "answer": "B", "explain": "Vanna = ∂²V/∂S∂σ = ∂Δ/∂σ = ∂Vega/∂S。"},
+  {"id": "p02-02", "type": "mc", "q": "在 BS（r=q=0）下，下列哪一組關係成立？", "choices": ["Charm = −σ/(2τ) × Vanna", "Charm = −σ/(2τ) × Volga", "Color = −σ/(2τ) × Vanna", "Veta = −σ/(2τ) × Volga"], "answer": "A", "explain": "delta 與 S·Γ 只透過 σ√τ 依賴時間與 volatility，所以 ∂/∂t = −(σ/2τ)∂/∂σ 對 delta、gamma 成立：Charm = −σ/(2τ)·Vanna、Color = −σ/(2τ)·Zomma。Vega 有顯式 √τ 因子，不適用。"},
+  {"id": "p02-03", "type": "mc", "q": "1 個月、20% volatility 的市場中，買進一口 25Δ put（低履約價（strike price））的 vanna 符號為：", "choices": ["正", "負", "恆為零", "視利率而定，通常為正"], "answer": "B", "explain": "Vanna 的符號由 −d2 決定：低 strike d2 > 0，vanna 為負；call 與 put 同 strike vanna 相同。"},
+  {"id": "p02-04", "type": "mc", "q": "哪一種部位（position）最接近「純 vanna」position？", "choices": ["ATM 跨式（straddle）", "25Δ 風險逆轉（risk reversal）（買 call、賣 put）", "vega 中性 25Δ 蝶式（butterfly）", "深價內（deep in-the-money, deep ITM） call"], "answer": "B", "explain": "risk reversal 兩腿 vega 抵銷、vanna 同號相加；butterfly 是 volga position；straddle 是 vega/gamma position。"},
+  {"id": "p02-05", "type": "mc", "q": "固定在 25Δ、volatility 不變，把期限從 3 個月縮短到 1 週，哪一個 Greek 幾乎不變？", "choices": ["Gamma", "Charm", "Vanna", "Color"], "answer": "C", "explain": "r=q=0 時 Vanna = −φ(d1)d2/σ；固定 delta 即固定 d1，d2 只隨 √τ 小幅變動，所以 vanna 幾乎不變。Gamma ∝ τ^−1/2、Charm ∝ τ^−1、Color ∝ τ^−3/2。"},
+  {"id": "p02-06", "type": "mc", "q": "固定 delta 時，color 大約與剩餘時間 τ 的哪個次方成正比？", "choices": ["τ^(1/2)", "τ^0", "τ^(−1)", "τ^(−3/2)"], "answer": "D", "explain": "Color = −σ/(2τ)·Zomma，而 zomma ∝ τ^−1/2，所以 color ∝ τ^−3/2。"},
+  {"id": "p02-07", "type": "tf", "q": "價平（at-the-money, ATM）選擇權（option）的 zomma 為負，代表 volatility 上升時 ATM gamma 下降。", "answer": true, "explain": "Zomma = Γ(d1d2 − 1)/σ；ATM 附近 d1d2 ≈ 0，zomma ≈ −Γ/σ < 0。"},
+  {"id": "p02-08", "type": "tf", "q": "同 strike、同到期的 call 與 put，charm 永遠相同。", "answer": false, "explain": "Charm_call − Charm_put = q·e^{−qτ}；只有 q = 0 時相同。"},
+  {"id": "p02-09", "type": "tf", "q": "在 r=q=0 的 BS 下，veta（vega 對日曆時間的導數）幾乎永遠為負。", "answer": true, "explain": "Veta = −Vega(1 + d1d2)/(2τ)；d1d2 ≥ −σ²τ/4，除非 σ²τ > 4，否則 1 + d1d2 > 0。"},
+  {"id": "p02-10", "type": "tf", "q": "對價格直接做二階中央差分求 volga 時，步長取 1e-8 會比 1e-3 準。", "answer": false, "explain": "步長太小時分子是兩個非常接近的數相減，捨入誤差主導；二階差分建議 1e-3 左右，或對解析 vega 做一階差分。"},
+  {"id": "p02-11", "type": "num", "q": "S=100、K=105、τ=0.5 年、σ=25%、r=3%、q=1% 的 call，求 vanna（每 1 個 vol 點的 delta 變化，小數，取到 0.0001）。", "answer": 0.004846, "tol": 0.0002, "explain": "d1=−0.1310、d2=−0.3078；Vanna = −e^{−qτ}φ(d1)d2/σ = 0.4846（原始）÷100 = 0.00485。"},
+  {"id": "p02-12", "type": "num", "q": "S=100、K=104、剩 30 天、σ=20%、r=q=0 的 call，charm 每日曆日是多少？（delta 小數，例如 −0.0050）", "answer": -0.003823, "tol": 0.0003, "explain": "Charm = φ(d1)d2/(2τ)，d1=−0.6554、d2=−0.7127 → 每年 −1.395，÷365 = −0.00382。"},
+  {"id": "p02-13", "type": "num", "q": "position delta +120、gamma +15、vanna 每 vol 點 +8。現貨 +3、volatility −2 點後，新 delta 約為多少？", "answer": 149.0, "tol": 0.5, "explain": "120 + 15×3 + 8×(−2) = 149。"},
+  {"id": "p02-14", "type": "num", "q": "position delta −40、gamma +6、vega 每點 +25、theta 每日 −9、vanna 每點 −3、volga 每點² +0.8。一天內現貨 +2、volatility −1.5 點，歸因合計損益是多少？", "answer": -104.6, "tol": 0.1, "explain": "−80 + 12 − 37.5 − 9 + 9 + 0.9 = −104.6。"},
+  {"id": "p02-15", "type": "num", "q": "1 個月（30 天）ATM gamma 為 0.0695。用「固定 delta 時 gamma ∝ τ^−1/2」估計 1 週（7 天）ATM gamma（取 3 位小數）。", "answer": 0.143879, "tol": 0.002, "explain": "0.0695×√(30/7) = 0.144。"},
+  {"id": "p02-16", "type": "num", "q": "1 個月（30 天）ATM（S=K=100、σ=20%、r=q=0）的 zomma 原始值為 −0.348（gamma / 1.00 vol）。用 Color = −σ/(2τ)·Zomma 求每日 color（取到 0.0001）。", "answer": 0.00116, "tol": 5e-05, "explain": "σ/(2τ) = 0.20/(2×30/365) = 1.2167；1.2167×0.348 = 0.4234 每年，÷365 = 0.00116。"},
+  {"id": "p02-17", "type": "num", "q": "某 call 的 vanna 為每 vol 點 +0.009。現貨上漲 4 元，vega（每點）大約增加多少？", "answer": 0.036, "tol": 0.001, "explain": "Vanna 也是 ∂Vega/∂S；交易員單位下數字相同：0.009×4 = 0.036。"},
+  {"id": "p02-18", "type": "num", "q": "95 put：delta −0.2648、gamma 0.03268、vanna 每點 −0.00859。現貨跌 5 元、volatility 漲 3 點，用 gamma + vanna 估計新 delta（取 3 位小數）。", "answer": -0.45397, "tol": 0.003, "explain": "−0.2648 + 0.03268×(−5) + (−0.00859)×3 = −0.454；全重算 −0.4538。"},
+  {"id": "p02-19", "type": "mc", "q": "一個已 delta 避險（hedge）的「賣 25Δ put、買 25Δ call」position，在股指急跌且偏斜（skew）變陡（put vol 漲得比 call 多）的一天，最主要的二階虧損來源通常是：", "choices": ["gamma 項", "theta 項", "vanna 項（δS·δσ 交叉）", "rho 項"], "answer": "C", "explain": "position vanna 為正（短 put 的負 vanna 反號 + 長 call 的正 vanna），δS < 0、δσ > 0，乘積為負；gamma 因兩腿抵銷而很小。"},
+  {"id": "p02-20", "type": "mc", "q": "PnL 歸因只用單一 ATM volatility 變動，結果殘差很大。最可能被遺漏的是：", "choices": ["各 strike volatility 變動不同（skew 移動）", "delta 項", "持有成本（cost of carry）", "手續費以外的任何東西都不可能"], "answer": "A", "explain": "skew 變陡或變平時，不同 strike 的 δσ 不同；只用 ATM δσ 會把這部分損益丟到殘差。"}
 ]

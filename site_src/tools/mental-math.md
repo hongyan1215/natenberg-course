@@ -1,6 +1,6 @@
 # 心算速練
 
-**練什麼**：交易員最常被要求「不用計算機、幾秒內給出數字」的那幾類估算：泰勒展開 PnL $\Delta V \approx \Delta\,\delta S + \tfrac12\Gamma\,\delta S^2 + \mathcal{V}\,\delta\sigma + \Theta\,\delta t$、漲跌後的新 delta（$\Delta + \Gamma\,\delta S$，進階加上 vanna）、價平選擇權 $\approx 0.4\,S\sigma\sqrt t$ 與跨式 $\approx 0.8\,S\sigma\sqrt t$、年化波動率換算成日／週波動（÷16、÷7.2）、買賣權平價求未知數、簡單賭局的期望值，以及百分比與乘除暖身。題目隨機產生，數字以合約層級（股數、元）呈現。
+**練什麼**：交易員最常被要求「不用計算機、幾秒內給出數字」的那幾類估算：泰勒展開 PnL $\Delta V \approx \Delta\,\delta S + \tfrac12\Gamma\,\delta S^2 + \mathcal{V}\,\delta\sigma + \Theta\,\delta t$、漲跌後的新 delta（$\Delta + \Gamma\,\delta S$，進階加上 vanna）、價平（at-the-money, ATM）選擇權（option） $\approx 0.4\,S\sigma\sqrt t$ 與跨式（straddle） $\approx 0.8\,S\sigma\sqrt t$、年化波動率（volatility）換算成日／週波動（÷16、÷7.2）、買賣權平價（put-call parity）求未知數、簡單賭局的期望值（expected value, EV），以及百分比與乘除暖身。題目隨機產生，數字以合約層級（股數、元）呈現。
 
 **對應講義**：[P6 心算與泰勒展開估算](../prep/p06_mental_math.md)；新 delta 與 vanna 見 [P2 高階 Greeks](../prep/p02_higher_order_greeks.md)。
 
@@ -16,8 +16,8 @@
 
 ## 小技巧
 
-- 泰勒 PnL 先寫正負號：$\tfrac12\Gamma\,\delta S^2$ 的正負永遠跟著 Γ；vega 項看 vol 往哪走；theta 項看部位是付還是收時間價值。
+- 泰勒 PnL 先寫正負號：$\tfrac12\Gamma\,\delta S^2$ 的正負永遠跟著 Γ；vega 項看 vol 往哪走；theta 項看部位（position）是付還是收時間價值（time value）。
 - √t 背幾個就夠：√(1 個月) ≈ 0.29、√(3 個月) = 0.5、√(6 個月) ≈ 0.71、√(1 週) ≈ 0.14。
 - 日波動 ≈ 年化 ÷ 16；週 ≈ ÷ 7.2；月 ≈ ÷ 3.46。反推年化就乘回去。
-- 平價：$C - P = S - K + K r t$（單利近似）；有股利再減去股利現值。
-- 期望值先算機率（分數），最後才乘金額；兩顆骰子的和是 1-2-3-4-5-6-5-4-3-2-1（共 36 種）。
+- 平價：$C - P = S - K + K r t$（單利近似）；有股利（dividend）再減去 dividend 現值。
+- expected value 先算機率（分數），最後才乘金額；兩顆骰子的和是 1-2-3-4-5-6-5-4-3-2-1（共 36 種）。

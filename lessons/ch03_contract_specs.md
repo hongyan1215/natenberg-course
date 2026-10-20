@@ -4,25 +4,25 @@
 
 > 時間不多？讀完這一段 + 做下方 ⭐ 必做題就能往下一章走。後面的完整講義當「查字典」用，卡住再回來翻。
 
-**一句話**：這章是選擇權的「說明書和字典」——一張選擇權寫清楚買什麼、何時到期、用什麼價格、能不能提早用；再學會把權利金拆成「現在就值的錢」和「時間帶來的希望」。
+**一句話**：這章是選擇權（option）的「說明書和字典」——一張 option 寫清楚買什麼、何時到期、用什麼價格、能不能提早用；再學會把權利金（premium）拆成「現在就值的錢」和「時間帶來的希望」。
 
 **你只需要先記住這 5 件事**
 
-1. **權利全在買方，義務全在賣方。** 賣方不能選擇履約，只能被指派，或在到期前平倉。
-2. **履約／指派四句話**：履約 call = 買、被指派 call = 賣、履約 put = 賣、被指派 put = 買；履約那一刻的現金流只看履約價，不看股價。
-3. **權利金 = 內含價值 + 時間價值。** 例：標的 247、230 call 報 21.50 → 內含 17、時間價值 4.50。
-4. **價內／價平／價外。** call 履約價低於標的就價內，put 相反；實務上的價平是「最接近現價」的履約價。
-5. **歐式只能到期履約，美式隨時可以。** 名稱跟地點無關；指數選擇權多為歐式，個股和期貨選擇權多為美式。
+1. **權利全在買方，義務全在賣方。** 賣方不能選擇履約（exercise），只能被指派（assign / assignment），或在到期前平倉。
+2. **exercise／assign 四句話**：exercise call = 買、被 assign call = 賣、exercise put = 賣、被 assign put = 買；exercise 那一刻的現金流只看履約價（strike price），不看股價。
+3. **premium = 內含價值（intrinsic value） + 時間價值（time value）。** 例：標的（underlying） 247、230 call 報 21.50 → 內含 17、time value 4.50。
+4. **價內（in-the-money, ITM）／價平（at-the-money, ATM）／價外（out-of-the-money, OTM）。** call strike 低於 underlying 就 ITM，put 相反；實務上的 ATM 是「最接近現價」的 strike。
+5. **歐式只能到期 exercise，美式隨時可以。** 名稱跟地點無關；指數 option 多為歐式，個股和期貨選擇權（futures option）多為美式。
 
 **必背卡**
 
 | 要算什麼 | 怎麼算 |
 |---|---|
-| call 內含價值 | 標的價 − 履約價（負的就算 0） |
-| put 內含價值 | 履約價 − 標的價（負的就算 0） |
-| 時間價值 | 權利金 − 內含價值 |
-| 股票選擇權履約現金 | 口數 × 100 股 × 履約價 |
-| 現金結算 | 履約價與結算價的差 × 每點價值 × 口數 |
+| call intrinsic value | underlying 價 − strike（負的就算 0） |
+| put intrinsic value | strike − underlying 價（負的就算 0） |
+| time value | premium − intrinsic value |
+| 股票 option exercise 現金 | 口數 × 100 股 × strike |
+| 現金結算（cash settlement） | strike 與結算價（settlement price）的差 × 每點價值 × 口數 |
 
 **必做練習（約 20 分鐘）**：A4、B1、B2、B5（題號旁標 ⭐，每題都有提示）。其他題目都是選做。
 
@@ -30,17 +30,17 @@
 
 ## 本章定位
 
-不懂合約規格，就不知道自己到底買了什麼權利、要承擔什麼義務；不懂術語，就無法在市場上下單或與人溝通。本章把一張選擇權拆成「類型、標的、到期日、履約價、履約方式」，並建立內含價值／時間價值、價內／價平／價外等全書通用的語言。前置章節：[ch01](ch01_financial_contracts.md)（結算方式）、[ch02](ch02_forward_pricing.md)（遠期價格）。
+不懂合約規格，就不知道自己到底買了什麼權利、要承擔什麼義務；不懂術語，就無法在市場上下單或與人溝通。本章把一張 option 拆成「類型、underlying、到期日（expiration date）、strike、exercise 方式」，並建立 intrinsic value／time value、ITM／ATM／OTM 等全書通用的語言。前置章節：[ch01](ch01_financial_contracts.md)（結算（settlement）方式）、[ch02](ch02_forward_pricing.md)（遠期價格（forward price））。
 
 > 對應原書：第 3 章〈Contract Specifications and Option Terminology〉，含〈Contract Specifications〉（Type / Underlying / Expiration Date / Exercise Price）〈Exercise and Assignment〉〈Exercise Style〉〈Option Price Components〉〈In the Money, At the Money, and Out of the Money〉〈Automatic Exercise〉〈Option Margining〉。
 
 ## 學習目標
 
-1. **能辨識**一張選擇權合約的五大規格：類型、標的、到期日、履約價、履約方式（歐式／美式）。
-2. **能判斷**期貨選擇權（含序列選擇權、midcurve）的標的是哪一個期貨月份。
-3. **能計算**履約與被指派時，實物交割、期貨部位與現金結算三種情況的現金流、保證金與變動金。
-4. **能拆解**權利金為內含價值與時間價值，並判斷價內、價平、價外。
-5. **能解釋**自動履約門檻、「不履約通知」的用途，以及選擇權保證金為何採風險基礎（risk-based）系統。
+1. **能辨識**一張 option 合約的五大規格：類型、underlying、expiration date、strike、exercise 方式（歐式／美式）。
+2. **能判斷** futures option（含序列 option、midcurve）的 underlying 是哪一個期貨（futures）月份。
+3. **能計算** exercise 與被 assign 時，實物交割、futures 部位（position）與 cash settlement 三種情況的現金流、保證金（margin）與變動金。
+4. **能拆解** premium 為 intrinsic value 與 time value，並判斷 ITM、ATM、OTM。
+5. **能解釋**自動 exercise 門檻、「不 exercise 通知」的用途，以及 option margin 為何採風險基礎（risk-based）系統。
 
 ---
 
@@ -48,13 +48,13 @@
 
 ### 3.0 為什麼要學規格與術語
 
-> 💡 **一句話**：不管你是投機、避險、套利還是做市，都得先看懂合約和術語。
+> 💡 **一句話**：不管你是投機、避險（hedge）、套利（arbitrage）還是做市（market making），都得先看懂合約和術語。
 
-選擇權市場聚集了各種目的不同的人：
+option 市場聚集了各種目的不同的人：
 - **方向交易者**：對漲跌有看法。
-- **避險者**：用選擇權保護既有部位。
-- **價差／套利交易者**：利用相關商品之間的錯價。
-- **做市商（middlemen）**：為其他人提供買賣報價，賺取買賣價差（bid-ask spread）。
+- **hedge 者**：用 option 保護既有 position。
+- **價差／arbitrage 交易者**：利用相關商品之間的錯價。
+- **做市商（middlemen）**：為其他人提供買賣報價（quote），賺取買賣價差（bid-ask spread）。
 
 不論哪一種，都必須先徹底了解合約內容與市場語言，才能正確下單、理解風險。
 
@@ -62,60 +62,60 @@
 
 ### 3.1 合約規格（Contract Specifications）
 
-> 💡 **一句話**：一張選擇權看五件事：類型、標的、到期日、履約價、履約方式。
+> 💡 **一句話**：一張 option 看五件事：類型、underlying、expiration date、strike、exercise 方式。
 
 #### (1) 類型（Type）
 
-- **買權（call）**：在特定日期或之前，以固定價格**買進**（取得多頭部位）標的的權利。
-- **賣權（put）**：在特定日期或之前，以固定價格**賣出**（取得空頭部位）標的的權利。
+- **買權（call）**：在特定日期或之前，以固定價格**買進**（取得多頭部位（long position））underlying 的權利。
+- **賣權（put）**：在特定日期或之前，以固定價格**賣出**（取得空頭部位（short position））underlying 的權利。
 
-與期貨的根本差異：期貨的買賣雙方**都有義務**（賣方必須交貨、買方必須收貨）；選擇權的**權利全在買方、義務全在賣方**。買方決定要不要收貨（call）或交貨（put），一旦決定，賣方就必須承接另一邊。
+與 futures 的根本差異：futures 的買賣雙方**都有義務**（賣方必須交貨、買方必須收貨）；option 的**權利全在買方、義務全在賣方**。買方決定要不要收貨（call）或交貨（put），一旦決定，賣方就必須承接另一邊。
 
 #### (2) 標的（Underlying）
 
 標的資產（underlying asset）＝依合約可買賣的證券或商品。
-- **店頭選擇權**：數量可客製。
-- **交易所股票選擇權**：通常一口 = **100 股**（100 股也稱一整股單位 round lot，不足 100 股為零股 odd lot）。股價極高或極低時，交易所可能調整每口股數，讓合約大小合理。
-- **彈性選擇權（flex options）**：部分交易所允許買賣雙方自行議定數量、到期日、履約價、履約方式。
-- **期貨選擇權**：一口 = **1 口期貨**。通常標的是「與選擇權同月份」的期貨（4 月選擇權 → 4 月期貨）。
+- **店頭 option**：數量可客製。
+- **交易所股票 option**：通常一口 = **100 股**（100 股也稱一整股單位 round lot，不足 100 股為零股 odd lot）。股價極高或極低時，交易所可能調整每口股數，讓合約大小合理。
+- **彈性 option**：部分交易所允許買賣雙方自行議定數量、expiration date、strike、exercise 方式。
+- **futures option**：一口 = **1 口 futures**。通常 underlying 是「與 option 同月份」的 futures（4 月 option → 4 月 futures）。
 
-**序列選擇權（serial options）**：選擇權到期月份沒有對應的期貨月份時，標的是**選擇權到期後最近的那個期貨月份**。
+**序列 option**：option 到期月份沒有對應的 futures 月份時，underlying 是**option 到期後最近的那個 futures 月份**。
 
-**例題 3-1（自創）**：某商品期貨只掛雙數月（2、4、6、8、10、12 月），交易所另外掛了單數月的序列選擇權：
+**例題 3-1（自創）**：某商品 futures 只掛雙數月（2、4、6、8、10、12 月），交易所另外掛了單數月的序列 option：
 
-| 選擇權月份 | 標的期貨 |
+| option 月份 | underlying futures |
 |---|---|
-| 1 月、2 月 | 2 月期貨（1 月為序列） |
-| 3 月、4 月 | 4 月期貨（3 月為序列） |
-| 5 月、6 月 | 6 月期貨 |
-| 7 月、8 月 | 8 月期貨 |
-| 9 月、10 月 | 10 月期貨 |
-| 11 月、12 月 | 12 月期貨 |
+| 1 月、2 月 | 2 月 futures（1 月為序列） |
+| 3 月、4 月 | 4 月 futures（3 月為序列） |
+| 5 月、6 月 | 6 月 futures |
+| 7 月、8 月 | 8 月 futures |
+| 9 月、10 月 | 10 月 futures |
+| 11 月、12 月 | 12 月 futures |
 
-**Midcurve 選擇權**：部分短期利率期貨市場，除了「長天期選擇權配長天期期貨」，也會掛「**短天期選擇權配長天期期貨**」。例如一口 2 年後到期的 3 月期貨，可以是 2 年期 3 月選擇權的標的，也可以是只剩 1 年到期的 3 月選擇權的標的。依標的期貨至少還有 1、2、5 年才到期，分別稱 1 年、2 年、5 年 midcurve。
+**Midcurve option**：部分短期利率 futures 市場，除了「長天期 option 配長天期 futures」，也會掛「**短天期 option 配長天期 futures**」。例如一口 2 年後到期的 3 月 futures，可以是 2 年期 3 月 option 的 underlying，也可以是只剩 1 年到期的 3 月 option 的 underlying。依 underlying futures 至少還有 1、2、5 年才到期，分別稱 1 年、2 年、5 年 midcurve。
 
 #### (3) 到期日（Expiration Date / Expiry）
 
-到期日是買方必須做出最後決定（買或賣）的日子；過了到期日，合約的所有權利義務消失。
+expiration date 是買方必須做出最後決定（買或賣）的日子；過了 expiration date，合約的所有權利義務消失。
 
-- **最後交易日（last trading day）**：能在交易所買賣該選擇權的最後一個營業日；對交易員比到期日更重要。美國個股與指數選擇權的月合約傳統上在**到期月第 3 個星期五**到期，最後交易日通常同一天（遇假日如耶穌受難日則提前）。
-- **PM 結算 vs. AM 結算**：
-  - 早年個股選擇權以最後交易日**收盤價**決定價值（PM expiration）。但許多策略要在到期時把股票部位一併了結，導致收盤前湧入大量股票單，擾亂價格。
-  - 為了解決收盤失衡，指數類衍生品多改用最後交易日（或次日）**開盤價**計算結算價（AM expiration）；個股選擇權仍多為 PM 結算。
-  - 台灣例子：台指選擇權（TXO）月合約於到期月第 3 個星期三到期，以到期日開盤後一段時間的指數平均價作為最後結算價，概念上接近 AM 結算。
-- **期貨選擇權的到期日**：依商品而異。實物商品期貨交割要花好幾天，所以其選擇權常在期貨月份的**前一個月**到期（例如 7 月期貨的選擇權在 6 月到期）。務必查交易所日曆。
+- **最後交易日（last trading day）**：能在交易所買賣該 option 的最後一個營業日；對交易員比 expiration date 更重要。美國個股與指數 option 的月合約傳統上在**到期月第 3 個星期五**到期，最後交易日通常同一天（遇假日如耶穌受難日則提前）。
+- **PM settlement vs. AM settlement**：
+  - 早年個股 option 以最後交易日**收盤價**決定價值（PM expiration）。但許多策略要在到期時把股票 position 一併了結，導致收盤前湧入大量股票單，擾亂價格。
+  - 為了解決收盤失衡，指數類衍生品多改用最後交易日（或次日）**開盤價**計算 settlement price；個股 option 仍多為 PM settlement。
+  - 台灣例子：台指 option 月合約於到期月第 3 個星期三到期，以 expiration date 開盤後一段時間的指數平均價作為最後 settlement price，概念上接近 AM settlement。
+- **futures option 的 expiration date**：依商品而異。實物商品 futures 交割要花好幾天，所以其 option 常在 futures 月份的**前一個月**到期（例如 7 月 futures 的 option 在 6 月到期）。務必查交易所日曆。
 
-（小知識：早期交易所選擇權常在週六這種非營業日「到期」，讓交易所多一天處理文件。）
+（小知識：早期交易所 option 常在週六這種非營業日「到期」，讓交易所多一天處理文件。）
 
 #### (4) 履約價（Exercise Price / Strike Price）
 
-履約時標的交割的價格：call 買方履約**付出**履約價，put 買方履約**收到**履約價。
+exercise 時 underlying 交割的價格：call 買方 exercise**付出** strike，put 買方 exercise**收到** strike。
 
-交易所通常以等距設定履約價並涵蓋現價。**例題 3-2（自創）**：標的上市時 138，交易所掛 120、125、130、135、140、145、150、155。後來標的漲到 152，交易所加掛 160、165、170。若交易所認為有助交易，也可加掛中間履約價（如 132.5、137.5、142.5）。
+交易所通常以等距設定 strike 並涵蓋現價。**例題 3-2（自創）**：underlying 上市時 138，交易所掛 120、125、130、135、140、145、150、155。後來 underlying 漲到 152，交易所加掛 160、165、170。若交易所認為有助交易，也可加掛中間 strike（如 132.5、137.5、142.5）。
 
 **完整規格舉例（自創）**
-- 「某股票 **6 月 900 買權**」（股票選擇權）：有權在 6 月到期日或之前，以每股 900 元買進一口合約所代表的股數。
-- 「某原油期貨 **9 月 75 賣權**」（期貨選擇權）：有權在 9 月選擇權到期日或之前，以每桶 75 元取得一口對應期貨的空頭部位。
+- 「某股票 **6 月 900 call**」（股票 option）：有權在 6 月 expiration date 或之前，以每股 900 元買進一口合約所代表的股數。
+- 「某原油 futures **9 月 75 put**」（futures option）：有權在 9 月 option expiration date 或之前，以每桶 75 元取得一口對應 futures 的 short position。
 
 ```
  標的合約      到期月      履約價     類型
@@ -128,128 +128,128 @@
 
 ### 3.2 履約與指派（Exercise and Assignment）
 
-> 💡 **一句話**：買方履約、結算所隨機指派一位賣方；現金流只看履約價，可能交割成股票、期貨部位或現金。
+> 💡 **一句話**：買方 exercise、結算所（clearinghouse）隨機 assign 一位賣方；現金流只看 strike，可能交割成股票、futures position 或現金。
 
-- **履約（exercise）**：買方行使權利。call 履約 → 取得標的多頭；put 履約 → 取得標的空頭。履約後選擇權本身消失，如同到期一樣。
-- **履約通知（exercise notice）**：店頭選擇權交給賣方；交易所選擇權交給交易所（結算所）。
-- **指派（assignment）**：收到有效履約通知後，選出一位賣方負責履約。被指派者必須依履約價取得相應的標的部位。
+- **exercise**：買方行使權利。call exercise → 取得 underlying 多頭；put exercise → 取得 underlying 空頭。exercise 後 option 本身消失，如同到期一樣。
+- **exercise 通知（exercise notice）**：店頭 option 交給賣方；交易所 option 交給交易所（clearinghouse）。
+- **assign**：收到有效 exercise 通知後，選出一位賣方負責 exercise。被 assign 者必須依 strike 取得相應的 underlying position。
 
-交易所怎麼選人？由於結算所已是所有交易的對手方，它會從「**賣出該選擇權且尚未平倉**」的人中選出，其餘基本上是**隨機**的，沒有人被指派的機率比較高或低。
+交易所怎麼選人？由於 clearinghouse 已是所有交易的對手方，它會從「**賣出該 option 且尚未平倉**」的人中選出，其餘基本上是**隨機**的，沒有人被 assign 的機率比較高或低。
 
 **記憶表**
 
 | 動作 | 結果 |
 |---|---|
-| 履約買權 | 你**選擇**以履約價**買進** |
-| 買權被指派 | 你**被迫**以履約價**賣出** |
-| 履約賣權 | 你**選擇**以履約價**賣出** |
-| 賣權被指派 | 你**被迫**以履約價**買進** |
+| exercise call | 你**選擇**以 strike**買進** |
+| call 被 assign | 你**被迫**以 strike**賣出** |
+| exercise put | 你**選擇**以 strike**賣出** |
+| put 被 assign | 你**被迫**以 strike**買進** |
 
-履約後可能交割成三種形式：(1) 實物標的、(2) 期貨部位、(3) 現金。
+exercise 後可能交割成三種形式：(1) 實物 underlying、(2) futures position、(3) 現金。
 
 #### (1) 交割實物標的
 
-call 履約者付履約價、收標的；put 履約者收履約價、交標的。**股票選擇權一律實物交割**。
+call exercise 者付 strike、收 underlying；put exercise 者收 strike、交 underlying。**股票 option 一律實物交割**。
 
 **例題 3-3（自創，每口 100 股）**
 
 | 情況 | 現金 | 股票 |
 |---|---|---|
-| 履約 3 口 3 月 85 call | 付 $3\times100\times85=\$25{,}500$ | 收 300 股 |
-| 被指派 5 口 12 月 30 call | 收 $5\times100\times30=\$15{,}000$ | 交 500 股 |
-| 履約 2 口 9 月 120 put | 收 $2\times100\times120=\$24{,}000$ | 交 200 股 |
-| 被指派 4 口 6 月 50 put | 付 $4\times100\times50=\$20{,}000$ | 收 400 股 |
+| exercise 3 口 3 月 85 call | 付 $3\times100\times85=\$25{,}500$ | 收 300 股 |
+| 被 assign 5 口 12 月 30 call | 收 $5\times100\times30=\$15{,}000$ | 交 500 股 |
+| exercise 2 口 9 月 120 put | 收 $2\times100\times120=\$24{,}000$ | 交 200 股 |
+| 被 assign 4 口 6 月 50 put | 付 $4\times100\times50=\$20{,}000$ | 收 400 股 |
 
-**重點**：履約當下的現金流**只取決於履約價**，與當時股價無關。股價是 10 元還是 1,000 元，85 call 履約者都只付 85 元／股。當然，整筆選擇權交易的盈虧還要看股價與當初的權利金，但「履約那一刻的現金流」與它們無關。
+**重點**：exercise 當下的現金流**只取決於 strike**，與當時股價無關。股價是 10 元還是 1,000 元，85 call exercise 者都只付 85 元／股。當然，整筆 option 交易的盈虧還要看股價與當初的 premium，但「exercise 那一刻的現金流」與它們無關。
 
 #### (2) 交割成期貨部位
 
-如同以履約價買賣期貨，部位立即適用期貨型結算：要繳保證金，並立刻依現價結算變動金。
+如同以 strike 買賣 futures，position 立即適用期貨型結算（futures-type settlement）：要繳 margin，並立刻依現價 settlement 變動金。
 
-**例題 3-4（自創）**：標的期貨現價 62.00，每點 $500，保證金每口 $2,000。
+**例題 3-4（自創）**：underlying futures 現價 62.00，每點 $500，margin 每口 $2,000。
 
-| 情況 | 取得部位 | 保證金 | 立即變動金 |
+| 情況 | 取得 position | margin | 立即變動金 |
 |---|---|---|---|
-| 履約 2 口 4 月 58 call | 多 2 口 @58 | 4,000 | $(62-58)\times500\times2=+4{,}000$ |
-| 被指派 3 口 7 月 55 call | 空 3 口 @55 | 6,000 | $(55-62)\times500\times3=-10{,}500$ |
-| 履約 1 口 10 月 66 put | 空 1 口 @66 | 2,000 | $(66-62)\times500\times1=+2{,}000$ |
-| 被指派 4 口 12 月 64 put | 多 4 口 @64 | 8,000 | $(62-64)\times500\times4=-4{,}000$ |
+| exercise 2 口 4 月 58 call | 多 2 口 @58 | 4,000 | $(62-58)\times500\times2=+4{,}000$ |
+| 被 assign 3 口 7 月 55 call | 空 3 口 @55 | 6,000 | $(55-62)\times500\times3=-10{,}500$ |
+| exercise 1 口 10 月 66 put | 空 1 口 @66 | 2,000 | $(66-62)\times500\times1=+2{,}000$ |
+| 被 assign 4 口 12 月 64 put | 多 4 口 @64 | 8,000 | $(62-64)\times500\times4=-4{,}000$ |
 
 #### (3) 現金結算
 
-主要用於指數類等不便實物交割的標的：履約後**不產生標的部位**，只依「履約價與當日結算價的差額」收付現金。
+主要用於指數類等不便實物交割的 underlying：exercise 後**不產生 underlying position**，只依「strike 與當日 settlement price 的差額」收付現金。
 
-**例題 3-5（自創）**：某指數當日結算於 21,340 點，每點 NT\$50（與 TXO 相同乘數）。
+**例題 3-5（自創）**：某指數當日 settlement 於 21,340 點，每點 NT\$50（與 TXO 相同乘數）。
 
 | 情況 | 現金 |
 |---|---|
-| 履約 2 口 21,000 call | 收 $(21{,}340-21{,}000)\times50\times2=34{,}000$ |
-| 被指派 3 口 21,500 put | 付 $(21{,}500-21{,}340)\times50\times3=24{,}000$ |
-| 履約 1 口 21,600 put | 收 $(21{,}600-21{,}340)\times50=13{,}000$ |
-| 被指派 4 口 21,200 call | 付 $(21{,}340-21{,}200)\times50\times4=28{,}000$ |
+| exercise 2 口 21,000 call | 收 $(21{,}340-21{,}000)\times50\times2=34{,}000$ |
+| 被 assign 3 口 21,500 put | 付 $(21{,}500-21{,}340)\times50\times3=24{,}000$ |
+| exercise 1 口 21,600 put | 收 $(21{,}600-21{,}340)\times50=13{,}000$ |
+| 被 assign 4 口 21,200 call | 付 $(21{,}340-21{,}200)\times50\times4=28{,}000$ |
 
 ---
 
 ### 3.3 履約方式（Exercise Style）
 
-> 💡 **一句話**：歐式只能到期履約，美式到期前隨時可以；和地理位置無關。
+> 💡 **一句話**：歐式只能到期 exercise，美式到期前隨時可以；和地理位置無關。
 
-- **歐式（European）**：只能在到期時履約（實務上是在到期前最後一個營業日決定）。
-- **美式（American）**：到期前任何營業日都可履約。
+- **歐式（European）**：只能在到期時 exercise（實務上是在到期前最後一個營業日決定）。
+- **美式（American）**：到期前任何營業日都可 exercise。
 
-名稱與地理無關：美國有很多歐式選擇權，歐洲也有很多美式選擇權（據說美國最早的選擇權就帶有提前履約權，因而得名）。一般而言，**期貨選擇權與個股選擇權多為美式，指數選擇權多為歐式**（例如 TXO 是歐式）。提前履約何時划算，見 [ch16](ch16_early_exercise.md)。
+名稱與地理無關：美國有很多歐式選擇權（European option），歐洲也有很多美式選擇權（American option）（據說美國最早的 option 就帶有提前履約（early exercise）權，因而得名）。一般而言，**futures option 與個股 option 多為美式，指數 option 多為歐式**（例如 TXO 是歐式）。early exercise 何時划算，見 [ch16](ch16_early_exercise.md)。
 
 ---
 
 ### 3.4 權利金的組成（Option Price Components）
 
-> 💡 **一句話**：權利金 = 內含價值 + 時間價值；內含價值不會是負的。
+> 💡 **一句話**：premium = intrinsic value + time value；intrinsic value 不會是負的。
 
-權利金（premium）由市場供需決定：買賣雙方報出競爭性的買價與賣價，相交時成交。
+premium 由市場供需決定：買賣雙方報出競爭性的買價與賣價，相交時成交。
 
-權利金 = **內含價值（intrinsic value）** + **時間價值（time value）**
+premium = **intrinsic value** + **time value**
 
-**內含價值**：立即履約並反向平倉能鎖定的「低買高賣」金額。
+**intrinsic value**：立即 exercise 並反向平倉能鎖定的「低買高賣」金額。
 
 $$\text{Call 內含價值}=\max(0,\ S-X),\qquad \text{Put 內含價值}=\max(0,\ X-S)$$
 
-（$S$＝標的現價，$X$＝履約價。內含價值永遠 ≥ 0。）
+（$S$＝underlying 現價，$X$＝strike。intrinsic value 永遠 ≥ 0。）
 
 **例題 3-6（自創）**
-- 標的 247，**230 call** 報 21.50：內含 $247-230=17$，時間價值 $21.50-17=4.50$。（履約以 230 買、市價 247 賣，入帳 17。）
-- 標的 247，**260 put** 報 15.20：內含 $260-247=13$，時間價值 $15.20-13=2.20$。（履約以 260 賣、市價 247 買回，入帳 13。）
+- underlying 247，**230 call** 報 21.50：內含 $247-230=17$，time value $21.50-17=4.50$。（exercise 以 230 買、市價 247 賣，入帳 17。）
+- underlying 247，**260 put** 報 15.20：內含 $260-247=13$，time value $15.20-13=2.20$。（exercise 以 260 賣、市價 247 買回，入帳 13。）
 
 ```
  230 call：  21.50  =  17.00（內含：247−230） +  4.50（時間價值）
  260 put ：  15.20  =  13.00（內含：260−247） +  2.20（時間價值）
 ```
 
-**內含價值與到期日無關**：標的 247 時，3 月 230 call 與 12 月 230 call 內含價值都是 17。
+**intrinsic value 與 expiration date 無關**：underlying 247 時，3 月 230 call 與 12 月 230 call intrinsic value 都是 17。
 
-**時間價值**（又稱時間溢價 time premium、外在價值 extrinsic value）：市場願意在內含價值之外多付的部分，主要因為選擇權相對於直接持有標的有「保險」的保護特性。
+**time value**（又稱時間溢價 time premium、外在價值 extrinsic value）：市場願意在 intrinsic value 之外多付的部分，主要因為 option 相對於直接持有 underlying 有「保險」的保護特性。
 
-- 沒有內含價值的選擇權，權利金全是時間價值。
-- 沒有時間價值的選擇權，權利金全是內含價值，稱為**以平價交易（trading at parity）**。
-- 內含價值不可能為負，但**歐式選擇權的時間價值可以為負**（深度價內歐式選擇權，因無法提前履約而可能低於平價；見 [ch16](ch16_early_exercise.md)）。一般情況下時間價值為非負。
+- 沒有 intrinsic value 的 option，premium 全是 time value。
+- 沒有 time value 的 option，premium 全是 intrinsic value，稱為**以平價交易（trading at parity）**。
+- intrinsic value 不可能為負，但**European option 的 time value 可以為負**（深度 ITM European option，因無法 early exercise 而可能低於平價；見 [ch16](ch16_early_exercise.md)）。一般情況下 time value 為非負。
 
 ---
 
 ### 3.5 價內、價平、價外（In / At / Out of the Money）
 
-> 💡 **一句話**：call 履約價低於標的就是價內、put 相反；實務上的價平是最接近現價的履約價。
+> 💡 **一句話**：call strike 低於 underlying 就是 ITM、put 相反；實務上的 ATM 是最接近現價的 strike。
 
-- **價內（ITM）**：有正的內含價值；價內的金額即內含價值。
-  - call：履約價 < 標的價；put：履約價 > 標的價。
-- **價外（OTM）**：沒有內含價值，權利金全是時間價值。
-- **價平（ATM）**：履約價等於標的價。嚴格說它也沒有內含價值，但因為價平選擇權有特殊且重要的性質、成交最活躍，交易員把它單獨分類。
+- **ITM**：有正的 intrinsic value；ITM 的金額即 intrinsic value。
+  - call：strike < 標的價；put：履約價 > underlying 價。
+- **OTM**：沒有 intrinsic value，premium 全是 time value。
+- **ATM**：strike 等於 underlying 價。嚴格說它也沒有 intrinsic value，但因為 ATM option 有特殊且重要的性質、成交最活躍，交易員把它單獨分類。
 
-**同一履約價的 call 與 put 互為反面**：call 價內 → 同履約價 put 價外，反之亦然。
+**同一 strike 的 call 與 put 互為反面**：call ITM → 同 strike put OTM，反之亦然。
 
 **例題 3-7（自創）**：股價 $58。
-- 50 call 價內 8；50 put 價外 8。
-- 65 put 價內 7；65 call 價外 7。
+- 50 call ITM 8；50 put OTM 8。
+- 65 put ITM 7；65 call OTM 7。
 
-**實務上的「價平」**：通常指**最接近**標的現價的那個履約價。股價 132.80，履約價間距 5（125、130、135、140……）：$|132.80-135|=2.20<|132.80-130|=2.80$，所以 **135 call 與 135 put** 是價平選擇權。
+**實務上的「ATM」**：通常指**最接近** underlying 現價的那個 strike。股價 132.80，strike 間距 5（125、130、135、140……）：$|132.80-135|=2.20<|132.80-130|=2.80$，所以 **135 call 與 135 put** 是 ATM option。
 
 ```
             ← 較低履約價             較高履約價 →
@@ -260,21 +260,21 @@ $$\text{Call 內含價值}=\max(0,\ S-X),\qquad \text{Put 內含價值}=\max(0,\
                   ↑ 標的現價
 ```
 
-（[ch05](ch05_pricing_models.md) 會再區分「價平」與「at the forward：履約價等於遠期價格」。）
+（[ch05](ch05_pricing_models.md) 會再區分「ATM」與「at the forward：strike 等於 forward price」。）
 
 ---
 
 ### 3.6 自動履約（Automatic Exercise）
 
-> 💡 **一句話**：到期時價內超過門檻會自動履約；不想履約要交「不履約通知」。（可先跳過）
+> 💡 **一句話**：到期時 ITM 超過門檻會自動 exercise；不想 exercise 要交「不 exercise 通知」。（可先跳過）
 
-到期時價內選擇權一定有內含價值，持有者可以：(a) 到期前在市場賣掉，或 (b) 履約並立即平掉標的部位。
+到期時 ITM option 一定有 intrinsic value，持有者可以：(a) 到期前在市場賣掉，或 (b) exercise 並立即平掉 underlying position。
 
-早期必須主動提交履約通知；有人因為不知道規定、聯絡不上交易所、或結算會員作業疏失，讓價內選擇權白白過期——任何理性的人都無法接受。因此多數交易所實施**自動履約（automatic exercise）**：到期時，交易所會替持有者履約達到門檻的價內選擇權，即使沒有提交通知。
+早期必須主動提交 exercise 通知；有人因為不知道規定、聯絡不上交易所、或結算會員（clearing member）作業疏失，讓 ITM option 白白過期——任何理性的人都無法接受。因此多數交易所實施**自動 exercise**：到期時，交易所會替持有者 exercise 達到門檻的 ITM option，即使沒有提交通知。
 
-**門檻的意義（自創數字）**：假設自動履約門檻為 0.02。
-- 價內 0.015：不會自動履約；若仍想履約，必須主動提交履約通知。
-- 價內 0.03：會被自動履約；若考慮交易成本後不想履約，必須提交**不履約通知（do not exercise notice）**。
+**門檻的意義（自創數字）**：假設自動 exercise 門檻為 0.02。
+- ITM 0.015：不會自動 exercise；若仍想 exercise，必須主動提交 exercise 通知。
+- ITM 0.03：會被自動 exercise；若考慮交易成本後不想 exercise，必須提交**不 exercise 通知（do not exercise notice）**。
 
 門檻可能因身分而不同（例如散戶與專業交易員因成本結構不同而不同門檻）。交易所會訂出判定是否為專業交易員的標準。（美國 OCC 目前對所有帳戶的門檻為 0.01。）
 
@@ -282,16 +282,16 @@ $$\text{Call 內含價值}=\max(0,\ S-X),\qquad \text{Put 內含價值}=\max(0,\
 
 ### 3.7 選擇權保證金（Option Margining）
 
-> 💡 **一句話**：選擇權保證金用風險情境算：買方最多賠權利金，賣方要看最壞情境。（可先跳過）
+> 💡 **一句話**：option margin 用風險情境算：買方最多賠 premium，賣方要看最壞情境。（可先跳過）
 
-選擇權依交易所與標的不同，可能採股票型或期貨型結算（見 [ch01](ch01_financial_contracts.md)）。但成交後，結算所還要考慮：這個部位的風險**有限還是無限**？
+option 依交易所與 underlying 不同，可能採股票型或 futures-type settlement（見 [ch01](ch01_financial_contracts.md)）。但成交後，clearinghouse 還要考慮：這個 position 的風險**有限還是無限**？
 
-- **有限風險部位**：保證金不會超過最大可能損失。選擇權買方最多損失權利金，結算所不會要求超過此數的保證金。即使部位很複雜，只要有最大損失，就有保證金上限。
-- **無限風險部位**（例如賣出 call）：結算所必須評估各種情境下的損失，再收取相應保證金。
+- **有限風險 position**：margin 不會超過最大可能損失。option 買方最多損失 premium，clearinghouse 不會要求超過此數的 margin。即使 position 很複雜，只要有最大損失，就有 margin 上限。
+- **無限風險 position**（例如賣出 call）：clearinghouse 必須評估各種情境下的損失，再收取相應 margin。
 
-與期貨「每口固定保證金」不同，複雜選擇權部位沒有單一公式，但所有方法都是**風險基礎（risk-based）**：在一組標的價格變動 × 波動速度（波動率）變動的情境網格下重估部位，用最壞情境決定保證金。
-- 美國 OCC 有自己的風險基礎系統（股票與指數選擇權）。
-- 期貨交易所最廣用的是 CME 開發的 **SPAN（Standard Portfolio Analysis of Risk）**。
+與 futures「每口固定 margin」不同，複雜 option position 沒有單一公式，但所有方法都是**風險基礎（risk-based）**：在一組 underlying 價格變動 × 波動速度（波動率（volatility））變動的情境網格下重估 position，用最壞情境決定 margin。
+- 美國 OCC 有自己的風險基礎系統（股票與指數 option）。
+- futures 交易所最廣用的是 CME 開發的 **SPAN（Standard Portfolio Analysis of Risk）**。
 
 ```
  SPAN 概念示意（自繪）：
@@ -306,43 +306,43 @@ $$\text{Call 內含價值}=\max(0,\ S-X),\qquad \text{Put 內含價值}=\max(0,\
 
 ## 交易員視角
 
-1. **Optibook 選擇權做市（options_market_making）**：先讀合約規格——類型、履約價、到期時間、歐式或美式、合約乘數。履約方式決定你能否用 Black-Scholes（歐式）或必須考慮提前履約（美式）。
-2. **報價時先算內含價值**：任何低於內含價值的美式選擇權報價都是送錢——你可以買進立刻履約。做市時你的 bid 下限至少要在內含價值附近，ask 也不能低於它。
-3. **用時間價值比較，而不是權利金**：深度價內選擇權權利金大但時間價值小，風險行為接近標的；價外選擇權全是時間價值，對波動率最敏感（見 [ch06](ch06_volatility.md)）。
-4. **到期前檢查價內程度**：真實市場若部位剛好在門檻附近，記得決定是否提交履約／不履約通知；被指派的是空方，週末前的意外指派可能讓你帶著不想要的標的部位過週末。
-5. **價格跳動與履約價格網格**：Optibook 價格必須在 `tick_size` 網格上；選擇權理論價算出來後，要四捨五入到合法 tick 才能下單。
+1. **Optibook option market making**：先讀合約規格——類型、strike、到期時間、歐式或美式、合約乘數。exercise 方式決定你能否用 Black-Scholes（歐式）或必須考慮 early exercise（美式）。
+2. **quote 時先算 intrinsic value**：任何低於 intrinsic value 的 American option quote 都是送錢——你可以買進立刻 exercise。market making 時你的 bid 下限至少要在 intrinsic value 附近，ask 也不能低於它。
+3. **用 time value 比較，而不是 premium**：深度 ITM option premium 大但 time value 小，風險行為接近 underlying；OTM option 全是 time value，對 volatility 最敏感（見 [ch06](ch06_volatility.md)）。
+4. **到期前檢查 ITM 程度**：真實市場若 position 剛好在門檻附近，記得決定是否提交 exercise／不 exercise 通知；被 assign 的是空方，週末前的意外 assign 可能讓你帶著不想要的 underlying position 過週末。
+5. **價格跳動與 strike 網格**：Optibook 價格必須在 `tick_size` 網格上；option 理論價算出來後，要四捨五入到合法 tick 才能下單。
 
 ## 常見誤區
 
-1. **誤解**：選擇權賣方也可以選擇要不要履約。
-   **正解**：權利全在買方；賣方只能被指派，或在到期前平倉以避免被指派。
-2. **誤解**：被指派的是當初跟我成交的那個人。
-   **正解**：成交後結算所成為對手方，被指派者是從所有未平倉空方中隨機選出。
-3. **誤解**：履約 85 call 時要依當時股價付款。
-   **正解**：履約當下的現金流只看履約價（付 85×股數），股價只影響整體盈虧。
-4. **誤解**：歐式選擇權只在歐洲交易。
-   **正解**：歐式／美式只代表能否提前履約，與地點無關。
-5. **誤解**：時間價值不可能是負的。
-   **正解**：內含價值不會為負，但深度價內的歐式選擇權時間價值可能為負。
-6. **誤解**：股價 132.80 時，130 是價平，因為它比較低。
-   **正解**：價平是**最接近**現價的履約價：135 距離 2.20、130 距離 2.80，所以 135 才是價平。
+1. **誤解**：option 賣方也可以選擇要不要 exercise。
+   **正解**：權利全在買方；賣方只能被 assign，或在到期前平倉以避免被 assign。
+2. **誤解**：被 assign 的是當初跟我成交的那個人。
+   **正解**：成交後 clearinghouse 成為對手方，被 assign 者是從所有未平倉空方中隨機選出。
+3. **誤解**：exercise 85 call 時要依當時股價付款。
+   **正解**：exercise 當下的現金流只看 strike（付 85×股數），股價只影響整體盈虧。
+4. **誤解**：European option 只在歐洲交易。
+   **正解**：歐式／美式只代表能否 early exercise，與地點無關。
+5. **誤解**：time value 不可能是負的。
+   **正解**：intrinsic value 不會為負，但深度 ITM 的 European option time value 可能為負。
+6. **誤解**：股價 132.80 時，130 是 ATM，因為它比較低。
+   **正解**：ATM 是**最接近**現價的 strike：135 距離 2.20、130 距離 2.80，所以 135 才是 ATM。
 
 ## 重點摘要
 
 | 項目 | 內容 |
 |---|---|
-| 五大規格 | 類型、標的、到期日、履約價、履約方式 |
+| 五大規格 | 類型、underlying、expiration date、strike、exercise 方式 |
 | 權利義務 | 買方全權利，賣方全義務 |
-| 股票選擇權標的 | 通常 100 股；實物交割 |
-| 期貨選擇權標的 | 1 口期貨；序列選擇權取到期後最近期貨月份 |
-| 履約／指派 | 履約 call=買、被指派 call=賣、履約 put=賣、被指派 put=買 |
-| 交割形式 | 實物、期貨部位（保證金 + 變動金）、現金 |
-| 履約方式 | 歐式：只能到期；美式：任何營業日 |
-| 權利金 | 內含價值 + 時間價值 |
-| 內含價值 | Call $\max(0,S-X)$；Put $\max(0,X-S)$ |
-| ITM/ATM/OTM | 依履約價與標的價關係；實務 ATM=最接近現價的履約價 |
-| 自動履約 | 達門檻自動履約；可提交不履約通知 |
-| 選擇權保證金 | 風險基礎（OCC 系統、SPAN） |
+| 股票 option underlying | 通常 100 股；實物交割 |
+| futures option underlying | 1 口 futures；序列 option 取到期後最近 futures 月份 |
+| exercise／assign | exercise call=買、被 assign call=賣、exercise put=賣、被 assign put=買 |
+| 交割形式 | 實物、futures position（margin + 變動金）、現金 |
+| exercise 方式 | 歐式：只能到期；美式：任何營業日 |
+| premium | intrinsic value + time value |
+| intrinsic value | Call $\max(0,S-X)$；Put $\max(0,X-S)$ |
+| ITM/ATM/OTM | 依 strike 與 underlying 價關係；實務 ATM=最接近現價的 strike |
+| 自動 exercise | 達門檻自動 exercise；可提交不 exercise 通知 |
+| option margin | 風險基礎（OCC 系統、SPAN） |
 
 ---
 
@@ -352,81 +352,81 @@ $$\text{Call 內含價值}=\max(0,\ S-X),\qquad \text{Put 內含價值}=\max(0,\
 
 ### A. 概念題
 
-**A1.** 說明期貨的買方與買權的買方在「到期時是否必須收貨」上的差異。
+**A1.** 說明 futures 的買方與 call 的買方在「到期時是否必須收貨」上的差異。
 
 <details><summary>解答</summary>
 
-期貨買方有義務收貨並付款；買權買方擁有權利而無義務，可以選擇履約（收貨）或讓它過期。
+futures 買方有義務收貨並付款；call 買方擁有權利而無義務，可以選擇 exercise（收貨）或讓它過期。
 
 </details>
 
-**A2.** 某商品期貨掛 3、5、7、9、12 月，交易所另掛 6 月與 8 月的序列選擇權。6 月選擇權與 8 月選擇權的標的各是什麼？
+**A2.** 某商品 futures 掛 3、5、7、9、12 月，交易所另掛 6 月與 8 月的序列 option。6 月 option 與 8 月 option 的 underlying 各是什麼？
 
 <details><summary>解答</summary>
 
-序列選擇權的標的是到期後最近的期貨月份：6 月選擇權 → 7 月期貨；8 月選擇權 → 9 月期貨。
+序列 option 的 underlying 是到期後最近的 futures 月份：6 月 option → 7 月 futures；8 月 option → 9 月 futures。
 
 </details>
 
-**A3.** 為什麼指數類衍生品傾向採用 AM 結算？
+**A3.** 為什麼指數類衍生品傾向採用 AM settlement？
 
 <details><summary>解答</summary>
 
-許多策略要在到期時了結標的部位，如果以收盤價結算，收盤前會湧入大量股票買賣單，造成價格扭曲與失衡。改用開盤價（或開盤後平均價）計算結算價，可以把這些單分散到開盤競價處理，減輕收盤衝擊。
+許多策略要在到期時了結 underlying position，如果以收盤價 settlement，收盤前會湧入大量股票買賣單，造成價格扭曲與失衡。改用開盤價（或開盤後平均價）計算 settlement price，可以把這些單分散到開盤競價處理，減輕收盤衝擊。
 
 </details>
 
-**A4.** ⭐ 你賣出了 10 口某股 50 put，到期前一週股價跌到 42。你可能會遇到什麼事？結果是什麼部位？
+**A4.** ⭐ 你賣出了 10 口某股 50 put，到期前一週股價跌到 42。你可能會遇到什麼事？結果是什麼 position？
 
 <details><summary>提示</summary>
 
-先查「記憶表」：賣權被指派等於被迫用履約價做什麼？再算口數 × 100 股 × 50 的現金。
+先查「記憶表」：put 被 assign 等於被迫用 strike 做什麼？再算口數 × 100 股 × 50 的現金。
 
 </details>
 
 <details><summary>解答</summary>
 
-你可能被指派（美式選擇權提前履約，或到期自動履約）。被指派賣權 → 被迫以 50 買進股票：付 $10\times100\times50=\$50{,}000$，收到 1,000 股，成為股票多頭（市價 42，帳面每股虧 8，但當初收的權利金可抵銷一部分）。
+你可能被 assign（American option early exercise，或到期自動 exercise）。被 assign put → 被迫以 50 買進股票：付 $10\times100\times50=\$50{,}000$，收到 1,000 股，成為股票多頭（市價 42，帳面每股虧 8，但當初收的 premium 可抵銷一部分）。
 
 </details>
 
-**A5.** 自動履約門檻為 0.05。你持有到期時價內 0.04 的 call，且你的交易成本極低。你該怎麼做？若價內 0.08 但你的成本高達 0.10 呢？
+**A5.** 自動 exercise 門檻為 0.05。你持有到期時 ITM 0.04 的 call，且你的交易成本極低。你該怎麼做？若 ITM 0.08 但你的成本高達 0.10 呢？
 
 <details><summary>解答</summary>
 
-價內 0.04 低於門檻不會被自動履約；若履約仍划算，須主動提交履約通知。價內 0.08 會被自動履約，但成本 0.10 使履約淨虧 0.02，應提交「不履約通知」。
+ITM 0.04 低於門檻不會被自動 exercise；若 exercise 仍划算，須主動提交 exercise 通知。ITM 0.08 會被自動 exercise，但成本 0.10 使 exercise 淨虧 0.02，應提交「不 exercise 通知」。
 
 </details>
 
-**A6.** 為什麼選擇權買方的保證金需求有上限，而賣出 call 的保證金需要用情境分析決定？
+**A6.** 為什麼 option 買方的 margin 需求有上限，而賣出 call 的 margin 需要用情境分析決定？
 
 <details><summary>解答</summary>
 
-買方最大損失就是已付的權利金，結算所面臨的風險有限，保證金不會超過最大損失。賣出 call 理論上損失無上限，必須評估多種價格與波動率情境下的損失（如 SPAN），收取足以涵蓋合理最壞情況的保證金。
+買方最大損失就是已付的 premium，clearinghouse 面臨的風險有限，margin 不會超過最大損失。賣出 call 理論上損失無上限，必須評估多種價格與 volatility 情境下的損失（如 SPAN），收取足以涵蓋合理最壞情況的 margin。
 
 </details>
 
 ### B. 計算題
 
-**B1.** ⭐ 標的期貨 1,183。(a) 1,150 call 內含價值？(b) 若 1,150 call 報 41.20，時間價值？(c) 1,100 put 的內含價值？
+**B1.** ⭐ underlying futures 1,183。(a) 1,150 call intrinsic value？(b) 若 1,150 call 報 41.20，time value？(c) 1,100 put 的 intrinsic value？
 
 <details><summary>提示</summary>
 
-call 內含價值 = 標的 − 履約價（負的算 0）；時間價值 = 報價 − 內含價值；put 則是履約價 − 標的。
+call intrinsic value = underlying − strike（負的算 0）；time value = quote − intrinsic value；put 則是 strike − underlying。
 
 </details>
 
 <details><summary>解答</summary>
 
-(a) $1{,}183-1{,}150=33$；(b) $41.20-33=8.20$；(c) $\max(0,1{,}100-1{,}183)=0$，全為時間價值。
+(a) $1{,}183-1{,}150=33$；(b) $41.20-33=8.20$；(c) $\max(0,1{,}100-1{,}183)=0$，全為 time value。
 
 </details>
 
-**B2.** ⭐ 股票選擇權每口 100 股。(a) 你被指派 7 口 45 call，現金與股票如何變動？(b) 你履約 3 口 72 put 呢？
+**B2.** ⭐ 股票 option 每口 100 股。(a) 你被 assign 7 口 45 call，現金與股票如何變動？(b) 你 exercise 3 口 72 put 呢？
 
 <details><summary>提示</summary>
 
-先判斷是「買」還是「賣」（被指派 call → 賣；履約 put → 賣），再算口數 × 100 × 履約價。
+先判斷是「買」還是「賣」（被 assign call → 賣；exercise put → 賣），再算口數 × 100 × strike。
 
 </details>
 
@@ -437,7 +437,7 @@ call 內含價值 = 標的 − 履約價（負的算 0）；時間價值 = 報�
 
 </details>
 
-**B3.** 外匯期貨現價 1.2850，每口 125,000 單位（每 1.0000 價格變動的價值為 $125,000）。(a) 你履約 2 口 1.2700 call，立即變動金？(b) 你被指派 5 口 1.2600 call 呢？
+**B3.** 外匯 futures 現價 1.2850，每口 125,000 單位（每 1.0000 價格變動的價值為 $125,000）。(a) 你 exercise 2 口 1.2700 call，立即變動金？(b) 你被 assign 5 口 1.2600 call 呢？
 
 <details><summary>解答</summary>
 
@@ -446,7 +446,7 @@ call 內含價值 = 標的 − 履約價（負的算 0）；時間價值 = 報�
 
 </details>
 
-**B4.** 某指數結算於 5,612.40，每點 $100。(a) 履約 4 口 5,550 call 收多少？(b) 被指派 2 口 5,700 put 付多少？
+**B4.** 某指數 settlement 於 5,612.40，每點 $100。(a) exercise 4 口 5,550 call 收多少？(b) 被 assign 2 口 5,700 put 付多少？
 
 <details><summary>解答</summary>
 
@@ -455,55 +455,55 @@ call 內含價值 = 標的 − 履約價（負的算 0）；時間價值 = 報�
 
 </details>
 
-**B5.** ⭐ 股價 $74.60，履約價間距 2.5。哪一個履約價是價平？75 call 與 72.5 put 分別價內或價外多少？
+**B5.** ⭐ 股價 $74.60，strike 間距 2.5。哪一個 strike 是 ATM？75 call 與 72.5 put 分別 ITM 或 OTM 多少？
 
 <details><summary>提示</summary>
 
-先比較股價到 75 和 72.5 的距離，近的那個是價平；再想 call、put 各在履約價哪一邊才算價內。
+先比較股價到 75 和 72.5 的距離，近的那個是 ATM；再想 call、put 各在 strike 哪一邊才算 ITM。
 
 </details>
 
 <details><summary>解答</summary>
 
-最接近 74.60 的是 75（距離 0.40；72.5 距離 2.10），所以 75 為價平。75 call 價外 0.40；72.5 put 價外 2.10（put 履約價低於股價）。
+最接近 74.60 的是 75（距離 0.40；72.5 距離 2.10），所以 75 為 ATM。75 call OTM 0.40；72.5 put OTM 2.10（put strike 低於股價）。
 
 </details>
 
-**B6.** 某 put 履約價 90，標的 82.30，報價 9.10。時間價值是多少？若同條件另一個「歐式」深度價內 put（履約價 130，標的 82.30）報 47.40，時間價值是多少？說明可能原因。
+**B6.** 某 put strike 90，underlying 82.30，quote 9.10。time value 是多少？若同條件另一個「歐式」深度 ITM put（strike 130，underlying 82.30）報 47.40，time value 是多少？說明可能原因。
 
 <details><summary>解答</summary>
 
-90 put：內含 7.70，時間價值 $9.10-7.70=1.40$。
-130 put：內含 $130-82.30=47.70$，時間價值 $47.40-47.70=-0.30$（負值）。歐式 put 無法提前履約；深度價內時，履約價要等到到期才收到，其現值低於履約價本身（利息損失），可使價格低於平價，見 ch16。
+90 put：內含 7.70，time value $9.10-7.70=1.40$。
+130 put：內含 $130-82.30=47.70$，time value $47.40-47.70=-0.30$（負值）。歐式 put 無法 early exercise；深度 ITM 時，strike 要等到到期才收到，其現值低於 strike 本身（利息損失），可使價格低於平價，見 ch16。
 
 </details>
 
 ### C. 交易情境題
 
-**C1.** 你在 Optibook 做市某美式 call，履約價 100，標的 bid/ask = 108.40 / 108.50。有人在該 call 掛出 ask 8.20。你會怎麼做？
+**C1.** 你在 Optibook market making 某美式 call，strike 100，underlying bid/ask = 108.40 / 108.50。有人在該 call 掛出 ask 8.20。你會怎麼做？
 
 <details><summary>解答</summary>
 
-內含價值以可成交的標的 bid 計為 $108.40-100=8.40$，ask 8.20 低於內含價值。買進 call 後立即履約（以 100 買進標的）並在 108.40 賣出標的，可鎖定 $8.40-8.20=0.20$ 的無風險利潤（扣除成本前）。即使不履約，也可買 call、賣標的避險，因為這個價格明顯低估。若是歐式選擇權則不能立即履約，但價格仍明顯偏低（需考慮利息），同樣值得買進並以標的避險。
+intrinsic value 以可成交的 underlying bid 計為 $108.40-100=8.40$，ask 8.20 低於 intrinsic value。買進 call 後立即 exercise（以 100 買進 underlying）並在 108.40 賣出 underlying，可鎖定 $8.40-8.20=0.20$ 的無風險利潤（扣除成本前）。即使不 exercise，也可買 call、賣 underlying hedge，因為這個價格明顯低估。若是 European option 則不能立即 exercise，但價格仍明顯偏低（需考慮利息），同樣值得買進並以 underlying hedge。
 
 </details>
 
-**C2.** 到期日下午，你空 50 口某股 40 call，股價在 40.01～40.03 之間跳動，收盤後你會有什麼風險？應如何處理？
+**C2.** expiration date 下午，你空 50 口某股 40 call，股價在 40.01～40.03 之間跳動，收盤後你會有什麼風險？應如何處理？
 
 <details><summary>解答</summary>
 
-這是「釘住風險」（pin risk）：收盤時是否價內、以及對方是否履約都不確定（價內極少，可能被自動履約，也可能有人提交不履約）。你可能在週末帶著意料之外的 −5,000 股空頭部位，週一開盤跳空就會有大額損益。處理方式：收盤前以小成本買回這些 call 平倉，或預先建立部分股票部位並接受殘餘風險。
+這是「釘住風險」（pin risk）：收盤時是否 ITM、以及對方是否 exercise 都不確定（ITM 極少，可能被自動 exercise，也可能有人提交不 exercise）。你可能在週末帶著意料之外的 −5,000 股 short position，週一開盤跳空就會有大額損益。處理方式：收盤前以小成本買回這些 call 平倉，或預先建立部分股票 position 並接受殘餘風險。
 
 </details>
 
 ### D. 挑戰題
 
-**D1.** 某美式 call 履約價 50，標的股價 61，權利金 10.70，距到期 3 個月，利率 4%，到期前無股利。(a) 這個報價是否有套利？(b) 若改為「歐式」call，下界大約是多少？（提示：先想「買 call + 存入履約價的現值」與「持有股票」的比較，[ch14](ch14_synthetics.md)、[ch16](ch16_early_exercise.md) 會正式推導。）
+**D1.** 某美式 call strike 50，underlying 股價 61，premium 10.70，距到期 3 個月，利率 4%，到期前無股利（dividend）。(a) 這個 quote 是否有 arbitrage？(b) 若改為「歐式」call，下界大約是多少？（提示：先想「買 call + 存入 strike 的現值」與「持有股票」的比較，[ch14](ch14_synthetics.md)、[ch16](ch16_early_exercise.md) 會正式推導。）
 
 <details><summary>解答</summary>
 
-(a) 美式 call 可立即履約：內含 11，報價 10.70 低於內含價值，買 call、立即履約、賣股票可賺 0.30——有套利。
-(b) 歐式 call 不能立刻履約，但比較兩個組合：「買 call + 存入 $50/(1+0.04\times0.25)=49.50$」到期時至少值 $\max(S_T,50)\ge S_T$，所以它今天的價值必須至少等於股價 61。因此 $C\ge61-49.50=11.50$。10.70 低於 11.50，**買歐式 call、放空股票、把錢存起來**仍有套利。這說明無股利時，買權的價值下界其實高於內含價值（$S-X$），差額來自履約價的利息——也是無股利美式 call 不應提前履約的原因。
+(a) 美式 call 可立即 exercise：內含 11，quote 10.70 低於 intrinsic value，買 call、立即 exercise、賣股票可賺 0.30——有 arbitrage。
+(b) 歐式 call 不能立刻 exercise，但比較兩個組合：「買 call + 存入 $50/(1+0.04\times0.25)=49.50$」到期時至少值 $\max(S_T,50)\ge S_T$，所以它今天的價值必須至少等於股價 61。因此 $C\ge61-49.50=11.50$。10.70 低於 11.50，**買歐式 call、放空股票、把錢存起來**仍有 arbitrage。這說明無 dividend 時，call 的價值下界其實高於 intrinsic value（$S-X$），差額來自 strike 的利息——也是無 dividend 美式 call 不應 early exercise 的原因。
 
 </details>
 
@@ -511,16 +511,16 @@ call 內含價值 = 標的 − 履約價（負的算 0）；時間價值 = 報�
 
 ## 自我檢核清單
 
-- [ ] 能說出選擇權五大規格並解讀一張合約名稱
-- [ ] 能判斷期貨選擇權（含序列選擇權）的標的月份
-- [ ] 能說明最後交易日、AM／PM 結算的差異與原因
-- [ ] 能背出履約／指派四種情況分別是買還是賣
-- [ ] 能計算實物、期貨、現金三種交割的現金流與變動金
+- [ ] 能說出 option 五大規格並解讀一張合約名稱
+- [ ] 能判斷 futures option（含序列 option）的 underlying 月份
+- [ ] 能說明最後交易日、AM／PM settlement 的差異與原因
+- [ ] 能背出 exercise／assign 四種情況分別是買還是賣
+- [ ] 能計算實物、futures、現金三種交割的現金流與變動金
 - [ ] 能說明歐式與美式的差異，並知道哪類商品通常是哪一種
-- [ ] 能拆解權利金為內含價值與時間價值
-- [ ] 能判斷價內、價平、價外，並找出實務上的價平履約價
-- [ ] 能說明自動履約門檻與不履約通知的用途
-- [ ] 能說明選擇權保證金為何採風險基礎方法
+- [ ] 能拆解 premium 為 intrinsic value 與 time value
+- [ ] 能判斷 ITM、ATM、OTM，並找出實務上的 ATM strike
+- [ ] 能說明自動 exercise 門檻與不 exercise 通知的用途
+- [ ] 能說明 option margin 為何採風險基礎方法
 
 ## 對應 Lab
 
@@ -532,4 +532,4 @@ call 內含價值 = 標的 − 履約價（負的算 0）；時間價值 = 報�
 
 **延伸練習（選做，不在自動測驗內；以下函式名稱只是建議）**
 
-- **lab02_payoffs**（[../labs/](../labs/)）：實作 `intrinsic(type, S, K)`、`time_value(price, type, S, K)`、`moneyness(type, S, K)` 與 `atm_strike(S, strikes)`，以及履約／指派現金流函式（實物、期貨、現金三種），並以本章例 3-3～3-7 當測試；到期損益與 parity graph 的部分對應 [ch04](ch04_expiration_pnl.md)。
+- **lab02_payoffs**（[../labs/](../labs/)）：實作 `intrinsic(type, S, K)`、`time_value(price, type, S, K)`、`moneyness(type, S, K)` 與 `atm_strike(S, strikes)`，以及 exercise／assign 現金流函式（實物、futures、現金三種），並以本章例 3-3～3-7 當測試；到期損益與 parity graph 的部分對應 [ch04](ch04_expiration_pnl.md)。

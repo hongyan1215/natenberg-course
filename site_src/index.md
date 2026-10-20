@@ -30,21 +30,21 @@ hide:
 5. 隔天到[綜合測驗](quiz.md)用「只考待複習」把錯題補起來。
 
 !!! success "準備 Optiver 培訓？"
-    [Optiver 培訓準備](prep/index.md)把理論變成交易台上的反射動作：高階 Greeks、曲面無套利、造市與逆向選擇、心算速練、模擬造市遊戲、教練拍肩問與自編模擬考。
+    [Optiver 培訓準備](prep/index.md)把理論變成交易台上的反射動作：高階 Greeks、曲面無套利（arbitrage）、造市（market making）與逆向選擇（adverse selection）、心算速練、模擬 market making 遊戲、教練拍肩問與自編模擬考。
 
-想先建立直覺？試試[互動工具](tools/index.md)：拖拉滑桿看選擇權價格與 Greeks 怎麼變。
+想先建立直覺？試試[互動工具](tools/index.md)：拖拉滑桿看選擇權（option）價格與 Greeks 怎麼變。
 
 ## 課程地圖
 
 | 模組 | 章節 | 重點 |
 |---|---|---|
 | 1 基礎 | [1](lessons/ch01_financial_contracts.md) · [2](lessons/ch02_forward_pricing.md) · [3](lessons/ch03_contract_specs.md) · [4](lessons/ch04_expiration_pnl.md) | 合約、遠期定價、到期損益 |
-| 2 定價與波動率 | [5](lessons/ch05_pricing_models.md) · [6](lessons/ch06_volatility.md) · [附錄 B](lessons/appB_useful_math.md) | 理論價值、波動率的意義 |
-| 3 Greeks 與避險 ★ | [7](lessons/ch07_risk_measurement_1.md) · [8](lessons/ch08_dynamic_hedging.md) · [9](lessons/ch09_risk_measurement_2.md) | 做市核心：delta、gamma、theta、vega |
-| 4 價差策略 | [10](lessons/ch10_intro_spreading.md) · [11](lessons/ch11_volatility_spreads.md) · [12](lessons/ch12_bull_bear_spreads.md) · [13](lessons/ch13_risk_considerations.md) | 跨式、蝶式、日曆、垂直價差 |
-| 5 合成與套利 | [14](lessons/ch14_synthetics.md) · [15](lessons/ch15_option_arbitrage.md) · [16](lessons/ch16_early_exercise.md) | 買賣權平價、提前履約 |
-| 6 避險與模型 | [17](lessons/ch17_hedging_with_options.md) · [18](lessons/ch18_black_scholes.md) · [19](lessons/ch19_binomial.md) | 保護性策略、BS 與二元樹 |
-| 7 波動率進階 | [20](lessons/ch20_volatility_revisited.md) · [21](lessons/ch21_position_analysis.md) | 波動率預測、部位分析 |
+| 2 定價與波動率（volatility） | [5](lessons/ch05_pricing_models.md) · [6](lessons/ch06_volatility.md) · [附錄 B](lessons/appB_useful_math.md) | 理論價值（theoretical value）、volatility 的意義 |
+| 3 Greeks 與避險（hedge） ★ | [7](lessons/ch07_risk_measurement_1.md) · [8](lessons/ch08_dynamic_hedging.md) · [9](lessons/ch09_risk_measurement_2.md) | market making 核心：delta、gamma、theta、vega |
+| 4 價差策略 | [10](lessons/ch10_intro_spreading.md) · [11](lessons/ch11_volatility_spreads.md) · [12](lessons/ch12_bull_bear_spreads.md) · [13](lessons/ch13_risk_considerations.md) | 跨式（straddle）、蝶式（butterfly）、日曆、垂直價差（vertical spread） |
+| 5 合成（synthetic）與 arbitrage | [14](lessons/ch14_synthetics.md) · [15](lessons/ch15_option_arbitrage.md) · [16](lessons/ch16_early_exercise.md) | 買賣權平價（put-call parity）、提前履約（early exercise） |
+| 6 hedge 與模型 | [17](lessons/ch17_hedging_with_options.md) · [18](lessons/ch18_black_scholes.md) · [19](lessons/ch19_binomial.md) | 保護性策略、BS 與二元樹（binomial tree） |
+| 7 volatility 進階 | [20](lessons/ch20_volatility_revisited.md) · [21](lessons/ch21_position_analysis.md) | volatility 預測、部位（position）分析 |
 | 8 真實世界 | [22](lessons/ch22_stock_index.md) · [23](lessons/ch23_models_real_world.md) · [24](lessons/ch24_volatility_skews.md) · [25](lessons/ch25_volatility_contracts.md) | 指數、skew、VIX |
 
 !!! tip "加到平板主畫面"
