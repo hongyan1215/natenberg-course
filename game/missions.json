@@ -597,9 +597,170 @@
   },
   "victory": "漂亮，你終於知道 variance 不是 volatility 的影子，而是它的平方——下次報價前先乘二次。"
  },
+ "p01": {
+  "codename": "交易台新兵地圖",
+  "briefing": "新人，我是 Mia，歡迎來到 Theta Street Trading。交易台不看你有沒有讀完講義，只看你在壓力下能不能算得準、說得清、守得住。今天先別碰單，我們用每分鐘答對題數（throughput）量出你的弱項，排出一份 8 週、每天 90 分鐘的訓練菜單。",
+  "objectives": [
+   "說出六大能力群與訓練順序",
+   "用吞吐量（throughput）診斷弱項",
+   "排出 8 週每日訓練表"
+  ],
+  "boss": {
+   "name": "沙漏考官",
+   "taunt": "答案對但太慢，在這裡和算錯一樣貴。",
+   "q": "你在 5 分鐘內做完 20 題，答對 16 題。你的吞吐量（throughput）與下一步，哪一組最合理？",
+   "choices": [
+    "4.0 題／分；正確率 80%，可以直接開始壓時間",
+    "2.56 題／分；正確率 80%，先練速度再練準",
+    "3.2 題／分；正確率 80%，先維持準度、還不要壓時間",
+    "3.2 題／分；正確率 80%，已達 90% 門檻，可開始計時"
+   ],
+   "answer": 2,
+   "explain": "吞吐量（throughput） = 題數 × 正確率 ÷ 分鐘 = $20\\times0.8/5=3.2$ 題／分。正確率 80% 只是及格邊緣；講義的規則是要穩定在 90% 以上才開始壓時間，所以現在該先練準。"
+  },
+  "victory": "很好，先知道自己有多快，再決定要多快；接下來 8 週，讓數據替你說話。"
+ },
+ "p02": {
+  "codename": "二階希臘迷宮",
+  "briefing": "新人，交易台的風險報表不只問你的 delta，還會問：現貨跌 5%、波動率（volatility）漲 3 點之後，你的 delta 會跑到哪裡？今天你要把 vanna、volga 與 charm 從名詞變成工具，並用泰勒展開（Taylor expansion）在十秒內回答教練。",
+  "objectives": [
+   "用 vanna 與 volga 判斷部位風險",
+   "以泰勒展開估算新 delta",
+   "拆解單日損益與殘差"
+  ],
+  "boss": {
+   "name": "Vanna 潛行者",
+   "taunt": "你看見的 delta 只是水面；水面下，我和 volga 正在改寫你的避險。",
+   "q": "3 個月期、履約價（strike）105 的買權（call）：delta 為 $0.3524$、gamma 為 $0.03704$、vanna 為每 vol 點 $+0.00880$。現貨下跌 5 元、波動率（volatility）上漲 3 點。用 $\\Delta_{\\text{new}}\\approx\\Delta+\\Gamma\\,\\delta S+\\text{Vanna}\\,\\delta\\sigma$ 估算，新 delta 最接近？",
+   "choices": [
+    "0.1672",
+    "0.1936",
+    "0.2259",
+    "0.2233"
+   ],
+   "answer": 1,
+   "explain": "$0.3524+0.03704\\times(-5)+0.00880\\times3=0.1936$。只算 gamma 會得到 0.1672；再加 speed、zomma 的二階項才是 0.2259，全重算為 0.2233。"
+  },
+  "victory": "漂亮，這才叫把風險拆開來看；記住，gamma 小的部位不代表 delta 安全，vanna 最會在急跌時補你一腳。"
+ },
+ "p03": {
+  "codename": "曲面馭浪者",
+  "briefing": "新人，你以為 delta 只有一個答案？現貨一動，曲面上每個履約價（strike）的波動率（volatility）也跟著動，同一組部位（position）的避險（hedge）股數可以差四成。今天你要在黏著履約價（sticky strike）、黏著價性（sticky moneyness）與局部波動率（local vol）三種制度間切換；選錯，等於偷偷帶了一個方向性部位（directional position）。",
+  "objectives": [
+   "寫出有效 delta 的修正項",
+   "比較三種制度的避險股數",
+   "用 spot-vol beta 判斷制度"
+  ],
+  "boss": {
+   "name": "Skew 女巫",
+   "taunt": "你避險的是昨天的曲面，我動的是明天的 skew。",
+   "q": "偏斜（skew）向下，絕對斜率為每 1 元現貨 0.3 個 volatility 點。你持有 1,000 口 90 賣權（put），每口 1 單位標的；Black-Scholes delta（BS delta）為 $-0.1666$、vega 為每 volatility 點 $0.1249$。在局部波動率（local vol）下，sticky strike volatility 對現貨為每元 $-0.3$ 點；要買多少股才能 delta 中立？",
+   "choices": [
+    "買 204 股",
+    "買 167 股",
+    "買 129 股",
+    "賣 204 股"
+   ],
+   "answer": 0,
+   "explain": "有效 delta（effective delta） $=-0.1666+0.1249\\times(-0.3)=-0.2041$，1,000 口需要買約 204 股。向下 skew 下 local vol 的 delta 最負、避險量最大；sticky strike 是 167 股，sticky moneyness 是 129 股。"
+  },
+  "victory": "很好，你現在知道 delta 不是天上掉下來的，是你選的曲面動態；下次報價前，先說清楚你站在哪一種制度。"
+ },
+ "p04": {
+  "codename": "到期夜哨",
+  "briefing": "新人，到期前最後一小時，價平（at-the-money, ATM）選擇權（option）的 gamma 會變成一根尖刺，delta 在履約價（strike）附近從 0 跳到 1。更麻煩的是：收盤後你不知道對手會不會履約（exercise），所以不知道週一自己手上會有多少股票。今天你要把釘住風險（pin risk）量化，並在收盤前決定要不要買回。",
+  "objectives": [
+   "估算到期前 ATM gamma 的放大",
+   "量化 pin risk 的股票範圍",
+   "比較 exercise 與放棄的淨值"
+  ],
+  "boss": {
+   "name": "Pin 幽靈",
+   "taunt": "收在履約價上，你以為結束了；其實我只是先借你的股票過週末。",
+   "q": "你賣出 300 口履約價（strike）100 的買權（call），每口 100 股，並已買進 150 口等值的股票避險（hedge）。週五收盤現貨 100.02。若全部被指派（assign），股票部位是 $-15{,}000$ 股；若全部沒被 assign，是 $+15{,}000$ 股。到期後股票部位的不確定範圍（最大減最小）是多少股？",
+   "choices": [
+    "15,000 股",
+    "3,000 股",
+    "45,000 股",
+    "30,000 股"
+   ],
+   "answer": 3,
+   "explain": "全部 assign 是 $+15{,}000-30{,}000=-15{,}000$ 股，全部不 assign 是 $+15{,}000$ 股，兩者相差 30,000 股。把這個範圍乘上可能的跳空幅度，就是你要用買回成本換掉的週末風險。"
+  },
+  "victory": "這就對了，pin risk 不是玄學，是不確定股數乘上跳空；能花小錢買掉的風險，不要留給週一的自己。"
+ },
+ "p05": {
+  "codename": "無套利獵場",
+  "briefing": "新人，曲面不是畫得漂亮就好：買權（call）價格要隨履約價（strike）遞減、蝶式（butterfly）不能為負、日曆要比總變異數（total variance）。任何一條被違反，別人的機器人就會從你的報價（quote）裡把免費的錢拿走。今天你要在幾秒內掃出套利（arbitrage），並用可成交價寫出精確交易。",
+  "objectives": [
+   "用每點價差掃出負 butterfly",
+   "比較總變異數判斷日曆",
+   "用 bid/ask 寫出鎖利交易"
+  ],
+  "boss": {
+   "name": "套利裁決者",
+   "taunt": "你的曲面只要有一個負 butterfly，我就有免費的午餐。",
+   "q": "在 $r=q=0$、相同遠期價性（forward moneyness）下，1 個月價平（at-the-money, ATM）的波動率（volatility）為 25%，3 個月 ATM volatility 為 21%。下列判斷何者正確？",
+   "choices": [
+    "是日曆 arbitrage，因為短期 volatility 高於長期",
+    "是日曆 arbitrage，因為 3 個月的總變異數較大",
+    "不是日曆 arbitrage，因為 1 個月的總變異數 0.0052 小於 3 個月的 0.0110",
+    "不是 arbitrage，因為日曆條件只比較兩個期限的 strike 大小"
+   ],
+   "answer": 2,
+   "explain": "日曆（calendar）條件比的是總變異數（total variance）$\\sigma^2T$，不是 volatility 高低。$0.25^2\\times(1/12)=0.0052$，$0.21^2\\times0.25=0.0110$，總變異數遞增，所以合法；短天期 volatility 較高本身不是 arbitrage。"
+  },
+  "victory": "很好，記住：volatility 高不代表違法，總變異數才是日曆的裁判；下次先算 $\\sigma^2T$，再決定要不要動刀。"
+ },
+ "p06": {
+  "codename": "心算閃電戰",
+  "briefing": "新人，交易台不會給你計算機，只會給你三到五秒。你要在腦中把波動率（volatility）換成一天的標準差（standard deviation）、把跨式（straddle）換算成價格，還要說出這個捷徑是高估還是低估。今天我們練的不是精確，而是用泰勒展開（Taylor expansion）算出『誤差已知』的速度。",
+  "objectives": [
+   "用 ÷16 規則換算每日標準差",
+   "用 0.8 規則估算 straddle",
+   "用泰勒展開估算損益"
+  ],
+  "boss": {
+   "name": "三秒鐘裁判",
+   "taunt": "你還在按計算機，我已經把你的報價吃掉。",
+   "q": "股價 100 元、波動率（volatility）為 20%、剩餘 30 天（取 $\\sqrt{t}\\approx0.29$）。用 0.8 規則估算價平（at-the-money, ATM）跨式（straddle）的價格，最接近哪個值？",
+   "choices": [
+    "2.3 元",
+    "5.8 元",
+    "8.0 元",
+    "4.6 元"
+   ],
+   "answer": 3,
+   "explain": "0.8 規則：$0.8\\times100\\times0.20\\times0.29=4.64$，最接近 4.6 元。單一 ATM 買權（call）約 $0.4\\times100\\times0.20\\times0.29=2.32$，跨式是兩口，所以乘 2；這個捷徑通常略微高估。"
+  },
+  "victory": "很好，答案不用小數點後四位，但要說得出誤差；下一次，讓你的嘴巴比計算機快。"
+ },
+ "p07": {
+  "codename": "雙邊報價擂台",
+  "briefing": "新人，造市（market making）不是把價格掛在中間就有錢賺；你要先有自己的理論價值（theo），再決定報多少寬度（quote width）、掛多少量，還要把已掛未成交的單算進部位上限（position limit）。今天這張交易台只有一條規矩：優勢（edge）永遠相對 theo，不是相對市場中點（mid）。",
+  "objectives": [
+   "區分 theo、mid 與 microprice",
+   "算出每筆成交的淨期望值",
+   "用容量檢查決定新單口數"
+  ],
+  "boss": {
+   "name": "滿倉守門人",
+   "taunt": "你只看到現在的部位，我看到你那張還沒成交的買單。",
+   "q": "部位上限為 ±100 口，目前部位（position）為 +85 口，已掛買單（resting bid）10 口。依容量檢查（capacity check），新買單最多還能掛幾口？",
+   "choices": [
+    "5 口",
+    "10 口",
+    "15 口",
+    "25 口"
+   ],
+   "answer": 0,
+   "explain": "買方容量為 $100-85-10=5$ 口。已掛單隨時可能成交，不能假設它不會發生；賣方容量要另外算，不能拿買賣掛單互相抵銷。"
+  },
+  "victory": "很好，先算容量再按送出；交易台上最貴的單，就是那張讓你超限的單。"
+ },
  "p08": {
   "codename": "毒流狙擊戰",
-  "briefing": "新人，選擇權（option）交易台最大的成本，往往不是手續費，而是「跟你成交的人比你懂」。今天你要在 Glosten–Milgrom 模型裡算出買價（bid）和賣價（ask），還要在賣價連續被拿走（lift）之後更新理論價值（theo）。搞錯方向，你就會把價差（spread）賺成虧損。",
+  "briefing": "新人，我是 Mia。選擇權（option）交易台最大的成本，往往不是手續費，而是「跟你成交的人比你懂」。今天你要在 Glosten–Milgrom 模型裡算出買價（bid）和賣價（ask），還要在賣價連續被拿走（lift）之後更新理論價值（theo）。搞錯方向，你就會把價差（spread）賺成虧損。",
   "objectives": [
    "分辨知情流量與雜訊流量",
    "用模型算出買價（bid）、賣價（ask）與價差",
