@@ -44,8 +44,8 @@
     return { quiz, check, visited };
   };
 
-  /** 其他工具的紀錄（模擬考、心算、模擬造市）：原樣匯出；匯入時只補上本機沒有的頂層項目。 */
-  P.EXTRA_KEYS = ["nq:exam", "nq:drills", "nq:mm"];
+  /** 其他工具的紀錄（模擬考、心算、模擬造市、遊戲化）：原樣匯出；匯入時只補上本機沒有的頂層項目。 */
+  P.EXTRA_KEYS = ["nq:exam", "nq:drills", "nq:mm", "nq:game"];
   P.mergeExtra = function mergeExtra(cur, inc) {
     if (Array.isArray(cur) || Array.isArray(inc)) return cur && (!Array.isArray(cur) || cur.length) ? cur : inc;
     return Object.assign({}, inc || {}, cur || {});

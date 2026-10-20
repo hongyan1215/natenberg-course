@@ -108,6 +108,17 @@ def quiz_math(s):
     return "".join(f"\\({x.strip()}\\)" if is_math else x.replace("\\$", "$") for is_math, x in split_math(s))
 
 
+def game_math(v):
+    """任務資料：所有字串套用和題庫相同的數學轉換。"""
+    if isinstance(v, str):
+        return quiz_math(v)
+    if isinstance(v, list):
+        return [game_math(x) for x in v]
+    if isinstance(v, dict):
+        return {k: game_math(x) for k, x in v.items()}
+    return v
+
+
 def rewrite_repo_links(text, depth):
     """把指向 labs/、capstone/ 原始檔的相對連結改成 GitHub 網址或站內頁面。"""
     up = "../" * depth
@@ -167,6 +178,11 @@ def main():
     quiz_dir.mkdir(parents=True)
     (quiz_dir / "bank.json").write_text(json.dumps(bank, ensure_ascii=False), encoding="utf-8")
     (quiz_dir / "chapters.json").write_text(json.dumps(chapters, ensure_ascii=False), encoding="utf-8")
+
+    missions = json.loads((ROOT / "game" / "missions.json").read_text(encoding="utf-8"))
+    game_dir = DOCS / "assets" / "game"
+    game_dir.mkdir(parents=True)
+    (game_dir / "missions.json").write_text(json.dumps(game_math(missions), ensure_ascii=False), encoding="utf-8")
 
     note = "!!! info \"Lab 要在電腦上做\"\n    Lab 需要 Python 環境，請在 Mac 上執行。下方連結會開啟 GitHub 上的原始檔，平板上可以先讀題目。\n\n"
     (DOCS / "labs.md").write_text(convert_readme(ROOT / "labs" / "README.md", note), encoding="utf-8")

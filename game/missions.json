@@ -1,0 +1,738 @@
+{
+ "appB": {
+  "codename": "數學軍火庫",
+  "briefing": "交易台的地下室有一間軍火庫，裡面放的不是子彈，而是複利（compounding）、對數（logarithm）與標準差（standard deviation）。今天你要把 1,000 元滾成未來值、把波動率（volatility）換成價格區間，還要看懂偏態（skewness）與峰態（kurtosis）這兩個尾巴偵測器。算錯一個指數，Boss 就會把你的區間拉到負數去。",
+  "objectives": [
+   "換算單利、複利（compounding）與連續複利",
+   "用指數算波動率（volatility）區間",
+   "用對數報酬（log return）年化波動率"
+  ],
+  "boss": {
+   "name": "對數巨龍",
+   "taunt": "對稱的區間是凡人畫的；我的尾巴只往右邊長，還比你以為的厚。",
+   "q": "期貨（futures）報價 150 元，年化波動率（volatility）40%，一個月到期。用對數常態（lognormal）近似，$\\pm 1$ 個標準差（standard deviation）的價格區間最接近多少？",
+   "choices": [
+    "130.00 元到 170.00 元",
+    "133.64 元到 166.36 元",
+    "90.00 元到 210.00 元",
+    "133.64 元到 168.36 元"
+   ],
+   "answer": 3,
+   "explain": "先把時間換成年：$t=1/12$，一個標準差（standard deviation）的對數報酬（log return）是 $0.40\\sqrt{1/12}=0.11547$。價格區間為 $150e^{-0.11547}=133.64$ 到 $150e^{0.11547}=168.36$ 元；上漲距離比下跌距離大，這就是對數常態（lognormal）的不對稱。"
+  },
+  "victory": "這下你懂了：複利（compounding）越滾越快，尾巴越極端越厚；但別忘了，模型再漂亮，也不能幫你把負價格畫成利潤。"
+ },
+ "ch01": {
+  "codename": "合約新手村",
+  "briefing": "新人，我是 Mia，歡迎來到 Theta Street Trading。今天先別急著報價，交易台最怕的是簽了合約卻不知道錢什麼時候真的離開口袋。搞懂現貨（spot）、遠期合約（forward contract）、期貨（futures）與選擇權（option）的現金流時點，你才有資格碰下一張單。",
+  "objectives": [
+   "分辨四種交易方式的權利義務",
+   "計算期貨（futures）名目價值",
+   "判斷未平倉量（open interest）的變化"
+  ],
+  "boss": {
+   "name": "缺口幽靈",
+   "taunt": "你的避險（hedge）看起來很完美，但我專吃那些帳面賺錢、口袋卻沒錢的交易員。",
+   "q": "你空 4 口原油期貨（futures，每口 1,000 桶），同時買進 4 口買權（call）避險（hedge）。油價急漲，futures 端當天要付出變動金（variation），call 端卻只是帳面獲利。哪句話最正確？",
+   "choices": [
+    "兩邊的損益都會當天以現金結算，所以現金流自然同步",
+    "call 的獲利已經實現，可以直接拿去補繳 variation",
+    "futures 端要立刻付現，call 端獲利只是未實現，仍可能出現現金缺口",
+    "只要 hedge 了，帳戶現金就不會出現壓力"
+   ],
+   "answer": 2,
+   "explain": "北美交易所的選擇權（option）採股票型結算（stock-type settlement）：權利金（premium）一開始全額付清，平倉前獲利都只是未實現；標的（underlying）的期貨（futures）部位卻是期貨型結算（futures-type settlement），虧損每天用變動金（variation）追繳。所以部位方向中性不等於現金流中性，交易台要預留最壞情況的現金緩衝。"
+  },
+  "victory": "很好，你終於知道保證金（margin）不是成本、變動金（variation）才是真損益；下次看到『完美避險（hedge）』，先問現金在哪裡。"
+ },
+ "ch02": {
+  "codename": "遠期鎖價試煉",
+  "briefing": "今天的任務不是猜漲跌，而是把『現在買』和『以後買』的價格橋接起來。遠期價格（forward price）是無套利（arbitrage）下的公平價，不是預言；你只要把利息、倉儲與股利（dividend）加減乾淨。算錯一個 dividend，整張報價就會被交易台笑一整天。",
+  "objectives": [
+   "用持有成本（cost of carry）算遠期價格",
+   "反推隱含利率與股利（dividend）",
+   "判斷現貨持有套利（arbitrage）的方向"
+  ],
+  "boss": {
+   "name": "遠期獵人",
+   "taunt": "只要市場報價偏離公平價半根手指，我就把你們的套利（arbitrage）啃到骨頭不剩。",
+   "q": "某股票現價 118 元，年利率 5%，6 個月到期，期間預計配發兩次股利（dividend）共 1.70 元。用簡化式計算，6 個月遠期價格（forward price）最接近多少？",
+   "choices": [
+    "120.95 元",
+    "119.25 元",
+    "122.20 元",
+    "122.65 元"
+   ],
+   "answer": 1,
+   "explain": "先算 6 個月的持有成本（cost of carry）：$118(1+0.05(0.5))=120.95$，再扣掉期間股利（dividend）$1.70$，得到 $119.25$ 元。遠期價格（forward price）是讓現在買與未來買打平的無套利（arbitrage）價格，不是對未來股價的預測。"
+  },
+  "victory": "漂亮，這才叫定價而不是算命；記住，市場要是報 122.20 元，你的現貨持有套利（cash-and-carry）就該上班了。"
+ },
+ "ch03": {
+  "codename": "履約價迷宮",
+  "briefing": "今天交易台丟給你一疊合約，別只看履約價（strike price）數字就簽名。選擇權（option）的權利全在買方，賣方只能祈禱自己不要被指派（assignment）；而履約（exercise）那一刻的現金流，只看 strike，不看股價。先把四種 exercise／assign 的方向背熟，否則迷宮會把你吞掉。",
+  "objectives": [
+   "辨識選擇權（option）的五項規格",
+   "拆解權利金（premium）的內含與時間價值",
+   "判斷買權（call）與賣權（put）的價內外"
+  ],
+  "boss": {
+   "name": "指派女士",
+   "taunt": "你收了我的權利金（premium），就別問為什麼股票會自己走進你的帳戶。",
+   "q": "你賣出 10 口某股票 50 賣權（put，每口 100 股），到期時股價跌到 42 元，且你被指派（assignment）。會發生什麼事？",
+   "choices": [
+    "你以 42 元買進 1,000 股，付出 42,000 元",
+    "你以 50 元賣出 1,000 股，收到 50,000 元",
+    "你以 42 元賣出 1,000 股，收到 42,000 元",
+    "你以 50 元買進 1,000 股，付出 50,000 元，取得股票多頭"
+   ],
+   "answer": 3,
+   "explain": "賣出賣權（put）被指派（assignment），代表你被迫用履約價（strike price）50 元買進股票，而不是用市價 42 元。$10 \\times 100 \\times 50 = 50{,}000$ 元，交割後你持有 1,000 股多頭；股價 42 元只影響整體損益，不改變履約（exercise）的現金流。"
+  },
+  "victory": "很好，記住這張表：履約（exercise）買權（call）是買、call 被指派（assignment）是賣、exercise 賣權（put）是賣、put 被 assign 是買；下次別再讓 put 把你變成股東。"
+ },
+ "ch04": {
+  "codename": "到期曲棍球",
+  "briefing": "到期那天，模型全部下班，只剩內含價值（intrinsic value）說話。你要用斜率（slope）把每一條腿拼成到期損益圖，還要在權利金（premium）的加加減減裡找到損益兩平點（breakeven）。今天的 Boss 是一顆會往兩邊甩的跨式（straddle），別被它拖進中間的墳場。",
+  "objectives": [
+   "畫出四種基本選擇權（option）的到期圖",
+   "用斜率（slope）判斷上下檔風險",
+   "算出跨式（straddle）的損益兩平點"
+  ],
+  "boss": {
+   "name": "跨式雙頭龍",
+   "taunt": "你以為不猜方向就安全，但我專吃那些只看履約價（strike price）、不算權利金（premium）的人。",
+   "q": "標的（underlying）現價 51 元，50 買權（call）報 3.55 元、50 賣權（put）報 2.55 元。你買進一組 50 跨式（straddle，以每股報價計），到期時 underlying 漲到 58 元。兩個損益兩平點（breakeven）與每股到期損益是多少？",
+   "choices": [
+    "43.90 元與 56.10 元；每股損益 +1.90 元",
+    "43.90 元與 56.10 元；每股損益 +8.00 元",
+    "46.10 元與 53.90 元；每股損益 +1.90 元",
+    "47.45 元與 53.55 元；每股損益 +1.90 元"
+   ],
+   "answer": 0,
+   "explain": "跨式（straddle）總成本 $3.55+2.55=6.10$，所以損益兩平點（breakeven）是 $50-6.10=43.90$ 與 $50+6.10=56.10$。到期 58 元時只有買權（call）有內含價值（intrinsic value）$58-50=8$，扣掉成本後為 $8-6.10=1.90$ 元。"
+  },
+  "victory": "看到那條 V 字了嗎——那就是跨式（straddle）的微笑，只要標的（underlying）跑得夠遠，你就會笑得比它開心。"
+ },
+ "ch05": {
+  "codename": "機率轉盤室",
+  "briefing": "交易台不是賭場，但我們每天都在買賣機率。你要替每一個到期結果配機率，讓機率分配（probability distribution）的平均數等於遠期價格（forward price），再把期望值（expected value, EV）折現成理論價值（theoretical value）。記住：方向看對只是入場券，速度看錯照樣被掃出場。",
+  "objectives": [
+   "計算期望值（expected value）與優勢",
+   "用遠期價格（forward price）校準機率",
+   "判斷選擇權（option）部位的正確避險方向"
+  ],
+  "boss": {
+   "name": "機率莊家",
+   "taunt": "你可以猜方向，但我只跟把分配的平均數放在遠期價格（forward price）的人玩。",
+   "q": "無股利（dividend）股票現價 80 元，年利率 5%，6 個月到期。到期價格 72、77、82、87、92 元的機率分別是 10%、20%、40%、20%、10%。80 買權（call）的理論價值（theoretical value）最接近多少？",
+   "choices": [
+    "3.400 元",
+    "1.366 元",
+    "3.317 元",
+    "2.000 元"
+   ],
+   "answer": 2,
+   "explain": "先算遠期價格（forward price）：$80(1+0.05(0.5))=82$，剛好是分配中心。80 買權（call）的到期價值為 0、0、2、7、12，期望值（expected value）為 $0.4(2)+0.2(7)+0.1(12)=3.40$，再折現 $3.40/1.025=3.317$ 元。"
+  },
+  "victory": "這才是做市（market making）：不是預測明天，而是確認價格有沒有站在期望值（expected value）這一邊。"
+ },
+ "ch06": {
+  "codename": "波動率彈珠台",
+  "briefing": "市場不是慢慢走，它是從彈珠台頂端一路亂撞下來的。波動率（volatility）就是這台機器的寬度：它會同時把買權（call）和賣權（put）餵胖，也會決定你每天該預期多大的震動。今天你要把年化數字拆成每日與每週的標準差（standard deviation），還要分辨隱含波動率（implied volatility）與實現波動率（realized volatility）誰在說真話。",
+  "objectives": [
+   "換算年化波動率（volatility）為每日標準差",
+   "用 68／95／99.7 規則估機率",
+   "分辨隱含與實現 volatility"
+  ],
+  "boss": {
+   "name": "Sigma 巨獸",
+   "taunt": "你以為我只會往一個方向跑，但我把兩邊的尾巴都拉長，讓買權（call）和賣權（put）一起買單。",
+   "q": "無股利（dividend）股票現價 50 元，年利率 4%，一年到期，年化波動率（volatility）25%。用常態分配（normal distribution）近似，一年後 $\\pm 2$ 個標準差（standard deviation）的價格區間最接近多少？",
+   "choices": [
+    "24 元到 76 元",
+    "26 元到 78 元",
+    "39 元到 65 元",
+    "26 元到 80 元"
+   ],
+   "answer": 1,
+   "explain": "先算一年遠期價格（forward price）：$50(1+0.04)=52$，一個標準差（standard deviation）是 $0.25(52)=13$。$\\pm 2$ 個 standard deviation 就是 $52-26=26$ 到 $52+26=78$ 元，所以答案是 26 到 78。"
+  },
+  "victory": "記住，波動率（volatility）不是方向，是速度；方向錯你可能只錯一次，速度錯你會每天都被時間價值（time value）收過路費。"
+ },
+ "ch07": {
+  "codename": "風險儀表板",
+  "briefing": "新人，歡迎來到 Theta Street Trading。第一天上班，螢幕上就丟來一個部位（position）：賣 20 口 50 買權（call）、買 11 口股票——別盯著損益傻笑，先看儀表板。把每個合約的方向風險（delta）、曲率（gamma）、時間耗損（theta）、波動率敏感度（vega）加總，算出這個部位怕什麼，再用優勢（edge）除以 vega 找出損益兩平波動率（breakeven volatility）。",
+  "objectives": [
+   "辨識五個風險指標（Greeks）的正負號",
+   "用平均方向敏感度（delta）估算大波動後價值",
+   "用優勢除以波動率敏感度（vega）估算損益兩平點"
+  ],
+  "boss": {
+   "name": "Greeks 五頭蛇",
+   "taunt": "你以為方向中立（delta neutral）就安全了，我還有四顆頭等著咬你。",
+   "q": "你接下一個部位（position）：賣 20 口 50 買權（call）、買 11 口股票，理論優勢（theoretical edge）為 +3.60，波動率敏感度（vega）為 −1.60，模型波動率（volatility）為 30%。這個部位的損益兩平波動率（breakeven volatility）最接近哪個？",
+   "choices": [
+    "27.75%",
+    "30.00%",
+    "32.25%",
+    "33.60%"
+   ],
+   "answer": 2,
+   "explain": "優勢 ÷ 波動率敏感度 $=3.60\\div(-1.60)=-2.25$，表示波動率（volatility）要再升 2.25 點才把優勢吃光。因此損益兩平波動率（breakeven volatility）$=30\\%+2.25\\%=32.25\\%$。"
+  },
+  "victory": "儀表板讀得不錯；記住，方向敏感度（delta）只告訴你方向，其他四顆頭才是真正會咬人的。"
+ },
+ "ch08": {
+  "codename": "避險接力賽",
+  "briefing": "你剛用 2.14 元買進 100 口被低估的 50 買權（call），很好，現在立刻賣 55 口標的（underlying）。買到便宜貨不等於賺錢，得靠動態避險（dynamic hedging）把它一段一段收割。接下來每週重算方向敏感度（delta）、把部位（position）調回中立；最後結算的是實現波動率（realized volatility）與隱含波動率（implied volatility）的差距，不是股價漲跌。",
+  "objectives": [
+   "建立初始方向中立（delta neutral）避險",
+   "重算方向敏感度（delta）並逐週調整口數",
+   "比較實現與隱含波動率的損益"
+  ],
+  "boss": {
+   "name": "Theta 沙漏",
+   "taunt": "時間是我漏下的沙，你的曲率（gamma）接得住嗎？",
+   "q": "股價 50 元、隱含波動率（implied volatility）25%，其他條件不變。依 $\\sigma_{imp}S/\\sqrt{365}$ 估算，單日損益兩平（breakeven）移動約是多少？",
+   "choices": [
+    "0.25 元",
+    "0.65 元",
+    "1.25 元",
+    "2.50 元"
+   ],
+   "answer": 1,
+   "explain": "$\\sigma_{imp}S/\\sqrt{365}=50\\times25\\%/\\sqrt{365}\\approx0.65$ 元。每日實際移動大於 0.65 元時，曲率（gamma）的收穫大於時間耗損（theta）的流失；小於 0.65 元，則是 theta 贏。"
+  },
+  "victory": "漂亮，你剛剛把一條價格路徑拆成七段薪水；下次記得，調整越勤，運氣越少。"
+ },
+ "ch09": {
+  "codename": "希臘變形記",
+  "briefing": "昨天才把方向敏感度（delta）調到中立，今天標的（underlying）連一點都沒動，你的部位（position）卻自己偏多了。風險指標（Greeks）不是雕像，它們會隨時間和波動率（volatility）變形。盯住二階敏感度（vanna、charm），還要在到期前認出曲率（gamma）最大的那顆未爆彈。",
+  "objectives": [
+   "說明波動率如何推動方向（delta）",
+   "用時間平方根法速算價平（ATM）theta",
+   "計算彈性（lambda）並找出最危險的 gamma"
+  ],
+  "boss": {
+   "name": "Vanna 變臉師",
+   "taunt": "標的（underlying）沒動，你的方向敏感度（delta）就已經不是你的了。",
+   "q": "你持有 40 口 110 買權（call），$S=100$。隱含波動率（implied volatility）28% 時方向敏感度（delta）為 27，你賣 11 口標的（underlying）避險。若 implied volatility 升到 33%、delta 變成 31，新部位的 delta 最接近哪個？",
+   "choices": [
+    "+140",
+    "−20",
+    "+40",
+    "+240"
+   ],
+   "answer": 0,
+   "explain": "原本 $40\\times27-1{,}100=-20$；隱含波動率升到 33% 後，價外（out-of-the-money, OTM）call 的方向敏感度（delta）被推到 31，新部位 delta $=40\\times31-1{,}100=+140$。標的完全沒動，delta 卻變了，這就是 vanna。"
+  },
+  "victory": "今天中立，明天未必；把二階敏感度（vanna、charm）盯緊，別讓方向敏感度（delta）半夜自己長腳。"
+ },
+ "ch10": {
+  "codename": "價差裝配線",
+  "briefing": "經紀商剛丟來一組三腿價差（spread），報價（quote）只有一個買價、一個賣價。先別管它叫什麼，算清楚你現在按下去要付多少。先用現貨持有（cash-and-carry）檢查遠期（forward）有沒有套利（arbitrage）空間，再從各腿的買賣價差（bid-ask spread）拼出可成交價，並用容錯空間（margin for error）決定敢做多大。",
+  "objectives": [
+   "分辨搶帽、方向與價差交易",
+   "計算遠期合理值與持有套利利潤",
+   "用波動率敏感度（vega）換算錯價點數"
+  ],
+  "boss": {
+   "name": "價差蜘蛛",
+   "taunt": "我的每一條腿都連著不同市場，你抓得住我的買賣價嗎？",
+   "q": "一組價差（spread）為：買 1 口 X、賣 2 口 Y、買 1 口 Z。各腿報價（quote，買價／賣價）為 X 15.10／15.40、Y 9.20／9.45、Z 5.05／5.30。立即買進這組價差要付多少？",
+   "choices": [
+    "1.25 元",
+    "1.80 元",
+    "2.05 元",
+    "2.30 元"
+   ],
+   "answer": 3,
+   "explain": "買的腿付賣價、賣的腿收買價：$15.40-2\\times9.20+5.30=2.30$ 元。1.25 是立即賣出價；1.80 是把 Y 收到賣價、2.05 是把 Z 付到買價的錯誤算法。"
+  },
+  "victory": "這組價差你總算算對了；下次先做最難的那條腿，別讓自己掛在半空中。"
+ },
+ "ch11": {
+  "codename": "波動率動物園",
+  "briefing": "市場的隱含波動率（implied volatility）只有 21%，我們的模型卻說 25%——選擇權（option）普遍便宜。先看你的波動率敏感度（vega）是正還是負，再挑一個你睡得著的風險形狀。跨式（straddle）、蝶式（butterfly）、日曆價差（calendar spread）都能表達同一個 volatility 觀點，但曲率（gamma）與時間耗損（theta）完全不同；選錯，Boss 就會從你最怕的那一邊咬下來。",
+  "objectives": [
+   "分類各價差的 gamma 與 vega",
+   "算跨式（straddle）、蝶式損益兩平",
+   "解釋日曆價差的時間與波動率敏感度（vega）特性"
+  ],
+  "boss": {
+   "name": "四象限巨獸",
+   "taunt": "先說你要 gamma 還是 vega；選錯格子，我就把你的權利金（premium）吃掉。",
+   "q": "下列哪一種部位（position）屬於「−gamma／+vega」象限？",
+   "choices": [
+    "長跨式（long straddle）",
+    "長蝶式（long butterfly）",
+    "短勒式（short strangle）",
+    "長日曆價差（long calendar spread）"
+   ],
+   "answer": 3,
+   "explain": "長日曆（long calendar spread）買遠月、賣近月：標的（underlying）不動時，近月時間耗損（theta）較快，價差會變大；它對標的大幅移動是負 gamma。隱含波動率（implied volatility）上升時，遠月 vega 較大，價差也變大（+vega）。其餘選項不是 +gamma／+vega，就是 −gamma／−vega。"
+  },
+  "victory": "選對象限只是入場，接下來要看隱含波動率（implied volatility）往哪走；別把曲率（gamma）的錢當成波動率敏感度（vega）賺的。"
+ },
+ "ch12": {
+  "codename": "方向雙面刃",
+  "briefing": "你看好後市，單買 210 買權（call）付 4.82 元，期貨（futures）到期漲到 212 元，方向對了還是虧 2.82 元。裸部位（naked position）的容錯空間（margin for error）太小，交易台不是讓你賭運氣的地方。改用垂直價差（vertical spread）：買低履約價（strike price）、賣高履約價，把最大損失鎖住，再用價差的方向敏感度（delta）乘組數湊出你要的方向。",
+  "objectives": [
+   "比較裸部位與垂直價差的容錯空間",
+   "計算 bull call spread 的最大損益",
+   "挑價平（ATM）履約價並判斷貴賤"
+  ],
+  "boss": {
+   "name": "裸刀客",
+   "taunt": "看對方向只是入場券，走得夠遠才配拿獎金。",
+   "q": "期貨（futures）在 200 元，你買 200 買權（call）、賣 210 買權，淨付 3.91 元。到期時的最大獲利是多少？",
+   "choices": [
+    "3.91 元",
+    "6.09 元",
+    "10.00 元",
+    "13.91 元"
+   ],
+   "answer": 1,
+   "explain": "最大獲利＝履約價間距 − 淨付出 $=10-3.91=6.09$ 元，發生在期貨到期在 210 元以上時。最大損失是淨付的 3.91 元，損益兩平（breakeven）在 $200+3.91=203.91$ 元。"
+  },
+  "victory": "這就是垂直價差的好處：最大損失先鎖住，晚上才睡得著。"
+ },
+ "ch13": {
+  "codename": "尾端生存戰",
+  "briefing": "這三個價差的理論優勢（theoretical edge）都調到 6.5 左右，看起來一樣香。但別只看今天的風險指標（Greeks）；我要知道行情走錯 20% 時，你還活不活著。比較賣跨式（straddle）、比率價差（ratio spread）、蝶式（butterfly）在價格與波動率（volatility）大幅變動下的尾端風險（tail risk），再用容錯空間（margin for error）決定規模。",
+  "objectives": [
+   "對齊優勢（edge）後比較各價差風險",
+   "用損益兩平（breakeven）決定部位規模",
+   "避免用選擇權（option）調整越滾越大"
+  ],
+  "boss": {
+   "name": "尾端風險獸",
+   "taunt": "你盯著今天的風險指標（Greeks），我卻躲在損益曲線的兩端等你。",
+   "q": "三個價差的理論優勢（theoretical edge）已對齊：賣跨式（straddle）、call 比率價差（call ratio spread，+25 口 80C／−50 口 84C）、買 76/80/84 的 put 蝶式（butterfly）。若交易台最不能承受任一方向的無限損失，應選哪個？",
+   "choices": [
+    "買 76/80/84 賣權蝶式（put butterfly）",
+    "賣跨式（short straddle）",
+    "call 比率價差（call ratio spread）",
+    "三者風險相同"
+   ],
+   "answer": 0,
+   "explain": "賣跨式（straddle）兩邊都是無限風險；call 比率價差（call ratio spread）賣了更多 84 call，上方風險無限。蝶式（butterfly）的最大損失就是付出的權利金（premium），兩個方向都封頂，所以最符合「不能承受任一方向無限損失」的需求。"
+  },
+  "victory": "活下來才算贏；記住，好價差不是賺最多的，是出事時讓你還坐在牌桌上的那個。"
+ },
+ "ch14": {
+  "codename": "積木拆解師",
+  "briefing": "新人，我是 Mia。交易台上沒人靠策略名字吃飯，大家只看買權（call）、賣權（put）和標的（underlying）這三塊積木怎麼拼。今天你要把每個看似陌生的部位（position）拆成這三塊，還要證明蝶式（butterfly）和鐵蝶式（iron butterfly）其實是同一枚硬幣的兩面。拆得開，報價（quote）就騙不了你。",
+  "objectives": [
+   "拆解六種合成部位（synthetic position）",
+   "用伴隨選擇權（companion option）口訣辨識策略",
+   "計算蝶式（butterfly）與鐵蝶式（iron butterfly）的價差"
+  ],
+  "boss": {
+   "name": "鐵蝶雙面人",
+   "taunt": "買我或賣我，說到底都是同一個靈魂在定價。",
+   "q": "履約價（strike price）45/50/55 的鐵蝶式（iron butterfly）今天值 3.40 元，利率為 0。同一組 strike 的蝶式（butterfly）價值應為多少元？",
+   "choices": [
+    "1.60 元",
+    "3.40 元",
+    "5.00 元",
+    "6.60 元"
+   ],
+   "answer": 0,
+   "explain": "蝶式（butterfly）與鐵蝶式（iron butterfly）的價值和等於履約價（strike price）間距：$5 - 3.40 = 1.60$ 元。買 butterfly 就等於賣 iron butterfly，兩者都希望標的（underlying）停在 50。"
+  },
+  "victory": "記住，蝶式（butterfly）和鐵蝶式（iron butterfly）是同一筆風險的兩面；下次看到一邊的報價（quote），另一邊的合理價就自己浮出來了。"
+ },
+ "ch15": {
+  "codename": "平價緝凶",
+  "briefing": "歡迎來到套利（arbitrage）層，我是 Mia。同一個合成標的（synthetic underlying）就該跟真的期貨（futures）賣同一個價錢；差一分，就會有人來把價差抹平。今天你得在轉換（conversion）、逆轉換（reversal）和盒式（box）之間選對邊，還要記得所謂「無風險」其實躲著五種風險。",
+  "objectives": [
+   "推導買賣權平價（put-call parity）的三種版本",
+   "判斷何時做轉換（conversion）或逆轉換（reversal）",
+   "計算盒式（box）與捲式（roll）的理論價"
+  ],
+  "boss": {
+   "name": "平價判官",
+   "taunt": "市場裡沒有兩個價錢，只有還沒被我抓住的價差。",
+   "q": "4 個月、利率 6%，履約價（strike price）140/150 的盒式（box）今天理論價值約多少元？",
+   "choices": [
+    "9.41 元",
+    "9.80 元",
+    "10.00 元",
+    "10.20 元"
+   ],
+   "answer": 1,
+   "explain": "盒式（box）到期值固定為兩檔履約價（strike price）差 10 元，今天要折現：$10/(1+0.06\\times4/12)=9.804$ 元，約 9.80 元。買 box 等於放款、賣 box 等於借款，利率越高現值越低。"
+  },
+  "victory": "很好，你現在會用平價（parity）抓鬼了；但記住，套利（arbitrage）的利潤常常只是市場借你的一筆短期貸款，別把 pin 風險（pin risk）留到到期。"
+ },
+ "ch16": {
+  "codename": "除息前夜",
+  "briefing": "美式選擇權（American option）給你隨時履約（exercise）的權利，但權利不是叫你天天用。多數時候留著 option 更值錢；只有股利（dividend）或利息大到值得放棄保護時，才輪到你出手。今天要判斷：這張深價內（deep in-the-money, deep ITM）的買權（call），現在該 exercise 嗎？",
+  "objectives": [
+   "寫出美式與歐式的套利（arbitrage）邊界",
+   "判斷買權（call）與賣權（put）的提前履約（early exercise）條件",
+   "算出除息（ex-dividend）前的禁區（blackout period）天數"
+  ],
+  "boss": {
+   "name": "除息刺客",
+   "taunt": "我只在除息（ex-dividend）前一天現身；太早出手的人，把利息和保護都送給我了。",
+   "q": "股價 150 元、1 個月到期、利率 5%，10 天後將配股利（dividend）1.20 元；履約價（strike price）135 的伴隨賣權（put）報 0.40 元。若現在 exercise 135 的買權（call），比持有到到期多賺多少元？",
+   "choices": [
+    "0.56 元",
+    "0.80 元",
+    "0.24 元",
+    "1.20 元"
+   ],
+   "answer": 2,
+   "explain": "履約（exercise）的好處是拿到股利（dividend）1.20 元，放棄的是伴隨賣權（put）的保護 0.40 元與履約價（strike price）的利息 $135 \\times 5\\% \\times 1/12 = 0.5625$ 元，淨賺約 0.24 元。股票買權（call）只該在除息（ex-dividend）前一天 exercise。"
+  },
+  "victory": "記住，股票買權（call）的唯一黃金履約（exercise）日，就是除息（ex-dividend）前一天；其他日子出手，只是在幫對手付利息。"
+ },
+ "ch17": {
+  "codename": "領口鎖喉",
+  "briefing": "選擇權（option）就是保單：履約價（strike price）是自負額，權利金（premium）是保費。持股的人買進賣權（put）是買保險，賣出買權（call）是收保費；兩個一起做，就變成上下都封住的領口（collar）。今天你要在保護與成本之間，替交易台挑一個睡得著的組合。",
+  "objectives": [
+   "計算保護性賣權（protective put）與掩護性賣出（covered write）的損益",
+   "建構零成本的領口（collar）並找出兩端風險",
+   "用隱含波動率（implied volatility）決定保護比例"
+  ],
+  "boss": {
+   "name": "勒頸紳士",
+   "taunt": "想要下檔保護，就得先把上檔的鑰匙交出來。",
+   "q": "你持有 80 元的股票，買進履約價（strike price）75 的賣權（put）付 1.87 元、賣出 strike 85 的買權（call）收 2.08 元。這個領口（collar）的最大損失是多少元？",
+   "choices": [
+    "5.21 元",
+    "5.00 元",
+    "6.87 元",
+    "4.79 元"
+   ],
+   "answer": 3,
+   "explain": "最大損失出現在股價跌破 75 時：$(75-80)+(2.08-1.87)=-4.79$ 元，也就是虧 4.79 元。最大獲利則是 $(85-80)+0.21=5.21$ 元，這就是領口（collar）用上檔換下檔的代價。"
+  },
+  "victory": "這條領口（collar）讓你晚上睡得著，代價是行情大漲時只能流口水；記住，避險（hedge）永遠是拿一種風險換另一種。"
+ },
+ "ch18": {
+  "codename": "機率面具",
+  "briefing": "新人，我是 Mia。Black-Scholes 不是黑盒子，它只把到期期望值（expected value）拆成兩塊：履約價（strike price）以上的股票平均值多少，以及平均要付多少 strike。今天有個對手會把 $N(d_1)$ 和 $N(d_2)$ 混在一起，誘你把 delta 當成到期機率。分得開這兩個數字，你的報價（quote）才不會系統性偏錯。",
+  "objectives": [
+   "拆解 $d_1$ 與 $d_2$ 的交易意義",
+   "用 40% 法則心算價平（at-the-money, ATM）選擇權（option）價格",
+   "分辨 delta 與到期價內（in-the-money, ITM）機率"
+  ],
+  "boss": {
+   "name": "機率面具客",
+   "taunt": "你把 $N(d_1)$ 當成我，但我其實躲在 $d_2$ 後面。",
+   "q": "某無股利股票（non-dividend stock）的買權（call）之 $N(d_1)=0.62$、$N(d_2)=0.55$。下列關於 delta 與到期價內（in-the-money, ITM）機率的敘述，何者正確？",
+   "choices": [
+    "delta 為 0.55，到期價內（in-the-money, ITM）機率為 0.62",
+    "delta 為 0.62，ITM 機率為 0.55",
+    "delta 與 ITM 機率都是 0.62",
+    "delta 為 0.62，ITM 機率為 0.38"
+   ],
+   "answer": 1,
+   "explain": "買權（call）的 delta 是 $N(d_1)=0.62$，到期價內（in-the-money, ITM）機率是 $N(d_2)=0.55$。因為 $d_1>d_2$，delta 永遠比 ITM 機率大，兩者只在短天期很接近。"
+  },
+  "victory": "記住，$N(d_1)$ 是 delta、$N(d_2)$ 才是到期價內（in-the-money, ITM）機率；下次誰再拿 delta 當機率報價（quote），你就知道他在虛張聲勢。"
+ },
+ "ch19": {
+  "codename": "分岔迷宮",
+  "briefing": "把未來簡化成兩條路：漲或跌。二元樹（binomial tree）只問一個問題——什麼機率能讓今天的期望值（expected value）剛好等於遠期價（forward price）？找到它，你就能從到期一路折現回今天，還能順手處理 Black-Scholes 算不了的美式選擇權（American option）與離散股利（dividend）。",
+  "objectives": [
+   "推導風險中立機率（risk-neutral probability）$p$",
+   "用向後遞推（backward induction）算選擇權（option）價值",
+   "判斷樹上的美式提前履約（early exercise）"
+  ],
+  "boss": {
+   "name": "分岔樹靈",
+   "taunt": "左邊是漲，右邊是跌；選錯機率，你就永遠回不到今天。",
+   "q": "股價 60 元、每期 0.25 年、利率 8%、波動率（volatility）20%，且 $u=1.10517$、$d=0.90484$。風險中立機率（risk-neutral probability）$p$ 最接近哪個值？",
+   "choices": [
+    "0.425",
+    "0.500",
+    "0.575",
+    "0.905"
+   ],
+   "answer": 2,
+   "explain": "$p=\\dfrac{(1+0.08\\times0.25)-0.90484}{1.10517-0.90484}=\\dfrac{0.11516}{0.20033}\\approx0.575$。這個機率不是真實的上漲機率，而是讓期望值（expected value）等於遠期價（forward price）的風險中立機率（risk-neutral probability）。"
+  },
+  "victory": "漂亮，你讓樹上的每一條路都替交易台工作了；但別忘了，gamma 租金（gamma rent）才是住在這棵樹裡的真正房租。"
+ },
+ "ch20": {
+  "codename": "遠月波動迷宮",
+  "briefing": "新人，我是 Mia，交易台上最吵的不是價格，是波動率（volatility）——尤其是各個月分的隱含波動率（implied volatility, IV）。客戶要你報 3 個月期與 6 個月期選擇權（option）之間的遠期波動率（forward volatility），你若把 $28\\%$ 和 $25\\%$ 直接相減，報價會像壞掉的溫度計；記得用變異數（variance）乘上時間再相減。今天把期限結構（term structure）拆開，再用波動率錐（volatility cone）看長期平均怎麼把短期雜訊收乾淨。",
+  "objectives": [
+   "用變異數推 forward volatility",
+   "調整各月 vega 的連動係數",
+   "讀懂 volatility cone 的錐形"
+  ],
+  "boss": {
+   "name": "變異數魔像",
+   "taunt": "敢用兩條 volatility 相減，我就把你的 term structure 擰成麻花。",
+   "q": "3 個月 option 的 IV 是 $28\\%$，6 個月是 $25\\%$。用變異數乘上時間相減，3 個月後開始的 3 個月 forward volatility 約是多少？",
+   "choices": [
+    "$26.5\\%$",
+    "$21.6\\%$",
+    "$3.0\\%$",
+    "$26.0\\%$"
+   ],
+   "answer": 1,
+   "explain": "遠期變異數 $=(0.25^2\\times0.5-0.28^2\\times0.25)/0.25=0.0466$，開根號得 $21.6\\%$。volatility 不能直接相減或平均，必須用 variance 加權。"
+  },
+  "victory": "漂亮，這條遠月曲線總算不是被貓踩過的鍵盤了——記住，遠月定價靠 variance，不是靠膽子。"
+ },
+ "ch21": {
+  "codename": "部位解碼迷宮",
+  "briefing": "新人，客戶丟給你的部位（position）不會長得像教科書，它是幾十條腿堆出來的義大利麵。先用合成（synthetic）關係把賣權（put）換成買權（call），再用 Greeks 看出它怕哪個方向；別被「全部為零」騙了，Greeks 只描述現在。今天你要在迷宮裡找到這個部位的真正痛點。",
+  "objectives": [
+   "用 synthetic 改寫複雜部位",
+   "估算 delta 中性價位",
+   "檢查 Greeks 歸零後的風險"
+  ],
+  "boss": {
+   "name": "歸零幽靈",
+   "taunt": "你以為 Delta、gamma、theta、vega 全是 0 就沒事，那只是我還沒轉身。",
+   "q": "某部位（position）的 delta 為 $-53.5$、gamma 為 $-70.4$，標的（underlying）現價 $50.80$。用 $S-\\Delta/\\Gamma$ 快速估計，delta 中性價位約在哪裡？",
+   "choices": [
+    "$49.24$",
+    "$51.56$",
+    "$50.04$",
+    "$50.80$"
+   ],
+   "answer": 2,
+   "explain": "$50.80-(-53.5)/(-70.4)=50.80-0.76\\approx50.04$。這是負 gamma 部位的快速估計，真正的 delta 零點仍要用模型驗算。"
+  },
+  "victory": "很好，你總算看懂這盤義大利麵的紋理了——記住，Greeks 是儀表板，不是保險單。"
+ },
+ "ch22": {
+  "codename": "指數套利賽道",
+  "briefing": "新人，指數（index）不是一個東西，是一籃子股票被壓縮成的一個數字。今天你要幫客戶算指數期貨（futures）的公平價：現貨（spot）、利率（interest rate）、股利（dividend）三個齒輪只要有一個咬錯，套利（arbitrage）就會變成慈善事業。順便把除數（divisor）顧好，別讓股票分割（stock split）把整條曲線嚇跳；futures 太貴時，buy program（買股、賣期貨）就是你手上的套利刀。",
+  "objectives": [
+   "計算指數期貨公平價",
+   "用除數調整股票分割",
+   "判斷 buy program 的方向"
+  ],
+  "boss": {
+   "name": "基差吸血鬼",
+   "taunt": "現貨和期貨之間的基差（basis）就是我的吸血口，你算錯一點，我就多吸一口。",
+   "q": "指數 $4{,}000$，利率 $5\\%$，3 個月到期。1 個月後發 $6$ 點股利、2 個月後發 $10$ 點股利。把股利一筆一筆滾到到期，futures 公平價約是多少？",
+   "choices": [
+    "$4{,}050.0$",
+    "$4{,}016.1$",
+    "$4{,}066.1$",
+    "$4{,}033.9$"
+   ],
+   "answer": 3,
+   "explain": "股利先滾到到期：$6(1+0.05\\times2/12)+10(1+0.05\\times1/12)=16.09$，所以 $4{,}000(1+0.05\\times0.25)-16.09=4{,}033.91$。少扣股利就會高估 futures。"
+  },
+  "victory": "水啦，這條 basis 被你算得比會計師的咖啡還乾淨——記住，股利不是裝飾品。"
+ },
+ "ch23": {
+  "codename": "肥尾裂谷",
+  "briefing": "新人，Black-Scholes 給你的是一張理想道路地圖：路面平整、沒有坑洞、車速固定。真實交易台卻有跳空（gap）、交易成本（transaction cost），還有比模型假設更愛鬧脾氣的波動率（volatility）。今天你要在模型裂谷上走鋼索，最後用偏態（skewness）與峰態（kurtosis）量一量肥尾（fat tails）有多肥。",
+  "objectives": [
+   "列出模型的六大假設",
+   "解釋 volatility 順序的影響",
+   "計算 skewness 與 kurtosis"
+  ],
+  "boss": {
+   "name": "跳空巨鱷",
+   "taunt": "你以為動態避險（dynamic hedging）跟得上我，我從收盤直接游到開盤。",
+   "q": "剩 3 天到期的價平（at-the-money, ATM）跨式（straddle）成本 $1.20$。你估計 $90\\%$ 的情況到期只值 $0.70$，$10\\%$ 的情況因跳空值 $6.50$。這筆交易的期望損益（expected P&L）是多少？",
+   "choices": [
+    "$+0.08$",
+    "$-0.50$",
+    "$+0.50$",
+    "$-0.08$"
+   ],
+   "answer": 0,
+   "explain": "$0.9\\times0.70+0.1\\times6.50=1.28$，減掉成本 $1.20$，期望獲利 $+0.08$。單筆多半小虧，但長期平均為正。"
+  },
+  "victory": "漂亮，你沒有被那條尾巴掃下桌——記住，模型是地圖，跳空是路上突然出現的鱷魚。"
+ },
+ "ch24": {
+  "codename": "偏斜微笑關",
+  "briefing": "新人，同一檔標的（underlying）、同一個到期日（expiration date），每個履約價（strike price）的隱含波動率（implied volatility）卻不一樣——這條歪掉的線叫偏斜（skew）。客戶不會告訴你他買的是方向還是形狀，但你可以從 skew 的偏態（skewness）和峰態（kurtosis）看出他在賭什麼。今天先別急著避險（hedge），先把這張微笑（smile）拆開。",
+  "objectives": [
+   "辨識三種 skew 形狀",
+   "用二次式擬合 skew 曲線",
+   "換算 skew 調整後的 delta"
+  ],
+  "boss": {
+   "name": "Skew 女巫",
+   "taunt": "你以為 delta 是固定的，我一笑，整條曲線就換位置。",
+   "q": "某 92 賣權（put）的 Black-Scholes delta 為 $-21.2$，vega 為 $0.145$（每 1 個 volatility 點，vol point）。浮動偏斜（floating skew）下，標的上漲 $1$ 點會讓這口 put 的 implied volatility 上升 $0.3$ 點。調整後 delta 約是多少？",
+   "choices": [
+    "$-25.5$",
+    "$-21.2$",
+    "$-16.8$",
+    "$-12.6$"
+   ],
+   "answer": 2,
+   "explain": "$-21.2+0.3\\times0.145\\times100=-21.2+4.35\\approx-16.8$。skew 隨價格浮動時，價外（out-of-the-money, OTM）put 的 delta 絕對值會變小。"
+  },
+  "victory": "很好，你總算沒被我的微笑迷惑——記住，skew 不是裝飾，它是市場偷偷告訴你的 delta。"
+ },
+ "ch25": {
+  "codename": "變異數競技場",
+  "briefing": "新人，想交易波動率（volatility），不必買選擇權（option）再每天避險（hedge）到手腕發炎——波動率合約（volatility contract）直接把一個 volatility 數字拿去結算（settlement），多半看的是實現波動率（realized volatility）。今天先搞懂變異數交換（variance swap）的損益：vega 名目（vega notional）換算成每變異數點（variance point）的價值，差一個平方，損益就從買菜錢變成頭期款。最後再去 VIX 期貨（VIX futures）的正價差（contango）溜滑梯上站穩。",
+  "objectives": [
+   "計算合約的 realized volatility",
+   "換算每變異數點的價值",
+   "判斷 contango 下的滑落"
+  ],
+  "boss": {
+   "name": "變異數賭徒",
+   "taunt": "你只看到 volatility 的點數，我看到的是它的平方——那才是真正的帳單。",
+   "q": "以 $25$ 買進 $20{,}000$ vega 名目的變異數交換，到期 realized volatility 為 $30$，損益是多少？",
+   "choices": [
+    "$+100{,}000$ 元",
+    "$+110{,}000$ 元",
+    "$+56{,}400$ 元",
+    "$-110{,}000$ 元"
+   ],
+   "answer": 1,
+   "explain": "每變異數點價值 $=20{,}000/(2\\times25)=400$ 元，損益 $=400\\times(30^2-25^2)=400\\times275=110{,}000$ 元。若用 volatility 結算只賺 $100{,}000$ 元，差額就是凸性（convexity）。"
+  },
+  "victory": "漂亮，你終於知道 variance 不是 volatility 的影子，而是它的平方——下次報價前先乘二次。"
+ },
+ "p08": {
+  "codename": "毒流狙擊戰",
+  "briefing": "新人，選擇權（option）交易台最大的成本，往往不是手續費，而是「跟你成交的人比你懂」。今天你要在 Glosten–Milgrom 模型裡算出買價（bid）和賣價（ask），還要在賣價連續被拿走（lift）之後更新理論價值（theo）。搞錯方向，你就會把價差（spread）賺成虧損。",
+  "objectives": [
+   "分辨知情流量與雜訊流量",
+   "用模型算出買價（bid）、賣價（ask）與價差",
+   "用成交後價格標記（markout）判斷毒性"
+  ],
+  "boss": {
+   "name": "逆選狙擊手",
+   "taunt": "你報的價，是我看過最誠實的禮物。",
+   "q": "在 Glosten–Milgrom 模型裡，$V_H=102$、$V_L=98$、先驗機率各半、知情交易者比例（informed trader share）為 $0.2$。你的賣價連續被拿走（lift）兩次，每次報價都依模型更新。此時理論價值（theo）最接近哪個值？",
+   "choices": [
+    "$100.00$",
+    "$100.77$",
+    "$100.40$",
+    "$101.09$"
+   ],
+   "answer": 1,
+   "explain": "每次買單的概似比（likelihood ratio）為 $(1+0.2)/(1-0.2)=1.5$；兩次後 $P(V_H)=1.5^2/(1+1.5^2)=0.6923$，新的理論價值（theo）$=98+4\\times0.6923=100.77$。一買一賣會互相抵銷，只有同向連續成交才會推動 theo。"
+  },
+  "victory": "記住，被拿走賣價（lift）不是叫你降價，是叫你更新理論價值（theo）——同向連續成交才會把價格推走。"
+ },
+ "p09": {
+  "codename": "庫存減壓艙",
+  "briefing": "新人，造市（market making）不是把價格報在中間就好；成交會替你選邊，讓你手上堆出庫存（inventory）。今天你要用保留價格（reservation price）把整組報價（quote）往減倉方向推，還要在吃單（crossing）與掛單等待之間選一條路。記住，偏移是風險管理，不是猜方向。",
+  "objectives": [
+   "算出保留價格與線性偏移量",
+   "比較吃單與等待的風險成本",
+   "用 gamma/vega 比較偏移月份"
+  ],
+  "boss": {
+   "name": "庫存巨鱷",
+   "taunt": "你手上的每一口，最後都會變成我的晚餐。",
+   "q": "$s=50$、$\\sigma=1.5$（每 $\\sqrt{\\text{day}}$ 的價格單位）、$T-t=0.4$ 日、風險趨避係數 $\\gamma=0.1$、庫存（inventory）$q=+8$。用保留價格（reservation price）公式，$r$ 最接近哪個值？",
+   "choices": [
+    "$49.28$",
+    "$49.52$",
+    "$50.48$",
+    "$50.72$"
+   ],
+   "answer": 0,
+   "explain": "$r=50-8\\times0.1\\times1.5^2\\times0.4=50-0.72=49.28$。多頭庫存（inventory）的保留價格低於理論價值（theo），整組報價（quote）應下移，鼓勵賣出、抑制買進。"
+  },
+  "victory": "偏得漂亮，記住，多頭庫存（inventory）就把整組往下推，讓市場幫你把貨接走——這不是看空，是減壓。"
+ },
+ "p10": {
+  "codename": "跨市追價戰",
+  "briefing": "新人，你的理論價值（theo）很少是憑空算的：指數股票型基金（ETF）看成分股、期貨（futures）看現貨（spot），選擇權（option）看 futures。領先腿（leading leg）一跳，你要在幾秒內算出新 theo，先撤掉那些「賣出就送錢」的陳舊報價（stale quote）。今天我們在跨市場的延遲裡搶時間。",
+  "objectives": [
+   "用成分股算出指數股票型基金（ETF）的公允價值",
+   "算期貨（futures）基差（basis）與公允價",
+   "判斷期貨（futures）跳動後哪邊陳舊"
+  ],
+  "boss": {
+   "name": "延遲獵手",
+   "taunt": "你的報價還在上一秒，我已經在這一秒等你。",
+   "q": "某期貨選擇權（futures option）的 delta 為 $0.45$、gamma 為 $0.04$，你的報價（quote）是理論價值（theo）$\\pm0.15$。futures 突然上漲 $0.40$。用泰勒展開更新後，你的賣價（ask）陳舊了多少？",
+   "choices": [
+    "$0.1832$",
+    "$0.1500$",
+    "$0.0032$",
+    "$0.0332$"
+   ],
+   "answer": 3,
+   "explain": "新理論價值（theo）變動 $=0.45\\times0.40+\\tfrac12\\times0.04\\times0.40^2=0.1832$；舊賣價（ask）只比原 theo 高 $0.15$，所以 ask 低於新 theo $0.1832-0.15=0.0332$，賣出就送錢。"
+  },
+  "victory": "很好，先撤會送錢的那一邊，再慢慢重掛另一邊——市場不會等你算完。"
+ },
+ "p11": {
+  "codename": "期望值賭局",
+  "briefing": "新人，造市（market making）就是一直在算：平均會怎樣、可能差多遠、被成交後該怎麼改想法、該下多大。今天我們用骰子（dice）和撲克牌（poker）把期望值（expected value, EV）、標準差（standard deviation）和凱利準則（Kelly criterion）練成反射動作。算對平均只是入場券，算對變異數（variance）才活得久。",
+  "objectives": [
+   "用線性性算骰子期望值",
+   "算標準差與不放回抽樣修正",
+   "用貝氏更新理論價值（theo）與凱利下注"
+  ],
+  "boss": {
+   "name": "機率賭徒",
+   "taunt": "你以為平均會賺，那只是我把你推進變異數裡的藉口。",
+   "q": "你以 $11.5$ 賣出 $5$ 口「三顆骰子的和」，沒有人有額外資訊。期望損益（expected P&L）與虧損機率（probability of loss）分別是多少？",
+   "choices": [
+    "$-5$；虧損機率 $37.5\\%$",
+    "$+5$；虧損機率 $62.5\\%$",
+    "$+5$；虧損機率 $37.5\\%$",
+    "$+5$；虧損機率 $25\\%$"
+   ],
+   "answer": 2,
+   "explain": "每口期望值（expected value）賺 $11.5-10.5=1$，五口共 $+5$；三顆骰子和 $\\ge12$ 的機率是 $81/216=37.5\\%$，所以期望值為正仍可能近四成虧損。"
+  },
+  "victory": "期望值（expected value）告訴你方向，標準差（standard deviation）告訴你會多痛；下一次下注前，兩個都要看。"
+ },
+ "p12": {
+  "codename": "正負號防線",
+  "briefing": "新人，交易台上最貴的錯不是看錯方向，而是把買賣做反——錯一次等於錯兩倍。今天你要把「客戶買」翻成「我賣」，成交後用 delta 和 vega 做正負號自檢，並在限額（limit）前知道下一步。錯了就先止血、再回報，絕對不要藏。",
+  "objectives": [
+   "翻譯交易動作成希臘字母（Greeks）正負號",
+   "算限額使用率與剩餘容量",
+   "用五段式口述一筆決策"
+  ],
+  "boss": {
+   "name": "符號雙面人",
+   "taunt": "你把買賣念反的那一刻，我就幫你把虧損乘以二。",
+   "q": "客戶向你買 $50$ 口賣權（put），每口 delta $-0.35$、乘數（multiplier）$100$。你的 delta 變化與避險（hedge）動作是什麼？",
+   "choices": [
+    "$-1,750$；買 $1,750$ 股",
+    "$-1,750$；賣 $1,750$ 股",
+    "$+1,750$；買 $1,750$ 股",
+    "$+1,750$；賣 $1,750$ 股"
+   ],
+   "answer": 3,
+   "explain": "客戶買等於我賣出賣權（put）；賣 put 的 delta 為正，$-50\\times100\\times(-0.35)=+1,750$。要拉回中立，得賣 $1,750$ 股，同時你空 gamma、空 vega、收 theta。"
+  },
+  "victory": "這就對了，先把方向用「我」念出來，再談速度和膽識。"
+ },
+ "p13": {
+  "codename": "模擬交易試煉",
+  "briefing": "新人，現在把前面學的零件組起來：先問清楚規則，再報一個寬而小的第一價，成交後照固定規則更新理論價值（theo）。接近上限（position limit）時，偏移（skew）、縮量、把已掛單算進容量——不要讓一張單把你踢出場。今天這場模擬（mock trading），考的是紀律，不是運氣。",
+  "objectives": [
+   "問清結算、上限與計分規則",
+   "用 50% 區間定出初始報價",
+   "用兩種算法對帳並寫檢討"
+  ],
+  "boss": {
+   "name": "上限守門人",
+   "taunt": "再掛一張單，你就會知道上限不是建議。",
+   "q": "上限（position limit）$20$ 口、部位（position）$+14$、已掛買單 $5$ 口。買方還能再掛幾口？",
+   "choices": [
+    "$1$ 口",
+    "$5$ 口",
+    "$6$ 口",
+    "$11$ 口"
+   ],
+   "answer": 0,
+   "explain": "買方容量 $=20-14-5=1$ 口；已掛單隨時可能成交，必須當成未來的部位（position）。賣方容量另計，不能拿買賣掛單互相抵銷。"
+  },
+  "victory": "模擬盤會說謊，只有你的紀錄不會——把每一筆方向、價格和理由寫下來，下一場再來。"
+ }
+}

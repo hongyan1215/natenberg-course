@@ -7,6 +7,12 @@ hide:
 
 以 Natenberg《Option Volatility and Pricing》第 2 版的 25 章與附錄 B 為範圍，全部用繁體中文重新編寫的互動課程。講解、例題與練習都是自編的，**不需要讀原書也能學完**。
 
+## 🗺️ 關卡地圖
+
+你是虛構造市商 **Theta Street Trading** 的新人交易員，導師 Mia 會帶你一關一關升級。每章開頭有任務簡報，章末有 **Boss 戰**；答題、打勾、做心算都會累積經驗值（XP），右上角的徽章可以看等級、連續學習天數、每日任務與成就。
+
+<div class="nq-map"></div>
+
 ## 我的學習進度
 
 <div class="nq-dashboard"></div>
