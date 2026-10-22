@@ -150,10 +150,10 @@ Delta 衡量 position 對 underlying**方向**的敏感度：正 delta 希望上
 
 #### 7.2.2 避險比率（Hedge Ratio）
 
-中立 hedge 所需「underlying 口數 : option 口數」 = $100 / |\Delta|$。
+在選擇權與標的採相同合約乘數時，中立避險所需「標的口數 ÷ 選擇權口數」 = $|\Delta| / 100$。方向與選擇權部位的總 delta 相反；若合約乘數不同，還要換算乘數。
 
-> 例 1：call delta 40 → $100/40=5/2$：每買 5 口 call，賣 2 口 underlying。
-> 例 2：put delta −60 → $100/60=5/3$：每買 5 口 put，**買** 3 口 underlying（put 是負 delta，買賣權要買 underlying hedge）。
+> 例 1：call delta 40 → $40/100=2/5$：每買 5 口 call，賣 2 口 underlying。
+> 例 2：put delta −60 → $60/100=3/5$：每買 5 口 put，**買** 3 口 underlying（put 是負 delta，買進賣權要買進標的避險）。
 
 驗證：$+5\times40-2\times100=0$；$+5\times(-60)+3\times100=0$。所有 delta 加總為 0 的 position 稱為 **delta 中立**（delta neutral）。
 

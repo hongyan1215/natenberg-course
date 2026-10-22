@@ -191,6 +191,7 @@
   };
 
   function onProgress(key, before, after) {
+    if (NQ.store.get("nq:learning").gameEnabled !== true) return;
     const evts = [];
     gameUpdate((g) => {
       const d = today(g);
@@ -318,6 +319,7 @@
 
   /** 重算 XP、更新 HUD；animate=true 時顯示 +XP 與升級動畫。 */
   function refresh(animate) {
+    if (NQ.store.get("nq:learning").gameEnabled !== true) return {};
     const s = stores();
     const xp = G.computeXP(s).total;
     const info = G.levelInfo(xp);
@@ -569,6 +571,7 @@
   /* ====================== 掛載 ====================== */
 
   NQ.onPage(() => {
+    if (NQ.store.get("nq:learning").gameEnabled !== true) return;
     const path = NQ.pagePath();
     refresh(false);
     root.document.querySelectorAll(".nq-map").forEach((el) => { if (NQ.claim(el)) mountMap(el); });

@@ -22,8 +22,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install "mkdocs>=1.6,<2" "mkdocs-material>=9.7,<10" pymdown-extensions jieba
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: pip install "mkdocs>=1.6,<2" "mkdocs-material>=9.7,<10" pymdown-extensions jieba pytest
       - run: python tools/build_site.py
+      - run: python -m pytest tests/test_site_build.py -q
+      - run: node --test tests/learning.test.cjs
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:

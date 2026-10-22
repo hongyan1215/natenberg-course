@@ -2,4 +2,6 @@
 
 選擇章節與題數開始測驗；「只考待複習」會挑出答錯過、還沒有連續答對 2 次的題目。作答紀錄存在這台裝置的瀏覽器裡。
 
+<div id="review"></div>
+
 <div class="nq-quiz" data-mode="pick"></div>

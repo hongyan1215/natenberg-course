@@ -118,4 +118,6 @@ cd labs && ../.venv/bin/python -m pytest tests/test_lab05_greeks.py -q
 .venv/bin/python tools/build_site.py && .venv/bin/mkdocs serve
 ```
 
-**術語用詞**：專有名詞在每頁第一次出現寫「中文（English）」，之後只用英文。對照表在 `tools/glossary.tsv`；新增或修改內容後執行 `.venv/bin/python tools/apply_glossary.py` 統一轉換（標題、程式碼、數學式與連結不會改動，可重複執行）。
+**術語用詞**：新手導讀與新增教材以中文為主，第一次出現附英文，後續保留易讀的中文。網站的「中英術語小辭典」可對照完整講義的英文用語。`tools/apply_glossary.py` 是舊版的英文優先轉換工具，不要對新教材執行。
+
+**新版學習入口**：`site_src/start/` 提供從零開始的短課；`site_src/assets/learning/course.json` 保存每章目標、直覺、算例、常見誤解與先備章節。首頁時間設定、閱讀偏好與個人筆記儲存在 `nq:learning`，可在「我的學習」連同舊進度一起匯出。既有講義、題庫、Lab 與網址全部保留。

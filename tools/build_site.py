@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 REPO_BLOB = "https://github.com/hongyan1215/natenberg-course/blob/main/"
-QUIZ_HOOK = "## 本章題庫測驗\n\n點選答案立即看解析，作答紀錄存在這台裝置的瀏覽器裡（首頁可看各章進度）。\n\n<div class=\"nq-quiz\" data-chapters=\"{key}\"></div>\n\n"
+QUIZ_HOOK = "## 本章題庫測驗\n\n<div id=\"chapter-quiz\"></div>\n\n點選答案立即看解析，作答紀錄存在這台裝置的瀏覽器裡（首頁可看各章進度）。\n\n<div class=\"nq-quiz\" data-chapters=\"{key}\"></div>\n\n"
 
 
 CJK = re.compile(r"[\u3000-\u303f\u4e00-\u9fff\uff00-\uffef]")
@@ -141,7 +141,11 @@ def convert_lesson(path):
     marker = "## 自我檢核清單"
     hook = QUIZ_HOOK.format(key=key)
     text = text.replace(marker, hook + marker, 1) if marker in text else text + "\n" + hook
+    text = text.replace(marker, marker + '\n\n<div id="chapter-checklist"></div>', 1)
     title = re.sub(r"（[^）]*）$", "", text.splitlines()[0].lstrip("# ").replace("　", " ")).strip()
+    if path.parent.name == "lessons":
+        heading, _, body = text.partition("\n")
+        text = heading + f'\n\n<div class="nq-lesson-guide" data-chapter="{key}"></div>\n' + body
     return key, title, text
 
 

@@ -1,0 +1,192 @@
+/* 章節導讀與閱讀模式。色彩沿用 Material 的亮／暗色主題。 */
+.md-typeset.nqr-reading {
+  --nqr-accent: #246a60;
+  --nqr-tint: #eef5f1;
+  --nqr-warm: #fbf6eb;
+  --nqr-border: var(--md-default-fg-color--lightest);
+  font-size: 0.92rem;
+  line-height: 1.95;
+}
+[data-md-color-scheme="slate"] .md-typeset.nqr-reading {
+  --nqr-accent: #8bc5b5;
+  --nqr-tint: #233632;
+  --nqr-warm: #363124;
+}
+.md-typeset.nqr-reading[data-nqr-font="large"] { font-size: 1.05rem; }
+.nqr-reading [id] { scroll-margin-top: 5.6rem; }
+.nqr-reading .nqr-guide {
+  margin: 1.5rem 0 2rem;
+  padding: 1.4rem 1.5rem 1.1rem;
+  border: 1px solid var(--nqr-border);
+  border-top: 3px solid var(--nqr-accent);
+  border-radius: 0.25rem 0.25rem 1rem 1rem;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 0.4rem 1.2rem rgba(25, 50, 45, 0.035);
+}
+.nqr-reading .nqr-kicker {
+  margin: 0 0 0.7rem;
+  color: var(--nqr-accent);
+  font-size: 0.63rem;
+  font-weight: 750;
+  letter-spacing: 0.07em;
+}
+.nqr-reading h2.nqr-question {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 750;
+  line-height: 1.55;
+  letter-spacing: -0.025em;
+}
+.nqr-reading .nqr-small-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--nqr-accent);
+  font-size: 0.65rem;
+  font-weight: 750;
+}
+.nqr-reading .nqr-goal {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  background: var(--nqr-tint);
+}
+.nqr-reading .nqr-text { margin: 0; font-size: 0.8rem; line-height: 1.9; }
+.nqr-reading .nqr-intuition { padding: 0 0.15rem; }
+.nqr-reading .nqr-insights { margin-top: 1rem; }
+.nqr-reading details.nqr-insight {
+  margin: 0.65rem 0;
+  border: 1px solid var(--nqr-border);
+  border-radius: 0.5rem;
+  box-shadow: none;
+  background: var(--md-default-bg-color);
+  font-size: 0.8rem;
+}
+.nqr-reading details.nqr-insight > summary {
+  margin: 0;
+  padding: 0.65rem 2.2rem 0.65rem 0.85rem;
+  min-height: 44px;
+  background: transparent;
+  font-weight: 650;
+  line-height: 1.7;
+}
+.nqr-reading details.nqr-insight > summary::before { display: none; }
+.nqr-reading details.nqr-insight > p { padding: 0 0.85rem 0.8rem; }
+.nqr-reading details.nqr-example[open] { background: var(--nqr-warm); }
+.nqr-reading .nqr-prerequisites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.6rem;
+  margin-top: 1rem;
+  font-size: 0.69rem;
+  color: var(--md-default-fg-color--light);
+}
+.nqr-reading .nqr-prerequisites a { text-decoration: underline; text-underline-offset: 3px; }
+.nqr-reading .nqr-tool-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: var(--nqr-accent);
+}
+.nqr-reading .nqr-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--nqr-border);
+}
+.nqr-reading .nqr-steps a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.35rem 0.2rem;
+  border-radius: 0.45rem;
+  background: var(--nqr-tint);
+  font-size: 0.72rem;
+  font-weight: 650;
+  color: var(--nqr-accent);
+}
+.nqr-reading .nqr-steps a > span { opacity: 0.65; font-variant-numeric: tabular-nums; }
+.nqr-reading .nqr-reader-controls { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 1rem; }
+.nqr-reading .nqr-reading-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 0.6rem; }
+.nqr-reading .nqr-reading-actions a { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.7rem; text-decoration: underline; text-underline-offset: 3px; }
+.nqr-reading .nqr-mode { display: flex; gap: 0.2rem; padding: 0.2rem; border: 1px solid var(--nqr-border); border-radius: 0.55rem; }
+.nqr-reading .nqr-reader-controls button {
+  min-height: 44px;
+  padding: 0.25rem 0.7rem;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  font: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.nqr-reading .nqr-mode button[aria-pressed="true"] { background: var(--nqr-accent); color: var(--md-default-bg-color); font-weight: 700; }
+.nqr-reading .nqr-font[aria-pressed="true"] { background: var(--nqr-tint); color: var(--nqr-accent); }
+.nqr-reading .nqr-reading-hint { margin: 0.55rem 0 0; color: var(--md-default-fg-color--light); font-size: 0.64rem; line-height: 1.8; }
+.nqr-reading details.nqr-section {
+  margin: 1.2rem 0;
+  border: 1px solid var(--nqr-border);
+  border-radius: 0.55rem;
+  box-shadow: none;
+  background: var(--md-default-bg-color);
+  font-size: inherit;
+}
+.nqr-reading details.nqr-section > summary.nqr-section-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  margin: 0;
+  padding: 0.6rem 2rem 0.6rem 1rem;
+  border-radius: 0.55rem;
+  background: var(--md-code-bg-color);
+}
+.nqr-reading details.nqr-section > summary::before { display: none; }
+.nqr-reading .nqr-section-summary h2 { margin: 0; color: var(--md-default-fg-color); font-size: 1rem; font-weight: 650; line-height: 1.65; }
+.nqr-reading .nqr-section-body { padding: 0.2rem 1rem 1rem; }
+.nqr-reading .nqr-section-body > :last-child { margin-bottom: 0; }
+.nqr-reading .nqr-section[open] > summary { border-radius: 0.55rem 0.55rem 0 0; border-bottom: 1px solid var(--nqr-border); }
+.nqr-reading .nqr-section:not([open]) .headerlink { opacity: 0; }
+.nqr-reading .nqr-section-summary:focus-visible .headerlink { opacity: 1; }
+.nqr-reading details.nqr-optional { margin: 0.65rem 0; border: 1px solid var(--nqr-border); border-radius: 0.45rem; background: var(--md-default-bg-color); box-shadow: none; font-size: inherit; }
+.nqr-reading details.nqr-optional > summary { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-height: 44px; margin: 0; padding: 0.45rem 2rem 0.45rem 0.8rem; background: var(--md-code-bg-color); font-size: 0.72rem; font-weight: 600; }
+.nqr-reading details.nqr-optional > summary::before { display: none; }
+.nqr-reading .nqr-optional-hint { color: var(--md-default-fg-color--light); font-size: 0.64rem; font-weight: 400; }
+.nqr-reading details.nqr-optional[open] .nqr-optional-hint { visibility: hidden; }
+.nqr-reading .nqr-optional-body { padding: 0.25rem 0.8rem 0.5rem; }
+.nqr-reading .nqr-notes { margin: 2rem 0 1.4rem; padding: 1.15rem; border: 1px solid var(--nqr-border); border-radius: 0.75rem; background: var(--md-code-bg-color); }
+.nqr-reading .nqr-notes-title { display: block; font-size: 0.9rem; font-weight: 700; }
+.nqr-reading .nqr-muted { margin: 0.35rem 0 0.8rem; color: var(--md-default-fg-color--light); font-size: 0.72rem; line-height: 1.85; }
+.nqr-reading .nqr-notes textarea { display: block; width: 100%; padding: 0.75rem; border: 1px solid var(--nqr-border); border-radius: 0.4rem; background: var(--md-default-bg-color); color: var(--md-default-fg-color); font: inherit; font-size: 0.8rem; line-height: 1.85; resize: vertical; }
+.nqr-reading .nqr-note-status { margin: 0.5rem 0 0; color: var(--md-default-fg-color--light); font-size: 0.63rem; }
+.nqr-reading .nqr-next { display: grid; gap: 0.8rem; margin: 1.4rem 0 2rem; padding-top: 1.2rem; border-top: 1px solid var(--nqr-border); }
+.nqr-reading .nqr-next-label { margin: 0; font-size: 0.75rem; font-weight: 700; }
+.nqr-reading .nqr-next-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 56px; padding: 0.7rem 1rem; border: 1px solid var(--nqr-border); border-radius: 0.55rem; font-size: 0.82rem; font-weight: 700; }
+.nqr-reading .nqr-next-link:hover { border-color: var(--nqr-accent); background: var(--nqr-tint); }
+.nqr-reading .nqr-guide a:focus-visible,
+.nqr-reading .nqr-guide button:focus-visible,
+.nqr-reading summary:focus-visible,
+.nqr-reading .nqr-notes textarea:focus-visible,
+.nqr-reading .nqr-next-link:focus-visible { outline: 3px solid var(--nqr-accent); outline-offset: 3px; }
+.nqr-reading[data-nqr-font="large"] .nqr-guide .nqr-text,
+.nqr-reading[data-nqr-font="large"] .nqr-notes textarea { font-size: 0.93rem; }
+@media (max-width: 600px) {
+  .md-typeset.nqr-reading { font-size: 0.88rem; }
+  .md-typeset.nqr-reading[data-nqr-font="large"] { font-size: 1rem; }
+  .nqr-reading .nqr-guide { padding: 1rem 0.85rem 0.9rem; }
+  .nqr-reading h2.nqr-question { font-size: 1.2rem; }
+  .nqr-reading .nqr-reader-controls { align-items: stretch; flex-wrap: wrap; }
+  .nqr-reading .nqr-mode { flex: 1 1 auto; }
+  .nqr-reading .nqr-mode button { flex: 1 1 auto; padding-inline: 0.5rem; }
+  .nqr-reading .nqr-steps { gap: 0.3rem; }
+  .nqr-reading .nqr-steps a { gap: 0.25rem; font-size: 0.67rem; }
+  .nqr-reading .nqr-section-body { padding-inline: 0.7rem; }
+}

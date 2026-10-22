@@ -45,10 +45,21 @@
   };
 
   /** 其他工具的紀錄（模擬考、心算、模擬造市、遊戲化）：原樣匯出；匯入時只補上本機沒有的頂層項目。 */
-  P.EXTRA_KEYS = ["nq:exam", "nq:drills", "nq:mm", "nq:game"];
+  P.EXTRA_KEYS = ["nq:exam", "nq:drills", "nq:mm", "nq:game", "nq:learning"];
   P.mergeExtra = function mergeExtra(cur, inc) {
     if (Array.isArray(cur) || Array.isArray(inc)) return cur && (!Array.isArray(cur) || cur.length) ? cur : inc;
     return Object.assign({}, inc || {}, cur || {});
+  };
+
+  P.mergeLearning = function mergeLearning(cur, inc) {
+    const a = cur || {}, b = inc || {};
+    const out = Object.assign({}, b, a);
+    for (const key of ["reader", "preferences"]) out[key] = Object.assign({}, b[key], a[key]);
+    out.notes = Object.assign({}, a.notes);
+    for (const [key, note] of Object.entries(b.notes || {})) {
+      if (note && (!out.notes[key] || (note.updatedAt || 0) > (out.notes[key].updatedAt || 0))) out.notes[key] = note;
+    }
+    return out;
   };
 
   // 其他工具的值可能是陣列，所以不經過 NQ.store（它只接受物件），直接讀寫 localStorage。
@@ -168,8 +179,8 @@
     const q = r.quiz;
     const pct = (x, n) => (n ? `${(x / n) * 100}%` : "0%");
     const badge = isCurrent ? h("span", { class: "nq-badge nq-badge-current", text: "繼續學習" })
-      : r.visitedAt ? h("span", { class: "nq-badge nq-badge-read", text: `已讀 ${fmtDate(r.visitedAt)}` })
-      : h("span", { class: "nq-badge", text: "未讀" });
+      : r.visitedAt ? h("span", { class: "nq-badge nq-badge-read", text: `已開啟 ${fmtDate(r.visitedAt)}` })
+      : h("span", { class: "nq-badge", text: "尚未開啟" });
     const checkText = r.checkTotal ? `${r.checkDone} / ${r.checkTotal}` : r.checkDone ? `${r.checkDone}` : "—";
     const quizText = q.answered ? `${q.answered} / ${q.total} · 正確率 ${NQ.pct(q.acc)}` : `0 / ${q.total}`;
     return h("a", {
@@ -193,7 +204,7 @@
   function readStores() {
     const extra = {};
     for (const k of P.EXTRA_KEYS) {
-      const v = rawGet(k);
+      const v = k === "nq:learning" ? NQ.store.get(k) : rawGet(k);
       if (v && typeof v === "object") extra[k] = v;
     }
     return { quiz: NQ.store.get(K.quiz), check: NQ.store.get(K.check), visited: NQ.store.get(K.visited), extra };
@@ -252,8 +263,12 @@
         NQ.store.set(K.quiz, merged.quiz);
         NQ.store.set(K.check, merged.check);
         NQ.store.set(K.visited, merged.visited);
-        for (const [k, v] of Object.entries(inc.extra || {})) rawSet(k, P.mergeExtra(rawGet(k), v));
+        for (const [k, v] of Object.entries(inc.extra || {})) {
+          const value = k === "nq:learning" ? P.mergeLearning(NQ.store.get(k), v) : P.mergeExtra(rawGet(k), v);
+          NQ.store.set(k, value);
+        }
         renderDashboard(host, chapters, bank, `已匯入並合併：${nq} 題作答紀錄、${nc} 頁勾選。`);
+        root.dispatchEvent(new root.Event("nq:progress"));
       };
       reader.onerror = () => { status.textContent = "讀取檔案失敗。"; };
       reader.readAsText(f);
@@ -277,12 +292,13 @@
         h("button", {
           type: "button", class: "nq-btn nq-danger", text: "清除進度",
           onclick: () => {
-            if (!root.confirm("確定要清除這台裝置上的所有學習進度嗎？（作答紀錄、勾選、瀏覽紀錄）\n此動作無法復原，建議先「匯出進度」備份。")) return;
+            if (!root.confirm("確定要清除這台裝置上的所有學習資料嗎？（作答、檢核、瀏覽、個人筆記與閱讀設定）\n此動作無法復原，建議先「匯出進度」備份。")) return;
             NQ.store.remove(K.quiz);
             NQ.store.remove(K.check);
             NQ.store.remove(K.visited);
             for (const k of P.EXTRA_KEYS) NQ.store.remove(k);
             renderDashboard(host, chapters, bank, "已清除這台裝置上的進度。");
+            root.dispatchEvent(new root.Event("nq:progress"));
           },
         })),
       fileInput,

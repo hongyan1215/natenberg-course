@@ -292,6 +292,8 @@
       if (!correct && q.type === "num") rows.push(h("div", { class: "nq-fb-row" }, h("b", { text: "你的答案：" }), Q.formatAnswer(q, given)));
       rows.push(h("div", { class: "nq-fb-row" }, h("b", { text: "正解：" }), h("span", { html: NQ.richText(Q.formatAnswer(q, q.answer)) })));
       if (q.explain) rows.push(h("div", { class: "nq-fb-explain" }, h("b", { text: "解析：" }), h("span", { html: NQ.richText(q.explain) })));
+      const lessonURL = this.opts.chapterURLs && this.opts.chapterURLs[q.chapter];
+      if (!correct && lessonURL) rows.push(h("a", {class: "nq-btn", href: NQ.url(lessonURL), text: "回到本章導讀，重看例子與常見誤解 →"}));
       this.feedback.replaceChildren(...rows);
       this.feedback.className = `nq-feedback ${correct ? "nq-fb-right" : "nq-fb-wrong"}`;
       this.feedback.hidden = false;
@@ -947,6 +949,7 @@
     }
     new Runner(host, questions, {
       titles: titleMap(chapters, bank),
+      chapterURLs: Object.fromEntries((chapters || []).map(c => [c.key, c.url])),
       showChapter: keys.length > 1,
       restartLabel: keys.length > 1 ? "全部重做" : "重做本章",
     });
@@ -972,9 +975,17 @@
     const store0 = NQ.store.get(NQ.KEYS.quiz);
     const examTouched = (k) => (bank[k] || []).some((q) => store0[q.id] && store0[q.id].seen > 0);
     const wantReview = /review/i.test(root.location.hash || "");
+    const requested = new URLSearchParams(root.location.search).get("chapter");
     const state = lastPick
       ? { selected: new Set(lastPick.selected), count: lastPick.count, review: wantReview || lastPick.review }
-      : { selected: new Set(order.filter((k) => !Q.isExamKey(k) || examTouched(k))), count: 20, review: wantReview };
+      : { selected: new Set(order.filter((k) => wantReview ? !Q.isExamKey(k) || examTouched(k) : /^ch\d+$/.test(k))), count: 20, review: wantReview };
+    if (requested && order.includes(requested)) {
+      state.selected = new Set([requested]);
+      state.review = wantReview;
+    } else if (wantReview) {
+      state.selected = new Set(order.filter(k => !Q.isExamKey(k) || examTouched(k)));
+      state.review = true;
+    }
 
     const renderSetup = () => {
       const store = NQ.store.get(NQ.KEYS.quiz);
@@ -1056,6 +1067,7 @@
         const picked = Q.pick(pool, state.count);
         new Runner(host, picked, {
           titles, showChapter: true, restartLabel: "同一組再做一次",
+          chapterURLs: Object.fromEntries((chapters || []).map(c => [c.key, c.url])),
           onSetup: () => { renderSetup(); scrollToTop(host); },
         });
         scrollToTop(host);

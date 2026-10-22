@@ -1,11 +1,10 @@
 site_name: Natenberg 選擇權自學課程
-site_description: Option Volatility and Pricing 繁中互動自學課程
+site_description: 從零建立選擇權直覺：白話導讀、互動實驗、25 章完整課程與錯題複習。
 site_url: https://hongyan1215.github.io/natenberg-course/
 repo_url: https://github.com/hongyan1215/natenberg-course
 repo_name: natenberg-course
 docs_dir: docs
 site_dir: site
-
 theme:
   name: material
   language: zh-TW
@@ -13,144 +12,152 @@ theme:
   icon:
     logo: material/chart-bell-curve
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo
-      accent: teal
-      toggle:
-        icon: material/weather-night
-        name: 切換為深色
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: teal
-      toggle:
-        icon: material/weather-sunny
-        name: 切換為淺色
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
+    primary: indigo
+    accent: teal
+    toggle:
+      icon: material/weather-night
+      name: 切換為深色
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
+    primary: indigo
+    accent: teal
+    toggle:
+      icon: material/weather-sunny
+      name: 切換為淺色
   features:
-    - navigation.instant
-    - navigation.instant.progress
-    - navigation.tracking
-    - navigation.tabs
-    - navigation.sections
-    - navigation.top
-    - navigation.footer
-    - navigation.indexes
-    - toc.follow
-    - search.suggest
-    - search.highlight
-    - content.code.copy
-
+  - navigation.instant
+  - navigation.instant.progress
+  - navigation.tracking
+  - navigation.tabs
+  - navigation.sections
+  - navigation.top
+  - navigation.footer
+  - navigation.indexes
+  - toc.follow
+  - search.suggest
+  - search.highlight
+  - content.code.copy
 plugins:
-  - search:
-      lang: zh
-
+- search:
+    lang: zh
 markdown_extensions:
-  - tables
-  - attr_list
-  - md_in_html
-  - footnotes
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.highlight
-  - pymdownx.inlinehilite
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-      clickable_checkbox: true
-  - toc:
-      permalink: true
-      toc_depth: 3
-
+- tables
+- attr_list
+- md_in_html
+- footnotes
+- admonition
+- pymdownx.details
+- pymdownx.superfences
+- pymdownx.highlight
+- pymdownx.inlinehilite
+- pymdownx.arithmatex:
+    generic: true
+- pymdownx.tasklist:
+    custom_checkbox: true
+    clickable_checkbox: true
+- toc:
+    permalink: true
+    toc_depth: 3
 extra_javascript:
-  - javascripts/katex-init.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js
-  - javascripts/nq-common.js
-  - javascripts/nq-progress.js
-  - javascripts/nq-game.js
-  - javascripts/nq-quiz.js
-  - javascripts/nq-tools.js
-  - javascripts/nq-drills.js
-  - javascripts/nq-sim.js
-
+- javascripts/katex-init.js
+- https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
+- https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js
+- javascripts/nq-common.js
+- javascripts/nq-progress.js
+- javascripts/nq-learning-home.js
+- javascripts/nq-reader.js
+- javascripts/nq-foundations.js
+- javascripts/nq-game.js
+- javascripts/nq-quiz.js
+- javascripts/nq-tools.js
+- javascripts/nq-drills.js
+- javascripts/nq-sim.js
 extra_css:
-  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
-  - stylesheets/extra.css
-  - stylesheets/nq-game.css
-  - stylesheets/nq-quiz.css
-  - stylesheets/nq-tools.css
-  - stylesheets/nq-drills.css
-  - stylesheets/nq-sim.css
-
+- https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
+- stylesheets/extra.css
+- stylesheets/nq-game.css
+- stylesheets/nq-quiz.css
+- stylesheets/nq-tools.css
+- stylesheets/nq-drills.css
+- stylesheets/nq-sim.css
+- stylesheets/nq-learning.css
+- stylesheets/nq-reader.css
+- stylesheets/nq-foundations.css
 nav:
-  - 首頁: index.md
+- 學習首頁: index.md
+- 從零開始:
+  - 學習使用指南: start/index.md
+  - 你的第一個選擇權: start/first-option.md
+  - 中英術語小辭典: reference/glossary.md
+- 完整課程:
+  - 課程總覽: course.md
   - 模組 1–2 基礎與定價:
-      - 第 1 章 金融合約: lessons/ch01_financial_contracts.md
-      - 第 2 章 遠期定價: lessons/ch02_forward_pricing.md
-      - 第 3 章 合約規格與術語: lessons/ch03_contract_specs.md
-      - 第 4 章 到期損益: lessons/ch04_expiration_pnl.md
-      - 第 5 章 理論定價模型: lessons/ch05_pricing_models.md
-      - 第 6 章 波動率: lessons/ch06_volatility.md
-      - 附錄 B 實用數學: lessons/appB_useful_math.md
+    - 第 1 章 金融合約: lessons/ch01_financial_contracts.md
+    - 第 2 章 遠期定價: lessons/ch02_forward_pricing.md
+    - 第 3 章 合約規格與術語: lessons/ch03_contract_specs.md
+    - 第 4 章 到期損益: lessons/ch04_expiration_pnl.md
+    - 第 5 章 理論定價模型: lessons/ch05_pricing_models.md
+    - 第 6 章 波動率: lessons/ch06_volatility.md
+    - 附錄 B 實用數學: lessons/appB_useful_math.md
   - 模組 3 Greeks 與避險:
-      - 第 7 章 風險衡量 I: lessons/ch07_risk_measurement_1.md
-      - 第 8 章 動態避險: lessons/ch08_dynamic_hedging.md
-      - 第 9 章 風險衡量 II: lessons/ch09_risk_measurement_2.md
+    - 第 7 章 風險衡量 I: lessons/ch07_risk_measurement_1.md
+    - 第 8 章 動態避險: lessons/ch08_dynamic_hedging.md
+    - 第 9 章 風險衡量 II: lessons/ch09_risk_measurement_2.md
   - 模組 4 價差策略:
-      - 第 10 章 價差交易入門: lessons/ch10_intro_spreading.md
-      - 第 11 章 波動率價差: lessons/ch11_volatility_spreads.md
-      - 第 12 章 多頭與空頭價差: lessons/ch12_bull_bear_spreads.md
-      - 第 13 章 風險考量: lessons/ch13_risk_considerations.md
+    - 第 10 章 價差交易入門: lessons/ch10_intro_spreading.md
+    - 第 11 章 波動率價差: lessons/ch11_volatility_spreads.md
+    - 第 12 章 多頭與空頭價差: lessons/ch12_bull_bear_spreads.md
+    - 第 13 章 風險考量: lessons/ch13_risk_considerations.md
   - 模組 5–6 套利與模型:
-      - 第 14 章 合成部位: lessons/ch14_synthetics.md
-      - 第 15 章 選擇權套利: lessons/ch15_option_arbitrage.md
-      - 第 16 章 提前履約: lessons/ch16_early_exercise.md
-      - 第 17 章 用選擇權避險: lessons/ch17_hedging_with_options.md
-      - 第 18 章 Black-Scholes 模型: lessons/ch18_black_scholes.md
-      - 第 19 章 二元樹定價: lessons/ch19_binomial.md
+    - 第 14 章 合成部位: lessons/ch14_synthetics.md
+    - 第 15 章 選擇權套利: lessons/ch15_option_arbitrage.md
+    - 第 16 章 提前履約: lessons/ch16_early_exercise.md
+    - 第 17 章 用選擇權避險: lessons/ch17_hedging_with_options.md
+    - 第 18 章 Black-Scholes 模型: lessons/ch18_black_scholes.md
+    - 第 19 章 二元樹定價: lessons/ch19_binomial.md
   - 模組 7–8 進階:
-      - 第 20 章 再論波動率: lessons/ch20_volatility_revisited.md
-      - 第 21 章 部位分析: lessons/ch21_position_analysis.md
-      - 第 22 章 股價指數期貨與選擇權: lessons/ch22_stock_index.md
-      - 第 23 章 模型與真實世界: lessons/ch23_models_real_world.md
-      - 第 24 章 波動率偏斜: lessons/ch24_volatility_skews.md
-      - 第 25 章 波動率合約: lessons/ch25_volatility_contracts.md
-  - Optiver 培訓準備:
-      - prep/index.md
-      - P1 培訓全貌與準備計畫: prep/p01_training_overview.md
-      - Greeks 與曲面:
-          - P2 高階與交叉 Greeks: prep/p02_higher_order_greeks.md
-          - P3 波動率曲面動態: prep/p03_surface_dynamics.md
-          - P4 到期日與 Pin Risk: prep/p04_expiration_pin_risk.md
-          - P5 曲面參數化與無套利: prep/p05_surface_no_arbitrage.md
-      - 速算與機率:
-          - P6 心算與泰勒展開: prep/p06_mental_math.md
-          - P11 機率與期望值: prep/p11_probability_ev.md
-      - 造市:
-          - P7 造市基礎: prep/p07_market_making_basics.md
-          - P8 逆向選擇: prep/p08_adverse_selection.md
-          - P9 庫存與報價偏移: prep/p09_inventory_skewing.md
-          - P10 跨市場定價: prep/p10_cross_asset_pricing.md
-      - 實戰:
-          - P12 風控紀律與即時口述: prep/p12_risk_discipline.md
-          - P13 模擬交易攻略: prep/p13_mock_trading_playbook.md
-          - 自編模擬考: prep/exam.md
-  - 互動工具:
-      - tools/index.md
-      - 選擇權價格與 Greeks: tools/option-explorer.md
-      - 策略損益建構器: tools/strategy-builder.md
-      - 動態避險模擬: tools/hedging-simulator.md
-      - 常態與對數常態分配: tools/distribution.md
-      - 二元樹視覺化: tools/binomial-tree.md
-      - 心算速練: tools/mental-math.md
-      - 套利偵測練習: tools/arbitrage-spotter.md
-      - 教練拍肩問: tools/coach-questions.md
-      - 波動率曲面編輯器: tools/vol-surface.md
-      - 模擬造市遊戲: tools/mock-market-making.md
-  - 測驗與練習:
-      - 綜合測驗與錯題複習: quiz.md
-      - Python Labs: labs.md
-      - 結業專題: capstone.md
+    - 第 20 章 再論波動率: lessons/ch20_volatility_revisited.md
+    - 第 21 章 部位分析: lessons/ch21_position_analysis.md
+    - 第 22 章 股價指數期貨與選擇權: lessons/ch22_stock_index.md
+    - 第 23 章 模型與真實世界: lessons/ch23_models_real_world.md
+    - 第 24 章 波動率偏斜: lessons/ch24_volatility_skews.md
+    - 第 25 章 波動率合約: lessons/ch25_volatility_contracts.md
+- 互動工具:
+  - tools/index.md
+  - 選擇權價格與 Greeks: tools/option-explorer.md
+  - 策略損益建構器: tools/strategy-builder.md
+  - 動態避險模擬: tools/hedging-simulator.md
+  - 常態與對數常態分配: tools/distribution.md
+  - 二元樹視覺化: tools/binomial-tree.md
+  - 心算速練: tools/mental-math.md
+  - 套利偵測練習: tools/arbitrage-spotter.md
+  - 教練拍肩問: tools/coach-questions.md
+  - 波動率曲面編輯器: tools/vol-surface.md
+  - 模擬造市遊戲: tools/mock-market-making.md
+- 測驗與我的學習:
+  - 我的學習: study.md
+  - 綜合測驗與錯題複習: quiz.md
+  - Python Labs: labs.md
+  - 結業專題: capstone.md
+- Optiver 培訓準備:
+  - prep/index.md
+  - P1 培訓全貌與準備計畫: prep/p01_training_overview.md
+  - Greeks 與曲面:
+    - P2 高階與交叉 Greeks: prep/p02_higher_order_greeks.md
+    - P3 波動率曲面動態: prep/p03_surface_dynamics.md
+    - P4 到期日與 Pin Risk: prep/p04_expiration_pin_risk.md
+    - P5 曲面參數化與無套利: prep/p05_surface_no_arbitrage.md
+  - 速算與機率:
+    - P6 心算與泰勒展開: prep/p06_mental_math.md
+    - P11 機率與期望值: prep/p11_probability_ev.md
+  - 造市:
+    - P7 造市基礎: prep/p07_market_making_basics.md
+    - P8 逆向選擇: prep/p08_adverse_selection.md
+    - P9 庫存與報價偏移: prep/p09_inventory_skewing.md
+    - P10 跨市場定價: prep/p10_cross_asset_pricing.md
+  - 實戰:
+    - P12 風控紀律與即時口述: prep/p12_risk_discipline.md
+    - P13 模擬交易攻略: prep/p13_mock_trading_playbook.md
+    - 自編模擬考: prep/exam.md
