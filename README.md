@@ -112,6 +112,22 @@ cd labs && ../.venv/bin/python -m pytest tests/test_lab05_greeks.py -q
 
 ## 網站維護
 
+### 配音動畫短片
+
+網站的「動畫短片」提供 25 章與附錄 B 共 26 支核心觀念短片，使用台灣中文 AI 配音、圖解動畫與內嵌字幕；各章也有相同影片入口。播放器支援倍速、分幕跳轉、逐字稿與回想題。「已看完」獨立記錄，不會直接算成章節已驗證。
+
+分鏡來源在 `video_src/lessons.json`，完成的 MP4、VTT、封面與時間軸在 `site_src/assets/videos/`。網站建置只使用已完成的影片，不會連線重新配音。要重新製作影片，電腦需要 `ffmpeg`、`ffprobe` 與中文字型，再執行：
+
+```bash
+uv pip install --python .venv/bin/python -r requirements-video.txt
+.venv/bin/python tools/build_videos.py --episodes ch01 --skip-existing
+.venv/bin/python tools/build_videos.py --all --workers 2 --skip-existing
+```
+
+預設使用 `zh-TW-HsiaoChenNeural`，語速為 `-8%`。只有內容與製作設定雜湊相同、且檔案完整時才沿用既有影片；工作檔在忽略的 `.media-work/`。配音失敗會明確報錯，不會偷偷替換成其他聲音。
+
+### 網站建置
+
 網站用 MkDocs Material 由 `lessons/`、`quiz/bank/`、`site_src/` 產生，推送到 `main` 後 GitHub Actions 會自動重建並發布。本機預覽：
 
 ```bash

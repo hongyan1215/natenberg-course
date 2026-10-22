@@ -68,6 +68,7 @@ extra_javascript:
 - javascripts/nq-progress.js
 - javascripts/nq-learning-home.js
 - javascripts/nq-reader.js
+- javascripts/nq-videos.js
 - javascripts/nq-foundations.js
 - javascripts/nq-game.js
 - javascripts/nq-quiz.js
@@ -84,6 +85,7 @@ extra_css:
 - stylesheets/nq-sim.css
 - stylesheets/nq-learning.css
 - stylesheets/nq-reader.css
+- stylesheets/nq-videos.css
 - stylesheets/nq-foundations.css
 nav:
 - 學習首頁: index.md
@@ -91,6 +93,7 @@ nav:
   - 學習使用指南: start/index.md
   - 你的第一個選擇權: start/first-option.md
   - 中英術語小辭典: reference/glossary.md
+- 動畫短片: videos.md
 - 完整課程:
   - 課程總覽: course.md
   - 模組 1–2 基礎與定價:

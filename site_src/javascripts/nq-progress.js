@@ -59,6 +59,13 @@
     for (const [key, note] of Object.entries(b.notes || {})) {
       if (note && (!out.notes[key] || (note.updatedAt || 0) > (out.notes[key].updatedAt || 0))) out.notes[key] = note;
     }
+    out.videos = Object.assign({}, a.videos);
+    for (const [key, video] of Object.entries(b.videos || {})) {
+      if (!video || typeof video !== "object") continue;
+      const current = out.videos[key];
+      const latest = !current || (video.updatedAt || 0) > (current.updatedAt || 0) ? video : current;
+      out.videos[key] = Object.assign({}, latest, {completed: video.completed === true || !!(current && current.completed === true)});
+    }
     return out;
   };
 

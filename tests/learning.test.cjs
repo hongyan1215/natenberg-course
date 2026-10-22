@@ -61,3 +61,13 @@ test('time preferences accept only the offered session lengths', () => {
   for (const m of [15,30,60]) assert.equal(NQ.learningHome.minutes(m),m);
   for (const m of [0,-5,999,'bad',undefined]) assert.equal(NQ.learningHome.minutes(m),15);
 });
+
+test('video backup uses the newest playback position and preserves having watched to the end', () => {
+  const a = {videos:{ch01:{time:80,updatedAt:20,completed:true}}};
+  const b = {videos:{ch01:{time:12,updatedAt:30,completed:false},ch02:{time:9,updatedAt:10,completed:false}}};
+  const result = NQ.progress.mergeLearning(a,b);
+  assert.equal(result.videos.ch01.time,12);
+  assert.equal(result.videos.ch01.completed,true);
+  assert.equal(result.videos.ch02.time,9);
+  assert.equal(a.videos.ch01.time,80);
+});

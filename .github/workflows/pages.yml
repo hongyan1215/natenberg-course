@@ -25,10 +25,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk ffmpeg
       - run: pip install "mkdocs>=1.6,<2" "mkdocs-material>=9.7,<10" pymdown-extensions jieba pytest
+      - run: pip install -r requirements-video.txt
       - run: python tools/build_site.py
-      - run: python -m pytest tests/test_site_build.py -q
-      - run: node --test tests/learning.test.cjs
+      - run: python -m pytest tests -q
+      - run: node --test tests/*.test.cjs
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:

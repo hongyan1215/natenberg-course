@@ -1,0 +1,1647 @@
+{
+  "version": 1,
+  "voice": {
+    "name": "zh-TW-HsiaoChenNeural",
+    "engine": "edge-tts",
+    "rate": "-8%",
+    "locale": "zh-TW"
+  },
+  "episodes": [
+    {
+      "id": "ch01",
+      "chapter": "ch01",
+      "title": "權利和義務，從一張買權開始",
+      "summary": "核心觀念短片：分清四種合約與買賣雙方。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch01.mp4",
+      "captions": "assets/videos/ch01.vtt",
+      "poster": "assets/videos/ch01.jpg",
+      "duration": 86.417,
+      "scenes": [
+        {
+          "title": "先問買到了什麼",
+          "start": 0.0,
+          "end": 14.833,
+          "narration": "今天買進一張合約，等於買進股票嗎？先別急著看漲跌。我們先辨認你拿到的是資產、未來交換的義務，還是一個選擇權利。"
+        },
+        {
+          "title": "能選擇的那一方",
+          "start": 14.833,
+          "end": 29.333,
+          "narration": "現貨交換現在的資產；遠期約好將來交換，雙方都有義務。選擇權買方付費取得選擇，賣方收到費用後，承擔被指派的義務。"
+        },
+        {
+          "title": "一百、一百、五",
+          "start": 29.333,
+          "end": 44.25,
+          "narration": "假設標的現在一百元，買權履約價一百，權利金五元。教學乘數為一，忽略費用。到期漲到一百一十，這個權利值十元。"
+        },
+        {
+          "title": "價值再扣成本",
+          "start": 44.25,
+          "end": 58.417,
+          "narration": "你得到十元的權利價值，並不代表賺十元；還要扣最初付出的五元，因此淨賺五元。若一口乘數是一百，總淨利就是五百。"
+        },
+        {
+          "title": "買進不等於看漲",
+          "start": 58.417,
+          "end": 72.5,
+          "narration": "買進賣權，也是持有合約的多頭，卻通常受益於標的下跌。所以合約買賣方向與市場漲跌方向，要分成兩個問題說明清楚。"
+        },
+        {
+          "title": "現在換你說明",
+          "start": 72.5,
+          "end": 86.417,
+          "narration": "請暫停，說出買權買方與賣方各自能做什麼。再用一百一十減一百、再減五，解釋為什麼這筆淨利只有五元，而不是十元。"
+        }
+      ],
+      "question": {
+        "prompt": "買進 K100、權利金5的買權，到期標的110，乘數1，淨損益是多少？",
+        "choices": [
+          "+10",
+          "+5",
+          "−5"
+        ],
+        "answer": 1,
+        "explanation": "到期給付為110−100=10，扣已付權利金5，淨利5。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/optionsoverview/options-basics",
+        "https://www.optionseducation.org/optionsoverview/what-is-an-option"
+      ],
+      "inputHash": "5b67de3a1a28ba3929cf6851d4eb29a7944c57902efc332279380c1b8b927f3c"
+    },
+    {
+      "id": "ch02",
+      "chapter": "ch02",
+      "title": "遠期價格，先算等待的成本",
+      "summary": "核心觀念短片：從持有成本理解遠期價格。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch02.mp4",
+      "captions": "assets/videos/ch02.vtt",
+      "poster": "assets/videos/ch02.jpg",
+      "duration": 86.75,
+      "scenes": [
+        {
+          "title": "一年後為何不同價",
+          "start": 0.0,
+          "end": 14.167,
+          "narration": "今天一百元的資產，一年後交貨也該是一百嗎？先想一想：現在買入並持有，需要先拿出資金，而這筆資金本來可以賺利息。"
+        },
+        {
+          "title": "用複製來比較",
+          "start": 14.167,
+          "end": 29.0,
+          "narration": "比較兩條路：今天買入並融資持有，或今天約好一年後才付錢。若交付同一資產，就要把利息、股利和其他持有成本一起算。"
+        },
+        {
+          "title": "一年後的本利和",
+          "start": 29.0,
+          "end": 42.917,
+          "narration": "假設現價一百，無股利及其他持有成本，連續複利年利率百分之五。一年後的本利和約一百零五點一三元，這是遠期基準。"
+        },
+        {
+          "title": "時間拉長會怎樣",
+          "start": 42.917,
+          "end": 57.25,
+          "narration": "其他條件固定，同樣年利率下，兩年後的本利和約一百一十點五二元。時間越長，累積利息越多；這仍不是預測到期現價。"
+        },
+        {
+          "title": "不是看漲投票",
+          "start": 57.25,
+          "end": 71.833,
+          "narration": "遠期高於現貨，不表示市場保證上漲。本例光是資金成本就能造成價差；若持有資產還會收到股利，公平遠期價格也要調整。"
+        },
+        {
+          "title": "重建兩條路",
+          "start": 71.833,
+          "end": 86.75,
+          "narration": "請先不看數字，說明為什麼延後付款必須比較利息。再回答：若同一期間能收到股利，你會把它加進成本，還是從持有成本扣掉？"
+        }
+      ],
+      "question": {
+        "prompt": "本例一年遠期基準105.13高於現價100，最直接的原因是什麼？",
+        "choices": [
+          "預測一定漲5.13%",
+          "資金持有成本",
+          "選擇權權利金"
+        ],
+        "answer": 1,
+        "explanation": "在無股利、無其他持有成本且連續複利利率5%的假設下，105.13來自融資成本。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/put-call-parity",
+        "https://www.optionseducation.org/optionsoverview/options-pricing"
+      ],
+      "inputHash": "0bb461f25ff374fba3de53b0f3df9c24f6479b810bac83161c7c54d715f0f953"
+    },
+    {
+      "id": "ch03",
+      "chapter": "ch03",
+      "title": "報價二點四，帳單不是二點四",
+      "summary": "核心觀念短片：先讀合約規格再讀價格。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch03.mp4",
+      "captions": "assets/videos/ch03.vtt",
+      "poster": "assets/videos/ch03.jpg",
+      "duration": 88.75,
+      "scenes": [
+        {
+          "title": "看懂一張報價單",
+          "start": 0.0,
+          "end": 14.833,
+          "narration": "你看到權利金二點四元，就只要準備二點四元嗎？先停一下。少看一個合約乘數或口數，實際支付金額就可能差上一百倍。"
+        },
+        {
+          "title": "規格是合約身分",
+          "start": 14.833,
+          "end": 30.083,
+          "narration": "每次先認標的、買權或賣權、履約價、到期日，再看乘數和結算方式。任何一欄不同，都可能是另一張合約，不能直接互相抵銷。"
+        },
+        {
+          "title": "把報價換成金額",
+          "start": 30.083,
+          "end": 45.0,
+          "narration": "現在用同一份規格計算：權利金二點四，乘數一百，買進兩口。二點四乘一百再乘二，合計支付四百八十元，費用另外計算。"
+        },
+        {
+          "title": "履約時點也不同",
+          "start": 45.0,
+          "end": 59.833,
+          "narration": "美式表示可依合約規定提前履約；歐式只能在到期履約。名稱不是交易國家，而是權利能使用的時間，也別把履約和賣出平倉混淆。"
+        },
+        {
+          "title": "價內仍可能虧損",
+          "start": 59.833,
+          "end": 74.167,
+          "narration": "履約價一百的買權，標的一百零三時屬於價內，但這個詞只說權利有三元內含價值。若買入成本五元，持有到期仍會虧兩元。"
+        },
+        {
+          "title": "用規格解釋帳單",
+          "start": 74.167,
+          "end": 88.75,
+          "narration": "請暫停，把報價二點四、乘數一百、兩口的金額重算一次。再說明美式的真正意思，最後找出你手上合約的結算與到期規則。"
+        }
+      ],
+      "question": {
+        "prompt": "權利金2.4、乘數100，買進2口，忽略費用需支付多少？",
+        "choices": [
+          "4.8",
+          "240",
+          "480"
+        ],
+        "answer": 2,
+        "explanation": "報價乘合約乘數再乘口數：2.4 × 100 × 2 = 480。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/optionsoverview/options-basics",
+        "https://www.optionseducation.org/referencelibrary/faq/options-exercise"
+      ],
+      "inputHash": "2ea8465ed4fb1ba3d6c7b44722653d6a70a8242805529f3e2193edf1eb77db56"
+    },
+    {
+      "id": "ch04",
+      "chapter": "ch04",
+      "title": "漲了卻虧：給付和損益要分開",
+      "summary": "核心觀念短片：用四種部位建立到期損益直覺。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch04.mp4",
+      "captions": "assets/videos/ch04.vtt",
+      "poster": "assets/videos/ch04.jpg",
+      "duration": 86.833,
+      "scenes": [
+        {
+          "title": "方向猜對仍會虧",
+          "start": 0.0,
+          "end": 13.583,
+          "narration": "標的從一百漲到一百零三，你買的買權為什麼還虧錢？問題不在漲跌判斷，而在你是否把權利價值和買入成本分開計算。"
+        },
+        {
+          "title": "先求給付再扣成本",
+          "start": 13.583,
+          "end": 28.25,
+          "narration": "買權到期時，只有高於履約價的部分有價值；低於履約價就取零。算出這份給付，再扣權利金，才得到買方整筆交易的淨損益。"
+        },
+        {
+          "title": "一百零三的例子",
+          "start": 28.25,
+          "end": 43.0,
+          "narration": "履約價一百、買入權利金五元，到期標的一百零三。給付只有三元，扣掉五元成本，淨損失兩元；價內也不代表這筆已經獲利。"
+        },
+        {
+          "title": "把到期價格往上推",
+          "start": 43.0,
+          "end": 57.667,
+          "narration": "把到期價改為一百一十，給付十元，淨利五元。曲線在一百零五穿過零，那是本例持有到期的損益兩平；再低一點就仍未回本。"
+        },
+        {
+          "title": "兩平點不是萬用門檻",
+          "start": 57.667,
+          "end": 71.75,
+          "narration": "一百零五只適用這筆買權的到期淨損益。如果到期前買五元、賣六元，忽略費用已經賺一元，並不必等到標的漲到一百零五。"
+        },
+        {
+          "title": "換成賣權試一次",
+          "start": 71.75,
+          "end": 86.833,
+          "narration": "現在換你算：買進履約價一百的賣權，付五元，到期標的九十。先說權利能用多少價格賣，再算給付十元，最後淨利是多少？"
+        }
+      ],
+      "question": {
+        "prompt": "K100買權付5，到期標的103，給付與淨損益各是多少？",
+        "choices": [
+          "給付3、淨損益−2",
+          "給付3、淨損益+3",
+          "給付0、淨損益−5"
+        ],
+        "answer": 0,
+        "explanation": "給付max(103−100,0)=3；扣權利金5，淨損益−2。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/strategies/all-strategies/long-call",
+        "https://www.optionseducation.org/strategies/all-strategies/long-put"
+      ],
+      "inputHash": "60de63c0230179142b0348115e1d6ea24c8b98870658db0864f9b75527932622"
+    },
+    {
+      "id": "ch05",
+      "chapter": "ch05",
+      "title": "不用猜漲跌，也能建立模型價格",
+      "summary": "核心觀念短片：用兩情境理解複製與無套利。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch05.mp4",
+      "captions": "assets/videos/ch05.vtt",
+      "poster": "assets/videos/ch05.jpg",
+      "duration": 90.333,
+      "scenes": [
+        {
+          "title": "今天怎樣替權利定價",
+          "start": 0.0,
+          "end": 14.167,
+          "narration": "還沒到期的權利，今天到底值多少？這集先用只有兩種結果的小世界，找一個每種情境都能複製給付的組合，再比較今天成本。"
+        },
+        {
+          "title": "複製是核心直覺",
+          "start": 14.167,
+          "end": 29.25,
+          "narration": "若兩個組合在每個可能情境都付出相同金額，理想無摩擦條件下，價格應該相同。這不是預言市場，而是用可複製的現金流檢查價格。"
+        },
+        {
+          "title": "先算最右邊的結果",
+          "start": 29.25,
+          "end": 43.833,
+          "narration": "設標的今天一百，下一期是一百二十或八十，利率為零。履約價一百的買權，到期兩個給付分別為二十與零；都先不扣權利金。"
+        },
+        {
+          "title": "半份資產再借四十",
+          "start": 43.833,
+          "end": 60.667,
+          "narration": "持有半單位標的並借入四十元。上漲時，六十減四十是二十；下跌時，四十減四十是零。今天成本五十減四十，得到十元模型價。"
+        },
+        {
+          "title": "權重不是預言",
+          "start": 60.667,
+          "end": 75.333,
+          "narration": "在這個模型，風險中性權重各為一半，但它們由無套利條件產生，不是你對市場漲跌的真實機率。模型價十元，也不是買了保證賺。"
+        },
+        {
+          "title": "把複製說給自己聽",
+          "start": 75.333,
+          "end": 90.333,
+          "narration": "請遮住答案，分別計算標的一百二十和八十時，半單位標的減四十會剩多少。若兩邊都對，就解釋為何今天十元來自成本而非猜測。"
+        }
+      ],
+      "question": {
+        "prompt": "這個零利率單期模型，0.5單位標的減40元借款的初始成本是多少？",
+        "choices": [
+          "0",
+          "10",
+          "20"
+        ],
+        "answer": 1,
+        "explanation": "今天標的100，半單位成本50，借入40後淨成本10；到期複製給付20或0。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/black-scholes-formula",
+        "https://www.optionseducation.org/advancedconcepts/put-call-parity"
+      ],
+      "inputHash": "ce78f7e6fbd74f833e3c44a03e14947cd0dfb9346aa1d33398e0ed7220554452"
+    },
+    {
+      "id": "ch06",
+      "chapter": "ch06",
+      "title": "波動率二十，究竟晃多大",
+      "summary": "核心觀念短片：區分幅度、方向與時間單位。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch06.mp4",
+      "captions": "assets/videos/ch06.vtt",
+      "poster": "assets/videos/ch06.jpg",
+      "duration": 87.417,
+      "scenes": [
+        {
+          "title": "二十不是上漲二十",
+          "start": 0.0,
+          "end": 15.5,
+          "narration": "聽到年化波動率百分之二十，你會想成今年漲兩成嗎？先把方向拿掉。波動率描述報酬變動的幅度，並不直接預測往上還是往下。"
+        },
+        {
+          "title": "每天與每年要換單位",
+          "start": 15.5,
+          "end": 30.083,
+          "narration": "比較波動率就像比較公里和公尺，先確認時間尺度。在報酬獨立、波動穩定等假設下，時間的平方根用來換算不同期間的標準差。"
+        },
+        {
+          "title": "二十除以根號二五二",
+          "start": 30.083,
+          "end": 43.583,
+          "narration": "假設一年兩百五十二個交易日，年化波動率百分之二十。除以兩百五十二的平方根，日報酬標準差約為百分之一點二六。"
+        },
+        {
+          "title": "同尺度才可比較",
+          "start": 43.583,
+          "end": 58.417,
+          "narration": "若年化幅度改為百分之四十，用同一假設換算，每日約百分之二點五二。比較時要固定時間尺度，才知道後者的標準差是前者兩倍。"
+        },
+        {
+          "title": "範圍不等於護欄",
+          "start": 58.417,
+          "end": 72.583,
+          "narration": "每日標準差百分之一點二六，不表示超過就不可能。隱含波動率是從價格反推的參數；實現波動率則用真正走過的報酬計算。"
+        },
+        {
+          "title": "說出三個限定",
+          "start": 72.583,
+          "end": 87.417,
+          "narration": "請用一句話解釋年化百分之二十，並加上三個限定：它是幅度、具有時間尺度，而且不是保證區間。最後再把日幅度估算一次。"
+        }
+      ],
+      "question": {
+        "prompt": "年化波動率20%在252交易日的縮放假設下，日標準差約為多少？",
+        "choices": [
+          "20%",
+          "1.26%",
+          "0.079%"
+        ],
+        "answer": 1,
+        "explanation": "20% ÷ √252 ≈ 1.26%；這是標準差估計，不是漲跌上限。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/volatility-the-greeks",
+        "https://itl.nist.gov/div898/handbook/eda/section3/eda3661.htm"
+      ],
+      "inputHash": "27bfbc02700709a8d23f70e4c400b05501f67eaa655704adc05bdf41ca48bc32"
+    },
+    {
+      "id": "ch07",
+      "chapter": "ch07",
+      "title": "用一個旋鈕看懂風險指標",
+      "summary": "核心觀念短片：先掌握德爾塔的局部價格反應。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch07.mp4",
+      "captions": "assets/videos/ch07.vtt",
+      "poster": "assets/videos/ch07.jpg",
+      "duration": 87.25,
+      "scenes": [
+        {
+          "title": "標的漲一元會怎樣",
+          "start": 0.0,
+          "end": 14.5,
+          "narration": "標的漲一元，買權也一定漲一元嗎？先固定時間、波動率和其他條件，再問價格對小幅變動有多敏感，這就是德爾塔的問題。"
+        },
+        {
+          "title": "把指標想成旋鈕",
+          "start": 14.5,
+          "end": 30.083,
+          "narration": "價格有好幾個旋鈕：標的、剩餘時間、波動率與利率。德爾塔看標的，其他風險指標看各自因素；每次說估計，都要說哪些條件不變。"
+        },
+        {
+          "title": "四元變成四點六",
+          "start": 30.083,
+          "end": 44.75,
+          "narration": "假設買權目前四元，德爾塔零點六，乘數為一。標的小漲一元時，一階估計增加零點六元，因此模型價格約變成四點六元。"
+        },
+        {
+          "title": "敏感度自己也會動",
+          "start": 44.75,
+          "end": 58.333,
+          "narration": "標的繼續變動，德爾塔也可能改變，這個變化由伽瑪描述。所以第一小步的零點六，不能拿來直接套用一整段很大的行情。"
+        },
+        {
+          "title": "別把它當勝率",
+          "start": 58.333,
+          "end": 72.583,
+          "narration": "德爾塔零點六首先表示價格敏感度，並不是這筆交易有六成獲利機率。到期是否價內與整筆是否賺錢，又是另外兩個不同問題。"
+        },
+        {
+          "title": "換一個小變動",
+          "start": 72.583,
+          "end": 87.25,
+          "narration": "現在請先猜，若標的只漲半元、德爾塔仍用零點六近似，買權約增加多少？算完後，再說明這個答案為什麼需要其他條件固定。"
+        }
+      ],
+      "question": {
+        "prompt": "買權Delta0.6，其他條件固定，標的小漲0.5元，一階價格變動約多少？",
+        "choices": [
+          "+0.3元",
+          "+0.6元",
+          "+0.5元"
+        ],
+        "answer": 0,
+        "explanation": "價格變動約Delta × 標的變動 = 0.6 × 0.5 = 0.3元。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/delta",
+        "https://www.optionseducation.org/advancedconcepts/gamma"
+      ],
+      "inputHash": "833d168f7090471a88f8de279ae8092d2c624348d0ed9e5c999d1819c58a4887"
+    },
+    {
+      "id": "ch08",
+      "chapter": "ch08",
+      "title": "避險是調平衡，不是按一次保護鍵",
+      "summary": "核心觀念短片：從總德爾塔計算動態調整。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch08.mp4",
+      "captions": "assets/videos/ch08.vtt",
+      "poster": "assets/videos/ch08.jpg",
+      "duration": 87.75,
+      "scenes": [
+        {
+          "title": "為什麼明天又要調整",
+          "start": 0.0,
+          "end": 13.667,
+          "narration": "今天已經把價格曝險抵銷，明天為什麼又要交易？因為選擇權的敏感度會改變，原本剛好的標的數量，可能很快就不再剛好。"
+        },
+        {
+          "title": "先統一成股數",
+          "start": 13.667,
+          "end": 28.167,
+          "narration": "要避險，先把每口德爾塔乘合約乘數，再乘口數，換成等效股數。然後用相反方向的標的部位，抵銷當下的一階價格敏感度。"
+        },
+        {
+          "title": "六百股的曝險",
+          "start": 28.167,
+          "end": 43.083,
+          "narration": "買進十口買權，每口乘數一百、德爾塔零點六。總敏感度是正六百股；放空六百股標的，兩者加總，當下的一階曝險就接近零。"
+        },
+        {
+          "title": "敏感度升到六五",
+          "start": 43.083,
+          "end": 57.75,
+          "narration": "接著每口德爾塔升到零點六五，買權等效股數變成六百五十。原有空六百股還差五十股，所以要再空五十股，才回到新的平衡。"
+        },
+        {
+          "title": "中性不是沒有風險",
+          "start": 57.75,
+          "end": 72.583,
+          "narration": "德爾塔接近零，只是當下一階風險接近零。跳空、波動率改變、調整不及與交易費用仍可能產生損益，所以不能說已經完全安全。"
+        },
+        {
+          "title": "自己更新一次",
+          "start": 72.583,
+          "end": 87.75,
+          "narration": "請先用新德爾塔算出六百五十股，再減原有的六百股，確認缺口方向。最後說明，為什麼即使補上五十股，也不能保證未來損益為零。"
+        }
+      ],
+      "question": {
+        "prompt": "買權等效Delta由+600股升到+650股，原有空600股，要如何回到中性？",
+        "choices": [
+          "買50股",
+          "再空50股",
+          "不用調整"
+        ],
+        "answer": 1,
+        "explanation": "新的淨Delta是+650−600=+50股，需要再空50股抵銷。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/delta",
+        "https://www.optionseducation.org/advancedconcepts/gamma"
+      ],
+      "inputHash": "0a0ad07482564eed3ba01b0a8ff6be89bb5892b15a6e40c54f301dffc3e7565c"
+    },
+    {
+      "id": "ch09",
+      "chapter": "ch09",
+      "title": "金額變一點，百分比可能差很多",
+      "summary": "核心觀念短片：分開德爾塔與彈性的用途。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch09.mp4",
+      "captions": "assets/videos/ch09.vtt",
+      "poster": "assets/videos/ch09.jpg",
+      "duration": 88.75,
+      "scenes": [
+        {
+          "title": "為什麼報酬率看起來大",
+          "start": 0.0,
+          "end": 15.25,
+          "narration": "同樣標的漲一元，股票漲百分之一，買權卻可能漲很多百分點。先別把它當固定槓桿；關鍵是你用多少權利金，承接多少價格敏感度。"
+        },
+        {
+          "title": "兩種量尺",
+          "start": 15.25,
+          "end": 29.25,
+          "narration": "德爾塔問價格變幾元，彈性問價格變百分之幾。把德爾塔乘標的價格，再除選擇權價格，就能得到當下的局部百分比倍率。"
+        },
+        {
+          "title": "一百、四、零點五",
+          "start": 29.25,
+          "end": 44.333,
+          "narration": "標的一百元，買權四元，德爾塔零點五。零點五乘一百再除四，彈性約十二點五；這個數字只描述此刻的小幅變動，會隨條件改變。"
+        },
+        {
+          "title": "一元換成百分比",
+          "start": 44.333,
+          "end": 58.667,
+          "narration": "標的漲一元是百分之一；一階估計買權漲零點五元，從四到四點五，相當於百分之十二點五。金額較小，百分比反而看起來更大。"
+        },
+        {
+          "title": "倍率不會一直固定",
+          "start": 58.667,
+          "end": 73.667,
+          "narration": "當價格、時間或波動率改變，德爾塔和權利金都可能變動，彈性也跟著改。把今天十二點五倍一路外推，可能嚴重高估或低估結果。"
+        },
+        {
+          "title": "用兩種量尺回答",
+          "start": 73.667,
+          "end": 88.75,
+          "narration": "請用兩句話描述剛才的變動：第一句說金額增加零點五，第二句說相對四元增加多少百分比。再補一句，解釋為何倍率只是當下近似。"
+        }
+      ],
+      "question": {
+        "prompt": "買權4元，Delta0.5，標的100元，其局部彈性約多少？",
+        "choices": [
+          "0.5倍",
+          "4倍",
+          "12.5倍"
+        ],
+        "answer": 2,
+        "explanation": "0.5 × 100 ÷ 4 = 12.5；這是小幅變動下的局部百分比倍率。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/delta",
+        "https://www.optionseducation.org/advancedconcepts/volatility-the-greeks"
+      ],
+      "inputHash": "544e00282da251b8dc0ae67199c846c0f880f082ec1e2202b42df737419b69b8"
+    },
+    {
+      "id": "ch10",
+      "chapter": "ch10",
+      "title": "一買一賣，先把每一腿加起來",
+      "summary": "核心觀念短片：從買權垂直價差拆解組合。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch10.mp4",
+      "captions": "assets/videos/ch10.vtt",
+      "poster": "assets/videos/ch10.jpg",
+      "duration": 86.333,
+      "scenes": [
+        {
+          "title": "名字長也可以拆開",
+          "start": 0.0,
+          "end": 14.333,
+          "narration": "價差策略的名稱很多，先不要背。只要把每一張合約的給付和初始收付款列出，就能看懂組合換到了什麼，又放棄了哪一段收益。"
+        },
+        {
+          "title": "賣掉部分上漲空間",
+          "start": 14.333,
+          "end": 27.833,
+          "narration": "買低履約價買權，再賣高履約價買權，收到的權利金降低投入成本，卻也把上漲後的一部分收益讓出去；兩個改變必須一起看。"
+        },
+        {
+          "title": "先算淨付多少",
+          "start": 27.833,
+          "end": 42.5,
+          "narration": "假設買履約價一百的買權付六元，賣履約價一百一十的買權收兩元。同標的同到期、乘數為一，淨投入四元，並忽略費用利息。"
+        },
+        {
+          "title": "到期一百一十五",
+          "start": 42.5,
+          "end": 56.833,
+          "narration": "到期標的一百一十五，買入那腿給付十五，賣出那腿支付五，合計給付十元。再扣淨成本四元，整個組合的到期淨利是六元。"
+        },
+        {
+          "title": "封頂也要看下檔",
+          "start": 56.833,
+          "end": 71.333,
+          "narration": "到期標的低於一百時，兩腿都沒有給付，虧損淨投入四元；高於一百一十時，給付固定十元，淨利封頂六元，不會跟著無限上漲。"
+        },
+        {
+          "title": "不要背名字先驗算",
+          "start": 71.333,
+          "end": 86.333,
+          "narration": "請把到期價換成一百零五：低履約價那腿值五，高履約價那腿值零，合計後還要扣四元。先算出一元，再用圖形確認你的位置。"
+        }
+      ],
+      "question": {
+        "prompt": "本例買K100付6、賣K110收2，到期S115，乘數1，淨利多少？",
+        "choices": [
+          "6",
+          "10",
+          "15"
+        ],
+        "answer": 0,
+        "explanation": "給付15−5=10，扣淨成本6−2=4，淨利6。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/theoptionseducationcenter/learning-resources-by-topic/simple-spreads-and-verticals",
+        "https://www.optionseducation.org/strategies/all-strategies/long-call"
+      ],
+      "inputHash": "af340c57db77408e38aaf6da09cc8c9958485f2ff92536b113c366cf2bb09197"
+    },
+    {
+      "id": "ch11",
+      "chapter": "ch11",
+      "title": "不猜方向，也要跨過成本門檻",
+      "summary": "核心觀念短片：從買進跨式理解幅度與成本。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch11.mp4",
+      "captions": "assets/videos/ch11.vtt",
+      "poster": "assets/videos/ch11.jpg",
+      "duration": 90.0,
+      "scenes": [
+        {
+          "title": "漲跌都買就一定賺嗎",
+          "start": 0.0,
+          "end": 15.167,
+          "narration": "如果同時買買權與賣權，是不是不管漲跌都能賺？先看看兩張權利的總成本。方向可以分散，付出去的權利金卻不會因此消失。"
+        },
+        {
+          "title": "兩邊都保留一條路",
+          "start": 15.167,
+          "end": 30.083,
+          "narration": "買進跨式把向上和向下的權利放在一起，適合用來理解變動幅度。到期偏離履約價越遠，總給付越大，但淨損益還要扣兩份成本。"
+        },
+        {
+          "title": "九元的總門檻",
+          "start": 30.083,
+          "end": 45.583,
+          "narration": "假設兩腿履約價都一百，買權五元、賣權四元，總成本九元。各買一單位，乘數一，同到期，忽略費用利息，先把這九元記下。"
+        },
+        {
+          "title": "一百一十二與一百零五",
+          "start": 45.583,
+          "end": 60.75,
+          "narration": "到期一百一十二，總給付十二，扣九後賺三元；若只有一百零五，給付五元，扣九後虧四元。市場有移動，仍可能沒跨過成本。"
+        },
+        {
+          "title": "波動兩字不能保證結果",
+          "start": 60.75,
+          "end": 75.5,
+          "narration": "到期前的跨式價格還會受隱含波動率與時間影響。即使預期市場變動大，也不能直接推論必賺；購入價格與實際路徑都要一起檢查。"
+        },
+        {
+          "title": "找出左右兩個門檻",
+          "start": 75.5,
+          "end": 90.0,
+          "narration": "請試算到期九十一和一百零九，兩邊總給付都是九元，剛好抵銷成本。再說明，為什麼到期停在一百，反而損失全部九元。"
+        }
+      ],
+      "question": {
+        "prompt": "K100買進跨式總成本9，到期S105，淨損益多少？",
+        "choices": [
+          "+5",
+          "+4",
+          "−4"
+        ],
+        "answer": 2,
+        "explanation": "買權給付5、賣權0，扣總成本9，淨損益−4。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/videolibrary/straddles-and-strangles",
+        "https://www.optionseducation.org/optionsoverview/options-pricing"
+      ],
+      "inputHash": "27e8f11b68b2090a7689614cc82223227df41af97cdf2b9dab293e4b1172b9b2"
+    },
+    {
+      "id": "ch12",
+      "chapter": "ch12",
+      "title": "看漲也能先收錢，但收入不是獲利",
+      "summary": "核心觀念短片：用賣權多頭價差算清兩端。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch12.mp4",
+      "captions": "assets/videos/ch12.vtt",
+      "poster": "assets/videos/ch12.jpg",
+      "duration": 88.917,
+      "scenes": [
+        {
+          "title": "收到錢就已經賺了嗎",
+          "start": 0.0,
+          "end": 14.0,
+          "narration": "一個看漲組合，一開始竟然收到錢，這筆收入可以立刻當作獲利嗎？先把未來可能的給付放回來，才能知道整體結果朝哪邊。"
+        },
+        {
+          "title": "用低履約價擋住尾端",
+          "start": 14.0,
+          "end": 28.833,
+          "narration": "賣出高履約價賣權，再買入低履約價賣權。收到的權利金較多，先形成淨收入；低履約價的權利，則用來限制大跌時的到期損失。"
+        },
+        {
+          "title": "三元收入怎麼來",
+          "start": 28.833,
+          "end": 43.417,
+          "narration": "賣履約價一百的賣權收五元，買履約價九十的賣權付兩元，淨收三元。乘數為一，忽略費用利息，這三元還得面對未來的支付。"
+        },
+        {
+          "title": "標的跌到九十五",
+          "start": 43.417,
+          "end": 58.5,
+          "narration": "到期標的九十五，賣出的賣權要支付五元，買入的保護腿給付零。加回最初三元收入，整筆淨損益為負兩元，並沒有因收錢就獲利。"
+        },
+        {
+          "title": "保護是到期的上限",
+          "start": 58.5,
+          "end": 74.333,
+          "narration": "到期高於一百，兩腿無給付，最多賺三元；低於九十，兩腿給付差固定十元，扣收入後最多虧七元。實際履約與資金流程仍須另看。"
+        },
+        {
+          "title": "把兩端重新算一次",
+          "start": 74.333,
+          "end": 88.917,
+          "narration": "請把到期價設為八十，先算兩張賣權各自的二十和十，再加上收款三元，確認淨損失七元。最後找出兩平點九十七在哪裡。"
+        }
+      ],
+      "question": {
+        "prompt": "本例兩履約價相差10，淨收3，到期最大損失是多少？",
+        "choices": [
+          "3",
+          "7",
+          "10"
+        ],
+        "answer": 1,
+        "explanation": "到期最差淨給付為−10，加最初收入3，淨損失7；費用另計。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/strategies/all-strategies/bull-put-spread-credit-put-spread",
+        "https://www.optionseducation.org/theoptionseducationcenter/learning-resources-by-topic/simple-spreads-and-verticals"
+      ],
+      "inputHash": "af9da028bf986563c32bf1fa051e7461ae2367dfaa47c5fe76cb6a0c5c396a63"
+    },
+    {
+      "id": "ch13",
+      "chapter": "ch13",
+      "title": "常常小賺，仍可能承擔很大損失",
+      "summary": "核心觀念短片：用賣出跨式看尾端風險。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch13.mp4",
+      "captions": "assets/videos/ch13.vtt",
+      "poster": "assets/videos/ch13.jpg",
+      "duration": 88.417,
+      "scenes": [
+        {
+          "title": "十次賺錢能代表安全嗎",
+          "start": 0.0,
+          "end": 14.333,
+          "narration": "如果策略常常收到小額權利金，看起來是不是很穩？先把鏡頭拉遠，看看一次大行情會支付多少，再比較收入與損失的尺度。"
+        },
+        {
+          "title": "收入有限義務仍在",
+          "start": 14.333,
+          "end": 28.333,
+          "narration": "賣出跨式同時承擔買權與賣權義務。標的留在履約價附近，到期可能保留收入；但向任一邊大幅移動，就會出現對應的支付。"
+        },
+        {
+          "title": "先收十元的例子",
+          "start": 28.333,
+          "end": 43.167,
+          "narration": "假設同到期、履約價一百，賣出兩腿合計收十元，乘數為一，忽略費用利息。到期標的一百三十，買權義務帶來三十元支付。"
+        },
+        {
+          "title": "一次就可能回吐更多",
+          "start": 43.167,
+          "end": 58.167,
+          "narration": "三十元支付扣掉十元收入，淨損失二十元。若到期繼續漲到一百五十，淨損失會擴為四十元；收到的十元並不限制上方損失。"
+        },
+        {
+          "title": "保證金不是最大損失",
+          "start": 58.167,
+          "end": 73.167,
+          "narration": "繳出去的保證金是履約擔保需求，不等於買下最大風險。行情劇變時，可能還要補資金；流動性不足也可能使原本想做的調整更昂貴。"
+        },
+        {
+          "title": "把問題問完整",
+          "start": 73.167,
+          "end": 88.417,
+          "narration": "請用剛才的例子，說明最多收十元，為什麼可能虧四十元。然後把風險問題補成三句：極端會虧多少、資金夠不夠、是否能成交？"
+        }
+      ],
+      "question": {
+        "prompt": "賣出K100跨式收10，到期S130，乘數1，淨損益是多少？",
+        "choices": [
+          "+10",
+          "−20",
+          "−30"
+        ],
+        "answer": 1,
+        "explanation": "到期買權支付30、賣權0，最初收入10，合計−20。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/videolibrary/straddles-and-strangles",
+        "https://www.optionseducation.org/optionsoverview/options-basics"
+      ],
+      "inputHash": "cb29d362fbf0e756e30b78eb957beb074e4c8ab6fd46a6b79c66d837d8de643d"
+    },
+    {
+      "id": "ch14",
+      "chapter": "ch14",
+      "title": "不同合約，也能拼出相同給付",
+      "summary": "核心觀念短片：用買賣權平價理解合成部位。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch14.mp4",
+      "captions": "assets/videos/ch14.vtt",
+      "poster": "assets/videos/ch14.jpg",
+      "duration": 88.833,
+      "scenes": [
+        {
+          "title": "名字不同結果可以相同",
+          "start": 0.0,
+          "end": 14.417,
+          "narration": "買一張買權、賣一張賣權，看起來不像持有標的，為什麼到期卻能出現同一條斜線？先分成價格高於、低於履約價兩種情境。"
+        },
+        {
+          "title": "上下兩邊各看一次",
+          "start": 14.417,
+          "end": 28.917,
+          "narration": "高於履約價，買權提供上方差額；低於履約價，賣出的賣權承擔下方差額。兩邊接起來，組合給付就是到期標的減履約價。"
+        },
+        {
+          "title": "八減六等於二",
+          "start": 28.917,
+          "end": 43.917,
+          "narration": "假設無股利、利率為零，標的一百零二，履約價一百，同到期歐式買權八元、賣權六元。買買權、賣賣權，初始淨付兩元。"
+        },
+        {
+          "title": "到期一百一十",
+          "start": 43.917,
+          "end": 58.917,
+          "narration": "到期一百一十，買權給付十元，賣權沒有支付，組合給付十元。扣最初兩元，淨利八元；這才與用一百零二買標的的漲幅對得上。"
+        },
+        {
+          "title": "相同給付還不夠",
+          "start": 58.917,
+          "end": 73.75,
+          "narration": "合成關係要確認股利、利息、到期日和履約方式。只看到兩條到期線相同，就忽略今天成本或提前履約權，可能得到錯誤比較。"
+        },
+        {
+          "title": "試著重建下方情境",
+          "start": 73.75,
+          "end": 88.833,
+          "narration": "請把到期標的換成九十，買權零、賣權義務負十，給付合計負十元。再扣兩元成本，淨損失十二；用這個結果驗證合成斜線。"
+        }
+      ],
+      "question": {
+        "prompt": "本例C8、P6、S102、K100，無股利零利率，C−P是多少？",
+        "choices": [
+          "0",
+          "2",
+          "14"
+        ],
+        "answer": 1,
+        "explanation": "C−P=8−6=2，等於S−K=102−100。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/put-call-parity"
+      ],
+      "inputHash": "d7a177744377356cbb8ed4db7ec37f52096a06a5e411324420069169d6775bf8"
+    },
+    {
+      "id": "ch15",
+      "chapter": "ch15",
+      "title": "套利論證，要把今天和到期都算完",
+      "summary": "核心觀念短片：從平價偏離檢查完整現金流。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch15.mp4",
+      "captions": "assets/videos/ch15.vtt",
+      "poster": "assets/videos/ch15.jpg",
+      "duration": 88.917,
+      "scenes": [
+        {
+          "title": "看到便宜就叫套利嗎",
+          "start": 0.0,
+          "end": 14.75,
+          "narration": "兩組相同到期給付，今天卻報不同價格，是否可以立刻叫套利？先把所有交易、融資和未來義務排出來，再看每個情境能否抵銷。"
+        },
+        {
+          "title": "賣貴買便宜只是開頭",
+          "start": 14.75,
+          "end": 29.5,
+          "narration": "真正的論證需要說清楚：今天收多少、借多少，將來怎麼交付、怎麼還款。若中間漏了一項成本或義務，表面價差就可能消失。"
+        },
+        {
+          "title": "平價多出了兩元",
+          "start": 29.5,
+          "end": 44.25,
+          "narration": "標的一百，履約價一百，買權七元、賣權五元。無股利且利率為零，買賣權價差應等於零，現在卻是兩元，先記下這個偏離。"
+        },
+        {
+          "title": "把兩元現金流排開",
+          "start": 44.25,
+          "end": 59.5,
+          "narration": "賣買權收七、買賣權付五，再借一百買標的，今天淨收兩元。到期標的加買賣權組合固定值一百，剛好還款，所以到期淨額為零。"
+        },
+        {
+          "title": "中間價不代表能成交",
+          "start": 59.5,
+          "end": 73.917,
+          "narration": "螢幕中間價差兩元，不表示你能按那些價格完成全部交易。買賣價差、費用、借券限制與不同步成交，都可能把理想優勢吃掉。"
+        },
+        {
+          "title": "驗算高低兩種終點",
+          "start": 73.917,
+          "end": 88.917,
+          "narration": "請分別讓標的到期一百二十或八十，確認標的加長賣權、短買權都值一百。再問自己，若總成本多三元，原本兩元優勢還剩多少？"
+        }
+      ],
+      "question": {
+        "prompt": "理想平價偏離優勢2元，若全部交易與融資額外成本3元，剩餘優勢多少？",
+        "choices": [
+          "+5",
+          "+1",
+          "−1"
+        ],
+        "answer": 2,
+        "explanation": "2−3=−1；模型上的偏離不保證實際執行有利。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/put-call-parity",
+        "https://www.optionseducation.org/optionsoverview/options-pricing"
+      ],
+      "inputHash": "ec58936a84dbf961537852755c7b9fe4bca37485c3cf89db7e10f1acfbdcdd1f"
+    },
+    {
+      "id": "ch16",
+      "chapter": "ch16",
+      "title": "可以提前履約，還要比較放棄什麼",
+      "summary": "核心觀念短片：把履約與賣出平倉放在一起看。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch16.mp4",
+      "captions": "assets/videos/ch16.vtt",
+      "poster": "assets/videos/ch16.jpg",
+      "duration": 88.333,
+      "scenes": [
+        {
+          "title": "價內就該立刻用掉嗎",
+          "start": 0.0,
+          "end": 14.833,
+          "narration": "美式選擇權可以提前履約，標的也已價內，現在就用掉最好嗎？先看市場願意付你多少，再看履約能拿到多少，兩者不一定相同。"
+        },
+        {
+          "title": "履約會放棄剩餘價值",
+          "start": 14.833,
+          "end": 29.0,
+          "narration": "提前履約把權利換成履約結果，也可能放棄仍能賣出的剩餘價值。股利和資金利息又可能改變取捨，所以不能只看是否價內。"
+        },
+        {
+          "title": "二十一和二十之間",
+          "start": 29.0,
+          "end": 43.833,
+          "narration": "假設美式賣權履約價一百，標的八十，可按二十一元賣出。立即履約的經濟價值只有二十元；忽略費用時，賣出能多保留一元。"
+        },
+        {
+          "title": "兩條路用同一刻比較",
+          "start": 43.833,
+          "end": 57.583,
+          "narration": "別把履約換來的一百元誤當全部獲利，因為同時要交出價值八十元的標的。把交換兩邊放在一起，才會得到二十元的經濟價值。"
+        },
+        {
+          "title": "賣出和平倉不是履約",
+          "start": 57.583,
+          "end": 72.75,
+          "narration": "賣出已持有的賣權，是在市場結束部位；履約則是使用合約交換權利。兩個動作、現金流和需要的資金不同，不能只用賣出兩字混稱。"
+        },
+        {
+          "title": "先說放棄了什麼",
+          "start": 72.75,
+          "end": 88.333,
+          "narration": "請說明本例立即履約，為何比按二十一元平倉少一元。接著列出兩個還需查的因素：是否有股利或利息影響，以及實際成交和交割成本。"
+        }
+      ],
+      "question": {
+        "prompt": "本例可按21賣出，立即履約經濟價值20，忽略費用，賣出多保留多少？",
+        "choices": [
+          "1",
+          "20",
+          "21"
+        ],
+        "answer": 0,
+        "explanation": "21−20=1，這是可保留的剩餘價值；不是整筆交易淨利。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/referencelibrary/faq/options-exercise",
+        "https://www.optionseducation.org/optionsoverview/what-is-an-option"
+      ],
+      "inputHash": "cad2af887f4e3e50e5431d831f778af7d691462f78bbada0015b68a7f5dcf6bd"
+    },
+    {
+      "id": "ch17",
+      "chapter": "ch17",
+      "title": "保護性賣權，買的是有期限的底線",
+      "summary": "核心觀念短片：把標的與保護成本合併計算。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch17.mp4",
+      "captions": "assets/videos/ch17.vtt",
+      "poster": "assets/videos/ch17.jpg",
+      "duration": 90.167,
+      "scenes": [
+        {
+          "title": "跌到八十還能保住多少",
+          "start": 0.0,
+          "end": 14.583,
+          "narration": "你買的資產從一百跌到八十，如果事先買了賣權，最後能保住多少？先別單看賣權賺了幾元，要把資產和保護成本一起放進來。"
+        },
+        {
+          "title": "價格底線也有價格",
+          "start": 14.583,
+          "end": 30.0,
+          "narration": "持有標的，再買賣權，能在到期建立賣出的價格底線。這份保護有期限，也需要權利金；它可以限制損失，卻不表示整筆不會虧錢。"
+        },
+        {
+          "title": "一百加三元保護",
+          "start": 30.0,
+          "end": 45.083,
+          "narration": "標的買入價一百，另外付三元，買履約價九十五的賣權，總投入一百零三。乘數為一，持有到期，並且忽略費用、股利與利息。"
+        },
+        {
+          "title": "下跌時合併計算",
+          "start": 45.083,
+          "end": 60.083,
+          "narration": "到期標的八十，賣權給付十五，合併價值九十五。相對總投入一百零三，虧八元；若只有一百元買的標的，這次則會虧二十元。"
+        },
+        {
+          "title": "底線不等於零損失",
+          "start": 60.083,
+          "end": 74.917,
+          "narration": "到期只要跌到九十五以下，組合價值至少九十五，但你原先共付一百零三，因此仍可能虧八元。保護期結束後，也要重新檢查曝險。"
+        },
+        {
+          "title": "把三個數字連起來",
+          "start": 74.917,
+          "end": 90.167,
+          "narration": "請用一百、九十五、三，說出最大到期損失為什麼是八元。再把標的改成一百一十，確認上漲收益還在，但淨利需要扣掉保護成本。"
+        }
+      ],
+      "question": {
+        "prompt": "標的成本100、買K95賣權付3，持有到期的最大損失為多少？",
+        "choices": [
+          "3",
+          "5",
+          "8"
+        ],
+        "answer": 2,
+        "explanation": "最大損失=(100−95)+3=8；底線是價值95，不是淨損益0。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/news/july-webinar-key-takeaways-hedging-with-options",
+        "https://www.optionseducation.org/strategies/all-strategies/long-put"
+      ],
+      "inputHash": "86a6cb1fb5bd605d48a9f3bbe9e3798fdbeffe6f96430cadacfdc93cd07f1dc0"
+    },
+    {
+      "id": "ch18",
+      "chapter": "ch18",
+      "title": "公式是一台有假設的定價機器",
+      "summary": "核心觀念短片：用固定輸入理解布萊克舒爾斯模型。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch18.mp4",
+      "captions": "assets/videos/ch18.vtt",
+      "poster": "assets/videos/ch18.jpg",
+      "duration": 89.333,
+      "scenes": [
+        {
+          "title": "公式算出的數字是真值嗎",
+          "start": 0.0,
+          "end": 14.667,
+          "narration": "把幾個數字放進公式，就能得到選擇權真正價格嗎？模型其實把一套價格運動與避險假設壓縮成計算，先讀懂輸入，再解釋輸出。"
+        },
+        {
+          "title": "先看機器吃哪些輸入",
+          "start": 14.667,
+          "end": 30.333,
+          "narration": "布萊克舒爾斯模型需要標的、履約價、剩餘時間、利率、波動率，並處理持有收益。它用風險中性估值，不需要直接輸入你猜的漲幅。"
+        },
+        {
+          "title": "同一組數字算一次",
+          "start": 30.333,
+          "end": 45.167,
+          "narration": "設無股利歐式買權，標的與履約價都一百，年利率零，年化波動率百分之二十，一年到期，乘數一。模型價格約七點九七元。"
+        },
+        {
+          "title": "改波動率要重新計算",
+          "start": 45.167,
+          "end": 60.083,
+          "narration": "其他輸入維持相同，把年化波動率改成百分之四十，買權模型價約十五點八五。條件改了，價格就跟著改；不是把原價永久當真值。"
+        },
+        {
+          "title": "不要混用兩種機率",
+          "start": 60.083,
+          "end": 74.167,
+          "narration": "公式裡的風險中性價內機率，不是你對真實市場的預測。德爾塔也首先是價格敏感度，不能直接拿來當這筆交易的實際獲利機率。"
+        },
+        {
+          "title": "先解釋再按計算",
+          "start": 74.167,
+          "end": 89.333,
+          "narration": "請不看公式說出本例的六項設定，再只改一項波動率，預測模型價格會如何變化。最後說出一個現實可能打破的假設，例如交易成本。"
+        }
+      ],
+      "question": {
+        "prompt": "本例只把波動率20%改為40%，其他輸入相同，歐式買權模型價約為多少？",
+        "choices": [
+          "7.97",
+          "15.85",
+          "40"
+        ],
+        "answer": 1,
+        "explanation": "S=K=100、r=0、T=1、無股利時，波動率40%的Black–Scholes買權約15.85。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/black-scholes-formula",
+        "https://www.optionseducation.org/advancedconcepts/delta"
+      ],
+      "inputHash": "70dab97a97dbb77deafb04cce641a7c0e66159f0c1d2ece1cbcc2c71fc8f1410"
+    },
+    {
+      "id": "ch19",
+      "chapter": "ch19",
+      "title": "從樹的最右邊，一步步算回今天",
+      "summary": "核心觀念短片：用單期賣權理解向後遞推。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch19.mp4",
+      "captions": "assets/videos/ch19.vtt",
+      "poster": "assets/videos/ch19.jpg",
+      "duration": 87.75,
+      "scenes": [
+        {
+          "title": "未來分成兩條路",
+          "start": 0.0,
+          "end": 14.667,
+          "narration": "如果未來每一步先簡化成上漲或下跌，就能把複雜價格拆成一棵樹。先在最右邊算到期給付，再往左推，不必一開始就背完整公式。"
+        },
+        {
+          "title": "每個節點都問同一題",
+          "start": 14.667,
+          "end": 29.25,
+          "narration": "一個節點的價值，由下一步兩種價值按模型權重平均，再折回今天。若是美式合約，還要把繼續持有價值和立即履約價值拿來比較。"
+        },
+        {
+          "title": "先算賣權兩個給付",
+          "start": 29.25,
+          "end": 43.417,
+          "narration": "設今天一百，下一期一百二十或八十，利率為零，履約價一百。歐式賣權在上方沒有給付，在下方值二十元，乘數為一。"
+        },
+        {
+          "title": "向左得到十元",
+          "start": 43.417,
+          "end": 58.25,
+          "narration": "讓標的加權平均仍等於一百，這個例子的風險中性權重各是一半。因此零與二十各乘一半，相加是十元；零利率下不用再扣利息。"
+        },
+        {
+          "title": "一半不是猜中的機率",
+          "start": 58.25,
+          "end": 72.917,
+          "narration": "這裡的一半由無套利條件推出，不是市場真實的上漲機率。樹只有一期也很粗糙；加密節點能改善近似，但不會自動消除模型假設。"
+        },
+        {
+          "title": "自己從右走回左",
+          "start": 72.917,
+          "end": 87.75,
+          "narration": "請先在紙上畫出上方零、下方二十，再把各一半的貢獻寫回左端。最後說明，如果換美式，你在中間節點還要多比較哪一個數字？"
+        }
+      ],
+      "question": {
+        "prompt": "零利率、兩終點給付0與20、風險中性權重各0.5，模型價是多少？",
+        "choices": [
+          "0",
+          "10",
+          "20"
+        ],
+        "answer": 1,
+        "explanation": "0 × 0.5 + 20 × 0.5 = 10；本例利率0無需折現調整。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/black-scholes-formula",
+        "https://www.optionseducation.org/advancedconcepts/put-call-parity"
+      ],
+      "inputHash": "c151cb833a34b547e83cac9b558cfa86c2f1582a9fc4938197f4d07d015405d6"
+    },
+    {
+      "id": "ch20",
+      "chapter": "ch20",
+      "title": "不同期間的波動率，不能直接平均",
+      "summary": "核心觀念短片：用變異數整理時間尺度與預測。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch20.mp4",
+      "captions": "assets/videos/ch20.vtt",
+      "poster": "assets/videos/ch20.jpg",
+      "duration": 88.833,
+      "scenes": [
+        {
+          "title": "二十和四十平均是三十嗎",
+          "start": 0.0,
+          "end": 15.167,
+          "narration": "前半段年化波動率百分之二十，後半段百分之四十，整段就等於百分之三十嗎？先別直接平均，因為時間累積的是變異數而非波動率。"
+        },
+        {
+          "title": "把幅度換成平方尺度",
+          "start": 15.167,
+          "end": 29.75,
+          "narration": "波動率是標準差，平方後才是變異數。合併不同期間時，要按時間加權這些平方值，然後開根號，才回到原來的波動率單位。"
+        },
+        {
+          "title": "先換成小數平方",
+          "start": 29.75,
+          "end": 44.25,
+          "narration": "兩段等長，先把百分之二十與四十換成零點二和零點四。平方分別是零點零四與零點一六，平均後的年化變異數為零點一。"
+        },
+        {
+          "title": "開根號才回到幅度",
+          "start": 44.25,
+          "end": 58.583,
+          "narration": "零點一開平方根約零點三一六，所以整段年化波動率約百分之三十一點六，較直接平均的三十高。差別來自你先平均了不同的量。"
+        },
+        {
+          "title": "預測不等於已知結果",
+          "start": 58.583,
+          "end": 73.75,
+          "narration": "歷史波動率來自過去，隱含波動率由價格反推，未來實現要等路徑走完。看到隱含比預測高，不代表賣方必賺，成本與路徑仍有影響。"
+        },
+        {
+          "title": "遇到期限先問兩件事",
+          "start": 73.75,
+          "end": 88.833,
+          "narration": "請重算零點零四與零點一六的平均，再開根號。下次比較兩個月分時，先問時間長度是否相同，以及你平均的是標準差還是變異數。"
+        }
+      ],
+      "question": {
+        "prompt": "兩等長期間年化波動率20%與40%，忽略均值差異，合併波動率約多少？",
+        "choices": [
+          "30%",
+          "31.6%",
+          "60%"
+        ],
+        "answer": 1,
+        "explanation": "√((0.2²+0.4²)/2)=√0.1≈31.6%；不是直接平均波動率。"
+      },
+      "sources": [
+        "https://www.cboe.com/document/tech-spec/document/technical-specifications/sp-500-variance-futures-variance-calculator-user-guide/",
+        "https://www.optionseducation.org/advancedconcepts/volatility-the-greeks"
+      ],
+      "inputHash": "44d3558d769a447eb951ed94bbbe5585d21ff27341cfaa6fc6f2d1dc9fe876d1"
+    },
+    {
+      "id": "ch21",
+      "chapter": "ch21",
+      "title": "很多筆部位，先變成同一把量尺",
+      "summary": "核心觀念短片：合併風險指標再做情境檢查。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch21.mp4",
+      "captions": "assets/videos/ch21.vtt",
+      "poster": "assets/videos/ch21.jpg",
+      "duration": 87.833,
+      "scenes": [
+        {
+          "title": "十張合約不等於十份風險",
+          "start": 0.0,
+          "end": 14.583,
+          "narration": "一堆不同履約價、不同口數的合約，能只數張數就知道風險嗎？先把每一腿換成一致單位，再加總敏感度，最後觀察極端情境。"
+        },
+        {
+          "title": "同一因素才可相加",
+          "start": 14.583,
+          "end": 29.333,
+          "narration": "先乘口數與合約乘數，把每一腿的德爾塔、伽瑪分別加總。總德爾塔看第一步反應，總伽瑪提醒你，敏感度接著會往哪個方向變。"
+        },
+        {
+          "title": "正三百與負二十",
+          "start": 29.333,
+          "end": 44.333,
+          "narration": "假設組合總德爾塔三百、總伽瑪負二十，都已含口數與乘數。其他因素固定，標的小漲兩元，先由一階敏感度估計增加六百元。"
+        },
+        {
+          "title": "再加上彎曲的影響",
+          "start": 44.333,
+          "end": 59.5,
+          "narration": "負伽瑪還要加入二階修正：一半乘負二十，再乘兩元的平方，得到負四十元。六百減四十，合計約五百六十，仍然只是局部估計。"
+        },
+        {
+          "title": "零不代表所有風險消失",
+          "start": 59.5,
+          "end": 73.083,
+          "narration": "即使目前總德爾塔是零，行情變動後也可能偏離；不同到期日的波動反應、價格跳躍與流動性，又不會被單一總數完整描述。"
+        },
+        {
+          "title": "用情境解釋加總結果",
+          "start": 73.083,
+          "end": 87.833,
+          "narration": "請把六百和負四十分開說明，再講為什麼加起來不是保證獲利。接著換成下跌兩元，試算負六百再減四十，看看不對稱從哪裡來。"
+        }
+      ],
+      "question": {
+        "prompt": "總Delta300、Gamma−20，標的+2，二階近似損益是多少？",
+        "choices": [
+          "600",
+          "560",
+          "640"
+        ],
+        "answer": 1,
+        "explanation": "300×2 + 0.5×(−20)×2² = 600−40=560；其他因素固定。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/delta",
+        "https://www.optionseducation.org/advancedconcepts/gamma"
+      ],
+      "inputHash": "c4f1d10cc50eee267e9e084415a6f4f436ca94be00e133b1bb13fc67345b3029"
+    },
+    {
+      "id": "ch22",
+      "chapter": "ch22",
+      "title": "指數動十點，金額要先乘乘數",
+      "summary": "核心觀念短片：把指數點數翻成合約現金流。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch22.mp4",
+      "captions": "assets/videos/ch22.vtt",
+      "poster": "assets/videos/ch22.jpg",
+      "duration": 90.5,
+      "scenes": [
+        {
+          "title": "十點為何變五百元",
+          "start": 0.0,
+          "end": 14.833,
+          "narration": "指數只漲十點，帳上卻變五百元，計算是不是錯了？指數點數只是報價尺度，還要乘每點金額和持有口數，才能看出現金曝險。"
+        },
+        {
+          "title": "一籃股票濃縮成指數",
+          "start": 14.833,
+          "end": 30.083,
+          "narration": "指數把一籃股票依規則濃縮成數字，期貨和選擇權再連到這個數字。你不必交割每檔股票才能建立曝險，但必須讀清各合約的結算規格。"
+        },
+        {
+          "title": "四千點乘五十",
+          "start": 30.083,
+          "end": 45.5,
+          "narration": "假設期貨四千點，一口每點五十元，名目價值就是二十萬元。這是曝險尺度，不等於當下要付出的完整本金，也不是保證金或最大損失。"
+        },
+        {
+          "title": "多單上漲十點",
+          "start": 45.5,
+          "end": 60.917,
+          "narration": "一口多單由四千漲到四千零一十，價格變十點，乘五十元，損益為正五百。若反向跌十點，同樣條件就是負五百，先把單位帶完整。"
+        },
+        {
+          "title": "指數合約不能照搬股票",
+          "start": 60.917,
+          "end": 75.583,
+          "narration": "指數與個股選擇權，可能有不同履約時點、現金結算及最後結算價規則。以為都照股票收盤價結算，可能把最後一段曝險看錯。"
+        },
+        {
+          "title": "用一句話連好單位",
+          "start": 75.583,
+          "end": 90.5,
+          "narration": "請完整說出一口乘每點五十元、再乘十點，為什麼等於五百元。接著指出二十萬元名目價值，與你繳的保證金為什麼不是同一個東西。"
+        }
+      ],
+      "question": {
+        "prompt": "一口指數期貨多單，每點50元，上漲10點，忽略費用損益多少？",
+        "choices": [
+          "10元",
+          "50元",
+          "500元"
+        ],
+        "answer": 2,
+        "explanation": "10點 × 50元/點 × 1口 = 500元。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/index-options",
+        "https://www.optionseducation.org/optionsoverview/options-basics"
+      ],
+      "inputHash": "8197c889d7c39b63d56692dc44ace81b9a3b62c1df314ad490c69ff912beab18"
+    },
+    {
+      "id": "ch23",
+      "chapter": "ch23",
+      "title": "模型價格與實際損益，中間還有道路",
+      "summary": "核心觀念短片：從買賣價差看真實摩擦。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch23.mp4",
+      "captions": "assets/videos/ch23.vtt",
+      "poster": "assets/videos/ch23.jpg",
+      "duration": 89.75,
+      "scenes": [
+        {
+          "title": "模型沒變也能虧錢",
+          "start": 0.0,
+          "end": 14.333,
+          "narration": "模型價格一直八元，為什麼你買進再賣出卻虧錢？因為模型中間價和實際可以成交的買賣價不是同一件事，摩擦會直接改變損益。"
+        },
+        {
+          "title": "地圖和道路一起看",
+          "start": 14.333,
+          "end": 29.583,
+          "narration": "模型像一張有條件的地圖，可能假設交易連續、波動穩定和成本為零。實際道路有跳空、費用與流動性，避險不一定能照地圖即時完成。"
+        },
+        {
+          "title": "七點八與八點二",
+          "start": 29.583,
+          "end": 44.667,
+          "narration": "假設模型中間價八元，市場願意買你的價格是七點八，賣給你的價格是八點二。你要立刻買進，就需付八點二，而不是模型中的八元。"
+        },
+        {
+          "title": "一次來回少零點四",
+          "start": 44.667,
+          "end": 59.5,
+          "narration": "按八點二買入，再立即按七點八賣出，模型雖然沒動，仍虧零點四元。若只以八元中間價模擬兩筆成交，就會漏掉這項實際成本。"
+        },
+        {
+          "title": "更頻繁也可能更昂貴",
+          "start": 59.5,
+          "end": 74.583,
+          "narration": "增加避險頻率可能縮小部分價格曝險，也會增加成交成本。遇到跳空，甚至沒有機會在中間價格調整，所以不能把理想連續避險當現實。"
+        },
+        {
+          "title": "檢查你的損益假設",
+          "start": 74.583,
+          "end": 89.75,
+          "narration": "請回想零點四元從哪裡來，再列出你計算時假設的成交方式。如果回測使用中間價、免費調整和零延遲，哪些結果需要重新檢查？"
+        }
+      ],
+      "question": {
+        "prompt": "按8.2買、7.8賣，乘數1且不計手續費，淨損益多少？",
+        "choices": [
+          "−0.4",
+          "0",
+          "+0.4"
+        ],
+        "answer": 0,
+        "explanation": "7.8−8.2=−0.4；模型中間價沒有變，交易價差仍造成成本。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/optionsoverview/options-pricing",
+        "https://www.optionseducation.org/advancedconcepts/volatility-the-greeks"
+      ],
+      "inputHash": "dcfbc0daed71cd4f7e9bbdc3497d91fac69a7b33bba9a0370fd97193513d713a"
+    },
+    {
+      "id": "ch24",
+      "chapter": "ch24",
+      "title": "一個到期日，也有一整條波動率線",
+      "summary": "核心觀念短片：把不同履約價價格換成隱含波動率。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch24.mp4",
+      "captions": "assets/videos/ch24.vtt",
+      "poster": "assets/videos/ch24.jpg",
+      "duration": 90.833,
+      "scenes": [
+        {
+          "title": "同一天怎會有兩種波動率",
+          "start": 0.0,
+          "end": 15.0,
+          "narration": "同一標的、同一天到期，不同履約價卻有不同隱含波動率，這不是矛盾嗎？先記得它是由各合約價格反推的參數，不是單一觀測事實。"
+        },
+        {
+          "title": "從一個數字變成曲面",
+          "start": 15.0,
+          "end": 30.083,
+          "narration": "把每個履約價的隱含波動率排成線，再加上不同到期日，就形成曲面。價格下跌時，曲面的水準與斜率也可能一起改，影響整體部位。"
+        },
+        {
+          "title": "九十與一百的比較",
+          "start": 30.083,
+          "end": 45.0,
+          "narration": "假設同標的同到期，履約價九十的賣權隱含波動率百分之三十，履約價一百的合約百分之二十。兩者差十個百分點，先說清比較單位。"
+        },
+        {
+          "title": "百分點不是價格元",
+          "start": 45.0,
+          "end": 60.083,
+          "narration": "百分之三十減百分之二十，是十個百分點，不是十元權利金。要知道兩張合約誰的金額更高，還得看履約價、內含價值及完整輸入。"
+        },
+        {
+          "title": "固定一條線也有風險",
+          "start": 60.083,
+          "end": 75.333,
+          "narration": "用一條固定偏斜線估價，不代表真實曲面不會變。標的、波動水準和偏斜可能一起移動；總維加看似抵銷，也可能留下履約價分布的風險。"
+        },
+        {
+          "title": "先說同與不同",
+          "start": 75.333,
+          "end": 90.833,
+          "narration": "請用一句話指出兩張合約相同的是什麼，再指出不同的履約價與隱含波動率。最後解釋為何三十比二十高，仍不能直接判斷哪張權利金較高。"
+        }
+      ],
+      "question": {
+        "prompt": "同到期K90合約IV30%、K100合約IV20%，可直接確定什麼？",
+        "choices": [
+          "K90權利金一定高",
+          "IV相差10個百分點",
+          "未來RV一定30%"
+        ],
+        "answer": 1,
+        "explanation": "可確定IV差10個百分點；不同履約價的權利金金額與未來RV不能由此直接推定。"
+      },
+      "sources": [
+        "https://www.optionseducation.org/advancedconcepts/volatility-the-greeks",
+        "https://www.optionseducation.org/optionsoverview/options-pricing"
+      ],
+      "inputHash": "de40d616934c3e102c08256bfedaffecd2d085ee489793472f239236f6d6864e"
+    },
+    {
+      "id": "ch25",
+      "chapter": "ch25",
+      "title": "波動率的平方，也能成為結算標的",
+      "summary": "核心觀念短片：先分清變異數交換與波動率期貨。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/ch25.mp4",
+      "captions": "assets/videos/ch25.vtt",
+      "poster": "assets/videos/ch25.jpg",
+      "duration": 93.0,
+      "scenes": [
+        {
+          "title": "你交易的是哪一個數字",
+          "start": 0.0,
+          "end": 16.583,
+          "narration": "想交易波動率，就直接買波動率商品嗎？先問最後拿哪個數字結算。有的看實現變異數，有的連到波動率指數，不能只憑名稱當成同一種曝險。"
+        },
+        {
+          "title": "先平方才知道在比什麼",
+          "start": 16.583,
+          "end": 31.0,
+          "narration": "波動率平方叫變異數。變異數交換依實現平方值減約定平方值計算，再乘名目金額；報價用小數還是百分點平方，必須先說定。"
+        },
+        {
+          "title": "零點零四與零點零六二五",
+          "start": 31.0,
+          "end": 45.75,
+          "narration": "約定波動率百分之二十，平方是零點零四；到期實現百分之二十五，平方是零點零六二五。先把兩者換成同一種小數平方單位。"
+        },
+        {
+          "title": "差額再乘十萬元",
+          "start": 45.75,
+          "end": 61.333,
+          "narration": "兩個平方值相減是零點零二二五。假設名目金額是每一變異數單位十萬元，長方到期給付就是兩千兩百五十元，並非直接拿五個百分點相乘。"
+        },
+        {
+          "title": "期貨不是持有現貨指數",
+          "start": 61.333,
+          "end": 77.333,
+          "narration": "波動率指數期貨的價格，連到未來結算，不等於直接持有今天的現貨指數。報價差和期限結構會變，不能把指數上升一點當作期貨必然同幅上升。"
+        },
+        {
+          "title": "把單位念完整",
+          "start": 77.333,
+          "end": 93.0,
+          "narration": "請先說明二十和二十五為什麼要先換小數再平方，再算兩千兩百五十。最後問每一份新商品：結算量是什麼、用什麼單位、乘數是多少？"
+        }
+      ],
+      "question": {
+        "prompt": "小數平方計量，約定20%、實現25%，名目每1變異數單位100000，長方給付多少？",
+        "choices": [
+          "5000",
+          "2250",
+          "500"
+        ],
+        "answer": 1,
+        "explanation": "(0.25²−0.20²)×100000=(0.0625−0.04)×100000=2250。"
+      },
+      "sources": [
+        "https://www.cboe.com/document/tech-spec/document/technical-specifications/sp-500-variance-futures-variance-calculator-user-guide/",
+        "https://www.cboe.com/tradable-products/vix/vix-futures/"
+      ],
+      "inputHash": "7a5cfa31c7b8410e41ca0a3f9eadd28a0e2aec63a55a4a88ed6a1eeb88812f40"
+    },
+    {
+      "id": "appB",
+      "chapter": "appB",
+      "title": "把符號翻成一句話，再放數字進去",
+      "summary": "核心觀念短片：補齊百分比、尺度與加權平均直覺。看完後，用講義例題與練習深化理解。",
+      "src": "assets/videos/appB.mp4",
+      "captions": "assets/videos/appB.vtt",
+      "poster": "assets/videos/appB.jpg",
+      "duration": 90.5,
+      "scenes": [
+        {
+          "title": "公式卡住先別跳過",
+          "start": 0.0,
+          "end": 15.5,
+          "narration": "看到百分比、平方根或期望值就卡住，並不表示你不能學選擇權。先把符號翻成一句話，再用兩個情境的小數字，檢查自己理解了什麼。"
+        },
+        {
+          "title": "百分比先變成小數",
+          "start": 15.5,
+          "end": 30.583,
+          "narration": "百分之二十表示每一百份取二十份，放進小數公式就是零點二。零點二的平方是零點零四；開根號則把平方尺度再轉回原來尺度。"
+        },
+        {
+          "title": "兩個情境各一半",
+          "start": 30.583,
+          "end": 45.583,
+          "narration": "假設兩個情境各有一半機率，一邊賺十元，一邊虧四元。先把各自損益乘機率，得到五元和負兩元，再相加得到期望損益三元。"
+        },
+        {
+          "title": "單次不會剛好三元",
+          "start": 45.583,
+          "end": 60.333,
+          "narration": "這個例子每一次只會賺十或虧四，不會出現三元。期望值是用機率加權的平均，不是保證單次結果；重複很多次也仍會有抽樣波動。"
+        },
+        {
+          "title": "標準差也不是最大值",
+          "start": 60.333,
+          "end": 75.417,
+          "narration": "標準差描述分散幅度，並不是漲跌上限。常態分配只是其中一種模型；若現實有跳躍或肥尾，照搬模型區間，就可能低估極端情境。"
+        },
+        {
+          "title": "三步讀懂下一個公式",
+          "start": 75.417,
+          "end": 90.5,
+          "narration": "下次遇到公式，先說每個量的意思，再把百分比換成小數，最後用簡單情境驗算。現在遮住三元答案，自己重做一次五元加負兩元。"
+        }
+      ],
+      "question": {
+        "prompt": "兩情境機率各0.5，損益+10與−4，期望損益是多少？",
+        "choices": [
+          "+3",
+          "+6",
+          "+7"
+        ],
+        "answer": 0,
+        "explanation": "0.5×10+0.5×(−4)=3；單次結果仍只有+10或−4。"
+      },
+      "sources": [
+        "https://itl.nist.gov/div898/handbook/eda/section3/eda3661.htm"
+      ],
+      "inputHash": "1a577999420ea14f7c937f298b7aabfa58b4dad45b99b4fb4f78d21fda3b9a3c"
+    }
+  ]
+}

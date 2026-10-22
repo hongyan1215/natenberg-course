@@ -145,7 +145,7 @@ def convert_lesson(path):
     title = re.sub(r"（[^）]*）$", "", text.splitlines()[0].lstrip("# ").replace("　", " ")).strip()
     if path.parent.name == "lessons":
         heading, _, body = text.partition("\n")
-        text = heading + f'\n\n<div class="nq-lesson-guide" data-chapter="{key}"></div>\n' + body
+        text = heading + f'\n\n<div class="nq-lesson-guide" data-chapter="{key}"></div>\n\n<div class="nq-chapter-video" data-chapter="{key}"></div>\n' + body
     return key, title, text
 
 

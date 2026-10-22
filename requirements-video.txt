@@ -1,0 +1,3 @@
+# Optional narrated-video build dependencies; website builds do not invoke TTS.
+Pillow>=13.0,<14
+edge-tts>=7.3,<8

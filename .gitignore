@@ -6,3 +6,4 @@ __pycache__/
 .pytest_cache/
 quiz/progress.json
 .DS_Store
+.media-work/

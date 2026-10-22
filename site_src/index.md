@@ -16,6 +16,7 @@ hide:
         <a class="nq-home-secondary" href="#learning-path">看看學習路線 <span aria-hidden="true">↓</span></a>
       </div>
       <p class="nq-home-meta">25 章完整課程 <span>／</span> 8 個循序模組 <span>／</span> 繁體中文自學</p>
+      <p><a class="nq-home-secondary" href="videos/">先看配音動畫，再讀講義 <span aria-hidden="true">→</span></a></p>
     </div>
     <aside class="nq-today" data-learning-today aria-labelledby="nq-today-title">
       <div class="nq-today-top"><span class="nq-eyebrow">TODAY'S SMALL STEP</span><span class="nq-live-dot">照自己的步調</span></div>
